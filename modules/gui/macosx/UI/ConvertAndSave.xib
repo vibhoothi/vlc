@@ -1125,6 +1125,7 @@ Gw
                                                 <menuItem title="MMSH" id="326"/>
                                                 <menuItem title="RTP" id="328"/>
                                                 <menuItem title="UDP" id="327"/>
+                                                <menuItem title="Icecast" id="1121"/>
                                             </items>
                                         </menu>
                                     </popUpButtonCell>

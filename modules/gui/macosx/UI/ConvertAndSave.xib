@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="16G29" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <development version="7000" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
         <capability name="box content view" minToolsVersion="7.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="VLCConvertAndSaveWindowController">
@@ -99,7 +99,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="20" width="663" height="490"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="800"/>
             <value key="minSize" type="size" width="663" height="490"/>
             <value key="maxSize" type="size" width="663" height="490"/>
             <view key="contentView" id="2">
@@ -159,8 +159,6 @@
                             <constraint firstAttribute="width" constant="623" id="1e9-iK-lfq"/>
                             <constraint firstAttribute="height" constant="211" id="S51-zL-3hZ"/>
                         </constraints>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
                     <box autoresizesSubviews="NO" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="10">
                         <rect key="frame" x="17" y="161" width="629" height="92"/>
@@ -232,8 +230,6 @@
                             <constraint firstAttribute="width" constant="623" id="pcx-Hn-9BS"/>
                             <constraint firstAttribute="height" constant="86" id="tky-N9-PlT"/>
                         </constraints>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
                     <box autoresizesSubviews="NO" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="32">
                         <rect key="frame" x="17" y="58" width="629" height="100"/>
@@ -304,8 +300,6 @@
                             <constraint firstAttribute="height" constant="94" id="136-J5-OdM"/>
                             <constraint firstAttribute="width" constant="623" id="iQT-Dj-N9b"/>
                         </constraints>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="21">
                         <rect key="frame" x="579" y="13" width="70" height="32"/>
@@ -367,7 +361,7 @@ DQ
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="340" y="255" width="558" height="382"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="800"/>
             <view key="contentView" id="132">
                 <rect key="frame" x="0.0" y="0.0" width="558" height="382"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -605,7 +599,7 @@ DQ
                                                             <binding destination="-2" name="value" keyPath="self.vidFramerate" id="666"/>
                                                         </connections>
                                                     </stepper>
-                                                    <box autoresizesSubviews="NO" title="Resolution" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="206">
+                                                    <box autoresizesSubviews="NO" borderType="line" title="Resolution" translatesAutoresizingMaskIntoConstraints="NO" id="206">
                                                         <rect key="frame" x="52" y="10" width="394" height="133"/>
                                                         <view key="contentView" id="4gP-3n-rkP">
                                                             <rect key="frame" x="1" y="1" width="392" height="117"/>
@@ -716,8 +710,6 @@ DQ
                                                             <constraint firstAttribute="width" constant="388" id="6iM-rk-euR"/>
                                                             <constraint firstAttribute="height" constant="129" id="L8c-wr-hjr"/>
                                                         </constraints>
-                                                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                                                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </box>
                                                 </subviews>
                                                 <constraints>
@@ -746,8 +738,6 @@ DQ
                                                 <constraint firstAttribute="height" constant="244" id="dnU-6L-fqV"/>
                                                 <constraint firstAttribute="width" constant="494" id="oMu-fT-rAi"/>
                                             </constraints>
-                                            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                                            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </box>
                                     </subviews>
                                     <constraints>
@@ -775,7 +765,7 @@ DQ
                                                 <action selector="audioSettingsChanged:" target="-2" id="638"/>
                                             </connections>
                                         </button>
-                                        <button translatesAutoresizingMaskIntoConstraints="NO" id="208">
+                                        <button misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="208">
                                             <rect key="frame" x="15" y="248" width="153" height="18"/>
                                             <buttonCell key="cell" type="check" title="Keep original audio track" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="small" state="on" inset="2" id="209">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -940,8 +930,6 @@ DQ
                                                 <constraint firstAttribute="height" constant="140" id="lh4-g7-y9H"/>
                                                 <constraint firstAttribute="width" constant="494" id="nFc-2s-PeV"/>
                                             </constraints>
-                                            <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                                            <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </box>
                                     </subviews>
                                     <constraints>
@@ -1061,12 +1049,12 @@ Gw
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="131" y="60" width="532" height="368"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="800"/>
             <view key="contentView" id="309">
                 <rect key="frame" x="0.0" y="0.0" width="532" height="368"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <box autoresizesSubviews="NO" title="Stream Destination" borderType="line" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="336">
+                    <box autoresizesSubviews="NO" borderType="line" title="Stream Destination" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="336">
                         <rect key="frame" x="17" y="227" width="498" height="122"/>
                         <view key="contentView" id="gfn-LW-3Zl">
                             <rect key="frame" x="1" y="1" width="496" height="120"/>
@@ -1115,7 +1103,7 @@ Gw
                                     </textFieldCell>
                                 </textField>
                                 <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="315">
-                                    <rect key="frame" x="92" y="43" width="78" height="26"/>
+                                    <rect key="frame" x="92" y="43" width="81" height="26"/>
                                     <popUpButtonCell key="cell" type="push" title="HTTP" bezelStyle="rounded" alignment="left" lineBreakMode="clipping" state="on" borderStyle="borderAndBezel" inset="2" arrowPosition="arrowAtCenter" preferredEdge="maxY" selectedItem="329" id="324">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="menu"/>
@@ -1125,7 +1113,7 @@ Gw
                                                 <menuItem title="MMSH" id="326"/>
                                                 <menuItem title="RTP" id="328"/>
                                                 <menuItem title="UDP" id="327"/>
-                                                <menuItem title="Icecast" id="1121"/>
+                                                <menuItem title="Icecast" id="VUO-yw-3nl"/>
                                             </items>
                                         </menu>
                                     </popUpButtonCell>
@@ -1203,8 +1191,6 @@ Gw
                             <constraint firstAttribute="width" constant="492" id="GA5-xc-ed7"/>
                             <constraint firstAttribute="height" constant="116" id="Hhe-6F-sqP"/>
                         </constraints>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
                     <box title="Stream Announcing" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="337">
                         <rect key="frame" x="17" y="56" width="498" height="169"/>
@@ -1350,8 +1336,6 @@ Gw
                             <constraint firstAttribute="width" constant="492" id="EiF-2M-nAp"/>
                             <constraint firstAttribute="height" constant="163" id="rnv-0L-LCw"/>
                         </constraints>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="360">
                         <rect key="frame" x="443" y="12" width="75" height="32"/>

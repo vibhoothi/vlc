@@ -556,7 +556,7 @@
 - (IBAction)streamTypeToggle:(id)sender
 {
     NSUInteger index = [_streamTypePopup indexOfSelectedItem];
-    if (index <= 1) { // HTTP, MMSH
+    if (index <= 1) { //  , MMSH
         [_streamTTLField setEnabled:NO];
         [_streamTTLStepper setEnabled:NO];
         [_streamSAPCheckbox setEnabled:NO];
@@ -566,7 +566,12 @@
         [_streamTTLStepper setEnabled:YES];
         [_streamSAPCheckbox setEnabled:YES];
         [_streamSDPMatrix setEnabled:YES];
-    } else { // UDP
+    }else if(index == 3) { //Icecast
+        [_streamTTLField setEnabled:NO];
+        [_streamTTLStepper setEnabled:NO];
+        [_streamSAPCheckbox setEnabled:NO];
+        [_streamSDPMatrix setEnabled:NO];
+    }else { // UDP
         [_streamTTLField setEnabled:YES];
         [_streamTTLStepper setEnabled:YES];
         [_streamSAPCheckbox setEnabled:YES];
@@ -947,6 +952,8 @@
             [composedOptions appendFormat:@":rtp{mux=ts,dst=%@,port=%@", _outputDestination, [_streamPortField stringValue]];
         else if ([[[_streamTypePopup selectedItem] title] isEqualToString:@"UDP"])
             [composedOptions appendFormat:@":standard{mux=ts,dst=%@,port=%@,access=udp", _outputDestination, [_streamPortField stringValue]];
+        else if ([[[_streamTypePopup selectedItem] title] isEqualToString:@"Icecast"])
+            [composedOptions appendFormat:@":standard{mux=ts,dst=%@,port=%@,access=icecast", _outputDestination, [_streamPortField stringValue]];
         else if ([[[_streamTypePopup selectedItem] title] isEqualToString:@"MMSH"])
             [composedOptions appendFormat:@":standard{mux=asfh,dst=%@,port=%@,access=mmsh", _outputDestination, [_streamPortField stringValue]];
         else

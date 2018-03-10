@@ -30,6 +30,7 @@
 
 #include <vlc_common.h>
 #include <vlc_access.h>
+#include <vlc_url.h>
 #include <assert.h>
 
 #include "playlist.h"
@@ -98,15 +99,16 @@ int Import_IFO( vlc_object_t *p_this )
 
 static int ReadDVD( stream_t *p_stream, input_item_node_t *node )
 {
-    char *psz_url;
     const char *psz_location = StreamLocation(p_stream);
 
-    if( asprintf( &psz_url, "dvd://%s", psz_location ) == -1 )
-        return VLC_EGENERIC;
+    char *psz_url = strndup( psz_location, strlen( psz_location ) - 12 );
+    if( !psz_url )
+        return VLC_ENOMEM;
 
     input_item_t *p_input = input_item_New( psz_url, psz_url );
     if( p_input )
     {
+        input_item_AddOption( p_input, "demux=dvd", VLC_INPUT_OPTION_TRUSTED );
         input_item_node_AppendItem( node, p_input );
         input_item_Release( p_input );
     }

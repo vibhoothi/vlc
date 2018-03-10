@@ -270,38 +270,47 @@ VLC_API void config_ResetAll(void);
 VLC_API module_config_t *config_FindConfig(const char *name) VLC_USED;
 
 /**
- * Gets the arch-independent installation directory.
- *
- * This function determines the directory containing the
- * architecture-independent installed asset files (such as image, text and
- * message translation tables).
- *
- * See also config_GetLibDir().
- *
- * @return a heap-allocated string (use free() to release it), or NULL on error
+ * System directory identifiers
  */
-VLC_API char *config_GetDataDir(void) VLC_USED VLC_MALLOC;
+typedef enum vlc_system_dir
+{
+    VLC_PKG_DATA_DIR, /**< Package-specific architecture-independent read-only
+                           data directory (e.g. /usr/local/data/vlc). */
+    VLC_PKG_LIB_DIR, /**< Package-specific architecture-dependent read-only
+                          data directory (e.g. /usr/local/lib/vlc). */
+    VLC_PKG_LIBEXEC_DIR, /**< Package-specific executable read-only directory
+                              (e.g. /usr/local/libexec/vlc). */
+    VLC_PKG_INCLUDE_DIR_RESERVED,
+    VLC_SYSDATA_DIR, /**< Global architecture-independent read-only
+                          data directory (e.g. /usr/local/data).
+                          Available only on some platforms. */
+    VLC_LIB_DIR, /**< Global architecture-dependent read-only directory
+                      (e.g. /usr/local/lib). */
+    VLC_LIBEXEC_DIR, /**< Global executable read-only directory
+                          (e.g. /usr/local/libexec). */
+    VLC_INCLUDE_DIR_RESERVED,
+    VLC_LOCALE_DIR, /**< Base directory for package read-only locale data. */
+} vlc_sysdir_t;
 
 /**
- * Gets the arch-specific installation directory.
+ * Gets an installation directory.
  *
- * This function determines the directory containing the architecture-specific
- * installed asset files (such as executable plugins and compiled byte code).
+ * This function determines one of the installation directory.
  *
- * See also config_GetDataDir().
- *
- * \note config_GetDataDir() and config_GetLibDir() may or may not return the
- * same path, depending on conventions of the operating system.
+ * @param dir identifier of the directory (see \ref vlc_sysdir_t)
+ * @param filename name of a file or other object within the directory
+ *                 (or NULL to obtain the plain directory)
  *
  * @return a heap-allocated string (use free() to release it), or NULL on error
  */
-VLC_API char *config_GetLibDir(void) VLC_USED VLC_MALLOC;
+VLC_API char *config_GetSysPath(vlc_sysdir_t dir, const char *filename)
+VLC_USED VLC_MALLOC;
 
-typedef enum vlc_userdir
+typedef enum vlc_user_dir
 {
     VLC_HOME_DIR, /* User's home */
     VLC_CONFIG_DIR, /* VLC-specific configuration directory */
-    VLC_DATA_DIR, /* VLC-specific data directory */
+    VLC_USERDATA_DIR, /* VLC-specific data directory */
     VLC_CACHE_DIR, /* VLC-specific user cached data directory */
     /* Generic directories (same as XDG) */
     VLC_DESKTOP_DIR=0x80,

@@ -233,10 +233,10 @@ bool Win32Factory::init()
     OleInitialize( NULL );
 
     // Initialize the resource path
-    char *datadir = config_GetUserDir( VLC_DATA_DIR );
+    char *datadir = config_GetUserDir( VLC_USERDATA_DIR );
     m_resourcePath.push_back( (std::string)datadir + "\\skins" );
     free( datadir );
-    datadir = config_GetDataDir();
+    datadir = config_GetSysPath(VLC_PKG_DATA_DIR, NULL);
     m_resourcePath.push_back( (std::string)datadir + "\\skins" );
     m_resourcePath.push_back( (std::string)datadir + "\\skins2" );
     m_resourcePath.push_back( (std::string)datadir + "\\share\\skins" );

@@ -169,9 +169,13 @@ lib_LTLIBRARIES = libvlccore.la
 
 AM_CPPFLAGS = $(INCICONV) $(IDN_CFLAGS) \
 	-DMODULE_STRING=\"core\" \
+	-DSYSDATADIR=\"$(datadir)\" \
+	-DLIBDIR=\"$(libdir)\" \
+	-DLIBEXECDIR=\"$(libexecdir)\" \
 	-DLOCALEDIR=\"$(localedir)\" \
-	-DPKGDATADIR=\"$(vlcdatadir)\" \
-	-DPKGLIBDIR=\"$(vlclibdir)\"
+	-DPKGDATADIR=\"$(pkgdatadir)\" \
+	-DPKGLIBDIR=\"$(pkglibdir)\" \
+	-DPKGLIBEXECDIR=\"$(pkglibexecdir)\"
 AM_CFLAGS = $(CFLAGS_libvlccore)
 if HAVE_DYNAMIC_PLUGINS
 AM_CPPFLAGS += -DHAVE_DYNAMIC_PLUGINS

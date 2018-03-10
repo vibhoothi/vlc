@@ -31,16 +31,6 @@ AM_SILENT_RULES([yes])
 AM_MAINTAINER_MODE([enable])
 
 dnl
-dnl Directories
-dnl
-dnl vlcincludedir="\${includedir}/\${PKGDIR}"
-dnl AC_SUBST(vlcincludedir)
-vlcdatadir="\${datadir}/\${PKGDIR}"
-AC_SUBST(vlcdatadir)
-vlclibdir="\${libdir}/\${PKGDIR}"
-AC_SUBST(vlclibdir)
-
-dnl
 dnl Check for tools
 dnl
 AC_PROG_CC

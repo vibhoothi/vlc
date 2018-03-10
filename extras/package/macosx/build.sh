@@ -8,19 +8,19 @@ info()
     echo "[${green}build${normal}] $1"
 }
 
+SCRIPTDIR=$(dirname "$0")
+source "$SCRIPTDIR/env.build.sh" "none"
+
+
 ARCH="x86_64"
 MINIMAL_OSX_VERSION="10.10"
 OSX_VERSION=`xcrun --show-sdk-version`
-OSX_KERNELVERSION=`uname -r | cut -d. -f1`
 SDKROOT=`xcode-select -print-path`/Platforms/MacOSX.platform/Developer/SDKs/MacOSX$OSX_VERSION.sdk
 VLCBUILDDIR=""
 
 CORE_COUNT=`getconf NPROCESSORS_ONLN 2>&1`
 let JOBS=$CORE_COUNT+1
 
-if [ ! -z "$VLC_FORCE_KERNELVERSION" ]; then
-    OSX_KERNELVERSION="$VLC_FORCE_KERNELVERSION"
-fi
 
 usage()
 {
@@ -117,55 +117,14 @@ fi
 
 info "Building VLC for the Mac OS X"
 
-spushd `dirname $0`/../../..
-vlcroot=`pwd`
-spopd
-
-builddir=`pwd`
-
-info "Building in \"$builddir\""
-
-TRIPLET=$ARCH-apple-darwin$OSX_KERNELVERSION
-
-export CC="`xcrun --find clang`"
-export CXX="`xcrun --find clang++`"
-export OBJC="`xcrun --find clang`"
-export OSX_VERSION
+TRIPLET=$(vlcGetTriplet)
 export SDKROOT
-export PATH="${vlcroot}/extras/tools/build/bin:${vlcroot}/contrib/${TRIPLET}/bin:${VLC_PATH}:/bin:/sbin:/usr/bin:/usr/sbin"
+vlcSetBaseEnvironment
+vlcroot="$(vlcGetRootDir)"
 
-# Select avcodec flavor to compile contribs with
-export USE_FFMPEG=1
 
-# The following symbols do not exist on the minimal macOS version (10.7), so they are disabled
-# here. This allows compilation also with newer macOS SDKs.
-# Added symbols in 10.13
-export ac_cv_func_open_wmemstream=no
-export ac_cv_func_fmemopen=no
-export ac_cv_func_open_memstream=no
-export ac_cv_func_futimens=no
-export ac_cv_func_utimensat=no
-
-# Added symbols between 10.11 and 10.12
-export ac_cv_func_basename_r=no
-export ac_cv_func_clock_getres=no
-export ac_cv_func_clock_gettime=no
-export ac_cv_func_clock_settime=no
-export ac_cv_func_dirname_r=no
-export ac_cv_func_getentropy=no
-export ac_cv_func_mkostemp=no
-export ac_cv_func_mkostemps=no
-
-# Added symbols between 10.7 and 10.11
-export ac_cv_func_ffsll=no
-export ac_cv_func_flsll=no
-export ac_cv_func_fdopendir=no
-export ac_cv_func_openat=no
-export ac_cv_func_fstatat=no
-export ac_cv_func_readlinkat=no
-
-# libnetwork does not exist yet on 10.7 (used by libcddb)
-export ac_cv_lib_network_connect=no
+builddir="$(pwd)"
+info "Building in \"$builddir\""
 
 #
 # vlc/extras/tools
@@ -185,20 +144,8 @@ spopd
 # vlc/contribs
 #
 
-# Usually, VLCs contrib libraries do not support partial availability at runtime.
-# Forcing those errors has two reasons:
-# - Some custom configure scripts include the right header for testing availability.
-#   Those configure checks fail (correctly) with those errors, and replacements are
-#   enabled. (e.g. ffmpeg)
-# - This will fail the build if a partially available symbol is added later on
-#   in contribs and not mentioned in the list of symbols above.
-export CFLAGS="-Werror=partial-availability"
-export CXXFLAGS="-Werror=partial-availability"
-export OBJCFLAGS="-Werror=partial-availability"
-
-export EXTRA_CFLAGS="-isysroot $SDKROOT -mmacosx-version-min=$MINIMAL_OSX_VERSION -DMACOSX_DEPLOYMENT_TARGET=$MINIMAL_OSX_VERSION"
-export EXTRA_LDFLAGS="-Wl,-syslibroot,$SDKROOT -mmacosx-version-min=$MINIMAL_OSX_VERSION -isysroot $SDKROOT -DMACOSX_DEPLOYMENT_TARGET=$MINIMAL_OSX_VERSION"
-export XCODE_FLAGS="MACOSX_DEPLOYMENT_TARGET=$MINIMAL_OSX_VERSION -sdk macosx$OSX_VERSION WARNING_CFLAGS=-Werror=partial-availability"
+vlcSetSymbolEnvironment
+vlcSetContribEnvironment "$MINIMAL_OSX_VERSION"
 
 info "Building contribs"
 spushd "${vlcroot}/contrib"
@@ -223,18 +170,8 @@ fi
 fi
 spopd
 
-unset CFLAGS
-unset CXXFLAGS
-unset OBJCFLAGS
 
-unset EXTRA_CFLAGS
-unset EXTRA_LDFLAGS
-unset XCODE_FLAGS
-
-# Enable debug symbols by default
-export CFLAGS="-g"
-export CXXFLAGS="-g"
-export OBJCFLAGS="-g"
+vlcUnsetContribEnvironment
 
 #
 # vlc/bootstrap
@@ -310,6 +247,6 @@ elif [ "$PACKAGETYPE" = "n" -o "$PACKAGE" = "yes" ]; then
     make package-macosx
 fi
 
-if [ ! -z "$VLCBUILDDIR" ];then
+if [ ! -z "$VLCBUILDDIR" ]; then
     popd
 fi

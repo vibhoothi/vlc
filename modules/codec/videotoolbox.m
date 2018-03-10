@@ -49,6 +49,7 @@
 #import <mach/machine.h>
 
 #define ALIGN_16( x ) ( ( ( x ) + 15 ) / 16 * 16 )
+#define VT_RESTART_MAX 1
 
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
@@ -100,6 +101,7 @@ enum vtsession_status
 {
     VTSESSION_STATUS_OK,
     VTSESSION_STATUS_RESTART,
+    VTSESSION_STATUS_RESTART_CHROMA,
     VTSESSION_STATUS_ABORT,
 };
 
@@ -175,12 +177,14 @@ struct decoder_sys_t
     bool                        b_format_propagated;
 
     enum vtsession_status       vtsession_status;
+    unsigned                    i_restart_count;
 
     int                         i_cvpx_format;
     bool                        b_cvpx_format_forced;
 
     h264_poc_context_t          h264_pocctx;
     hevc_poc_ctx_t              hevc_pocctx;
+    bool                        b_drop_blocks;
     date_t                      pts;
 
     struct pic_holder          *pic_holder;
@@ -205,7 +209,7 @@ static void HXXXGetBestChroma(decoder_t *p_dec)
 {
     decoder_sys_t *p_sys = p_dec->p_sys;
 
-    if (p_sys->i_cvpx_format != 0)
+    if (p_sys->i_cvpx_format != 0 || p_sys->b_cvpx_format_forced)
         return;
 
     uint8_t i_chroma_format, i_depth_luma, i_depth_chroma;
@@ -646,6 +650,25 @@ static bool FillReorderInfoHEVC(decoder_t *p_dec, const block_t *p_block,
                     hevc_decode_slice_header(p_nal, i_nal, true, GetxPSHEVC, p_sys);
             if(!p_sli)
                 return false;
+
+            /* XXX: Work-around a VT bug on recent devices (iPhone X, MacBook
+             * Pro 2017). The VT session will report a BadDataErr if you send a
+             * RASL frame just after a CRA one. Indeed, RASL frames are
+             * corrupted if the decoding start at an IRAP frame (IDR/CRA), VT
+             * is likely failing to handle this case. */
+            if (!p_sys->b_vt_feed && (i_nal_type != HEVC_NAL_IDR_W_RADL &&
+                                      i_nal_type != HEVC_NAL_IDR_N_LP))
+                p_sys->b_drop_blocks = true;
+            else if (p_sys->b_drop_blocks)
+            {
+                if (i_nal_type == HEVC_NAL_RASL_N || i_nal_type == HEVC_NAL_RASL_R)
+                {
+                    hevc_rbsp_release_slice_header(p_sli);
+                    return false;
+                }
+                else
+                    p_sys->b_drop_blocks = false;
+            }
 
             p_info->b_keyframe = i_nal_type >= HEVC_NAL_BLA_W_LP;
 
@@ -1298,6 +1321,7 @@ static void StopVideoToolbox(decoder_t *p_dec)
         p_sys->videoFormatDescription = nil;
     }
     p_sys->b_vt_feed = false;
+    p_sys->b_drop_blocks = false;
 }
 
 #pragma mark - module open and close
@@ -1687,6 +1711,8 @@ static CMSampleBufferRef VTSampleBufferCreate(decoder_t *p_dec,
 static int HandleVTStatus(decoder_t *p_dec, OSStatus status,
                           enum vtsession_status * p_vtsession_status)
 {
+    decoder_sys_t *p_sys = p_dec->p_sys;
+
 #define VTERRCASE(x) \
     case x: msg_Warn(p_dec, "vt session error: '" #x "'"); break;
 
@@ -1737,9 +1763,9 @@ static int HandleVTStatus(decoder_t *p_dec, OSStatus status,
     {
         switch (status)
         {
-            case kVTParameterErr:
-            case kCVReturnInvalidArgument:
-                *p_vtsession_status = VTSESSION_STATUS_ABORT;
+            case kVTPixelTransferNotSupportedErr:
+            case kVTPixelTransferNotPermittedErr:
+                *p_vtsession_status = VTSESSION_STATUS_RESTART_CHROMA;
                 break;
             case -8960 /* codecErr */:
             case kVTVideoDecoderMalfunctionErr:
@@ -1749,7 +1775,7 @@ static int HandleVTStatus(decoder_t *p_dec, OSStatus status,
                 *p_vtsession_status = VTSESSION_STATUS_RESTART;
                 break;
             default:
-                *p_vtsession_status = VTSESSION_STATUS_OK;
+                *p_vtsession_status = VTSESSION_STATUS_ABORT;
                 break;
         }
     }
@@ -1784,6 +1810,7 @@ static void Drain(decoder_t *p_dec, bool flush)
     assert(RemoveOneFrameFromDPB(p_sys) == NULL);
     p_sys->b_vt_flush = false;
     p_sys->b_vt_feed = false;
+    p_sys->b_drop_blocks = false;
     vlc_mutex_unlock(&p_sys->lock);
 }
 
@@ -1813,7 +1840,7 @@ static int DecodeBlock(decoder_t *p_dec, block_t *p_block)
         p_sys->vtsession_status = VTSESSION_STATUS_ABORT;
 #else
         if (!p_sys->b_cvpx_format_forced
-         && p_sys->i_cvpx_format != kCVPixelFormatType_420YpCbCr8Planar)
+         && p_sys->i_cvpx_format == kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange)
         {
             /* In case of interlaced content, force VT to output I420 since our
              * SW deinterlacer handle this chroma natively. This avoids having
@@ -1836,21 +1863,48 @@ static int DecodeBlock(decoder_t *p_dec, block_t *p_block)
 #endif
     }
 
-    if (p_sys->vtsession_status == VTSESSION_STATUS_RESTART)
+    if (p_sys->vtsession_status == VTSESSION_STATUS_RESTART ||
+        p_sys->vtsession_status == VTSESSION_STATUS_RESTART_CHROMA)
     {
-        msg_Warn(p_dec, "restarting vt session (dec callback failed)");
-        vlc_mutex_unlock(&p_sys->lock);
-
-        /* Session will be started by Late Start code block */
-        StopVideoToolbox(p_dec);
-        if (p_dec->fmt_in.i_extra == 0)
+        bool do_restart;
+        if (p_sys->vtsession_status == VTSESSION_STATUS_RESTART_CHROMA)
         {
-            /* Clean old parameter sets since they may be corrupt */
-            hxxx_helper_clean(&p_sys->hh);
+            if (p_sys->i_cvpx_format == 0 && p_sys->b_cvpx_format_forced)
+            {
+                /* Already tried to fallback to the original chroma, aborting... */
+                do_restart = false;
+            }
+            else
+            {
+                p_sys->i_cvpx_format = 0;
+                p_sys->b_cvpx_format_forced = true;
+                do_restart = true;
+            }
         }
+        else
+            do_restart = p_sys->i_restart_count <= VT_RESTART_MAX;
 
-        vlc_mutex_lock(&p_sys->lock);
-        p_sys->vtsession_status = VTSESSION_STATUS_OK;
+        if (do_restart)
+        {
+            msg_Warn(p_dec, "restarting vt session (dec callback failed)");
+            vlc_mutex_unlock(&p_sys->lock);
+
+            /* Session will be started by Late Start code block */
+            StopVideoToolbox(p_dec);
+            if (p_dec->fmt_in.i_extra == 0)
+            {
+                /* Clean old parameter sets since they may be corrupt */
+                hxxx_helper_clean(&p_sys->hh);
+            }
+
+            vlc_mutex_lock(&p_sys->lock);
+            p_sys->vtsession_status = VTSESSION_STATUS_OK;
+        }
+        else
+        {
+            msg_Warn(p_dec, "too many vt failure...");
+            p_sys->vtsession_status = VTSESSION_STATUS_ABORT;
+        }
     }
 
     if (p_sys->vtsession_status == VTSESSION_STATUS_ABORT)
@@ -1950,6 +2004,8 @@ static int DecodeBlock(decoder_t *p_dec, block_t *p_block)
     else
     {
         vlc_mutex_lock(&p_sys->lock);
+        if (vtsession_status == VTSESSION_STATUS_RESTART)
+            p_sys->i_restart_count++;
         p_sys->vtsession_status = vtsession_status;
         /* In case of abort, the decoder module will be reloaded next time
          * since we already modified the input block */
@@ -2067,19 +2123,26 @@ pic_holder_update_reorder_max(struct pic_holder *pic_holder, uint8_t pic_reorder
     vlc_mutex_unlock(&pic_holder->lock);
 }
 
-static void pic_holder_wait(struct pic_holder *pic_holder, const picture_t *pic)
+static int pic_holder_wait(struct pic_holder *pic_holder, const picture_t *pic)
 {
     const uint8_t reserved_fields = 2 * (pic->i_nb_fields < 2 ? 2 : pic->i_nb_fields);
 
     vlc_mutex_lock(&pic_holder->lock);
 
-
-    while (pic_holder->field_reorder_max != 0
+    /* Wait 200 ms max. We can't really know what the video output will do with
+     * output pictures (will they be rendered immediately ?), so don't wait
+     * infinitely. The output will be paced anyway by the vlc_cond_timedwait()
+     * call. */
+    mtime_t deadline = mdate() + INT64_C(200000);
+    int ret = 0;
+    while (ret == 0 && pic_holder->field_reorder_max != 0
         && pic_holder->nb_field_out >= pic_holder->field_reorder_max + reserved_fields)
-        vlc_cond_wait(&pic_holder->wait, &pic_holder->lock);
+        ret = vlc_cond_timedwait(&pic_holder->wait, &pic_holder->lock, deadline);
     pic_holder->nb_field_out += pic->i_nb_fields;
 
     vlc_mutex_unlock(&pic_holder->lock);
+
+    return ret;
 }
 
 static void DecoderCallback(void *decompressionOutputRefCon,
@@ -2103,7 +2166,11 @@ static void DecoderCallback(void *decompressionOutputRefCon,
     if (HandleVTStatus(p_dec, status, &vtsession_status) != VLC_SUCCESS)
     {
         if (p_sys->vtsession_status != VTSESSION_STATUS_ABORT)
+        {
             p_sys->vtsession_status = vtsession_status;
+            if (vtsession_status == VTSESSION_STATUS_RESTART)
+                p_sys->i_restart_count++;
+        }
         goto end;
     }
     if (unlikely(!imageBuffer))
@@ -2178,7 +2245,9 @@ static void DecoderCallback(void *decompressionOutputRefCon,
          * FIXME: A proper way to fix this issue is to allow decoder modules to
          * specify the dpb and having the vout re-allocating output frames when
          * this number changes. */
-        pic_holder_wait(p_sys->pic_holder, p_pic);
+        if (pic_holder_wait(p_sys->pic_holder, p_pic))
+            msg_Warn(p_dec, "pic_holder_wait timed out");
+
 
         vlc_mutex_lock(&p_sys->lock);
 
@@ -2187,6 +2256,8 @@ static void DecoderCallback(void *decompressionOutputRefCon,
             picture_Release(p_pic);
             goto end;
         }
+
+        p_sys->i_restart_count = 0;
 
         OnDecodedFrame( p_dec, p_info );
         p_info = NULL;

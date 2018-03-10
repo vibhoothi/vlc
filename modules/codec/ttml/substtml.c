@@ -556,33 +556,63 @@ static void FillTTMLStyle( const char *psz_attr, const char *psz_val,
     else FillTextStyle( psz_attr, psz_val, p_ttml_style->font_style );
 }
 
-static void DictionaryMerge( const vlc_dictionary_t *p_src, vlc_dictionary_t *p_dst )
+static void DictionaryMerge( const vlc_dictionary_t *p_src, vlc_dictionary_t *p_dst,
+                             bool b_override )
 {
     for( int i = 0; i < p_src->i_size; ++i )
     {
         for ( const vlc_dictionary_entry_t* p_entry = p_src->p_entries[i];
                                             p_entry != NULL; p_entry = p_entry->p_next )
         {
-            if( ( !strncmp( "tts:", p_entry->psz_key, 4 ) ||
-                  !strncmp( "ttp:", p_entry->psz_key, 4 ) ||
-                  !strcmp( "xml:space", p_entry->psz_key ) ) &&
-                !vlc_dictionary_has_key( p_dst, p_entry->psz_key ) )
-                vlc_dictionary_insert( p_dst, p_entry->psz_key, p_entry->p_value );
+            if( !strncmp( "tts:", p_entry->psz_key, 4 ) ||
+                !strncmp( "ttp:", p_entry->psz_key, 4 ) ||
+                !strcmp( "xml:space", p_entry->psz_key ) )
+            {
+                if( vlc_dictionary_has_key( p_dst, p_entry->psz_key ) )
+                {
+                    if( b_override )
+                    {
+                        vlc_dictionary_remove_value_for_key( p_dst, p_entry->psz_key, NULL, NULL );
+                        vlc_dictionary_insert( p_dst, p_entry->psz_key, p_entry->p_value );
+                    }
+                }
+                else
+                    vlc_dictionary_insert( p_dst, p_entry->psz_key, p_entry->p_value );
+            }
         }
     }
 }
 
-static void DictMergeWithStyleID( ttml_context_t *p_ctx, const char *psz_id,
+static void DictMergeWithStyleID( ttml_context_t *p_ctx, const char *psz_styles,
                                   vlc_dictionary_t *p_dst )
 {
     assert(p_ctx->p_rootnode);
-    if( psz_id && p_ctx->p_rootnode )
+    char *psz_dup;
+    if( psz_styles && p_ctx->p_rootnode && (psz_dup = strdup( psz_styles )) )
     {
-        /* Lookup referenced style ID */
-        const tt_node_t *p_node = FindNode( p_ctx->p_rootnode,
-                                            "style", -1, psz_id );
-        if( p_node )
-            DictionaryMerge( &p_node->attr_dict, p_dst );
+        /* Use temp dict instead of reverse token processing to
+         * resolve styles in specified order */
+        vlc_dictionary_t tempdict;
+        vlc_dictionary_init( &tempdict, 0 );
+
+        char *saveptr;
+        char *psz_id = strtok_r( psz_dup, " ", &saveptr );
+        while( psz_id )
+        {
+            /* Lookup referenced style ID */
+            const tt_node_t *p_node = FindNode( p_ctx->p_rootnode,
+                                                "style", -1, psz_id );
+            if( p_node )
+                DictionaryMerge( &p_node->attr_dict, &tempdict, true );
+
+            psz_id = strtok_r( NULL, " ", &saveptr );
+        }
+
+        if( !vlc_dictionary_is_empty( &tempdict ) )
+            DictionaryMerge( &tempdict, p_dst, false );
+
+        vlc_dictionary_clear( &tempdict, NULL, NULL );
+        free( psz_dup );
     }
 }
 
@@ -597,7 +627,7 @@ static void DictMergeWithRegionID( ttml_context_t *p_ctx, const char *psz_id,
         if( !p_regionnode )
             return;
 
-        DictionaryMerge( &p_regionnode->attr_dict, p_dst );
+        DictionaryMerge( &p_regionnode->attr_dict, p_dst, false );
 
         const char *psz_styleid = (const char *)
                 vlc_dictionary_value_for_key( &p_regionnode->attr_dict, "style" );
@@ -613,7 +643,7 @@ static void DictMergeWithRegionID( ttml_context_t *p_ctx, const char *psz_id,
             const tt_node_t *p_node = (const tt_node_t *) p_child;
             if( !tt_node_NameCompare( p_node->psz_node_name, "style" ) )
             {
-                DictionaryMerge( &p_node->attr_dict, p_dst );
+                DictionaryMerge( &p_node->attr_dict, p_dst, false );
             }
         }
     }
@@ -643,7 +673,7 @@ static ttml_style_t * InheritTTMLStyles( ttml_context_t *p_ctx, tt_node_t *p_nod
     /* Merge dics backwards without overwriting */
     for( ; p_node; p_node = p_node->p_parent )
     {
-        DictionaryMerge( &p_node->attr_dict, &merged );
+        DictionaryMerge( &p_node->attr_dict, &merged, false );
 
         const char *psz_styleid = (const char *)
                 vlc_dictionary_value_for_key( &p_node->attr_dict, "style" );

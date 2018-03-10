@@ -51,7 +51,7 @@ char *config_GetLibDir (void)
  *
  * @return a nul-terminated string or NULL. Use free() to release it.
  */
-char *config_GetDataDir (void)
+static char *config_GetDataDir(void)
 {
     const char *path = getenv ("VLC_DATA_PATH");
     if (path)
@@ -62,6 +62,36 @@ char *config_GetDataDir (void)
         /* replace last lib\vlc with share */
         strcpy ( datadir + strlen (datadir) - 7, "share");
     return datadir;
+}
+
+char *config_GetSysPath(vlc_sysdir_t type, const char *filename)
+{
+    char *dir = NULL;
+
+    switch (type)
+    {
+        case VLC_PKG_DATA_DIR:
+            dir = config_GetDataDir();
+            break;
+        case VLC_PKG_LIB_DIR:
+            dir = config_GetLibDir();
+            break;
+        case VLC_SYSDATA_DIR:
+            break;
+        case VLC_LOCALE_DIR:
+            dir = config_GetSysPath(VLC_PKG_DATA_DIR, "locale");
+            break;
+        default:
+            vlc_assert_unreachable();
+    }
+
+    if (filename == NULL || unlikely(dir == NULL))
+        return dir;
+
+    char *path;
+    asprintf(&path, "%s/%s", dir, filename);
+    free(dir);
+    return path;
 }
 
 static char *config_GetHomeDir (void)
@@ -79,7 +109,7 @@ char *config_GetUserDir (vlc_userdir_t type)
     {
         case VLC_HOME_DIR:
         case VLC_CONFIG_DIR:
-        case VLC_DATA_DIR:
+        case VLC_USERDATA_DIR:
         case VLC_CACHE_DIR:
         case VLC_DESKTOP_DIR:
         case VLC_DOWNLOAD_DIR:

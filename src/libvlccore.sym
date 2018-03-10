@@ -51,9 +51,8 @@ config_ChainParse
 config_ChainParseOptions
 config_ExistIntf
 config_FindConfig
-config_GetDataDir
-config_GetLibDir
 config_GetFloat
+config_GetSysPath
 config_GetUserDir
 config_GetInt
 config_GetIntChoices

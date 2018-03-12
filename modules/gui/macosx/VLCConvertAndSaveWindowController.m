@@ -556,26 +556,39 @@
 - (IBAction)streamTypeToggle:(id)sender
 {
     NSUInteger index = [_streamTypePopup indexOfSelectedItem];
-    if (index <= 1) { //  , MMSH
+    if (index <= 1) { // HTTP , MMSH
         [_streamTTLField setEnabled:NO];
         [_streamTTLStepper setEnabled:NO];
         [_streamSAPCheckbox setEnabled:NO];
         [_streamSDPMatrix setEnabled:NO];
+        [_streamMountPointField setEnabled:NO];
+        [_streamUsernameField setEnabled:NO];
+        [_streamPasswordField setEnabled:NO];
     } else if (index == 2) { // RTP
         [_streamTTLField setEnabled:YES];
         [_streamTTLStepper setEnabled:YES];
         [_streamSAPCheckbox setEnabled:YES];
         [_streamSDPMatrix setEnabled:YES];
-    }else if(index == 3) { //Icecast
-        [_streamTTLField setEnabled:NO];
-        [_streamTTLStepper setEnabled:NO];
-        [_streamSAPCheckbox setEnabled:NO];
-        [_streamSDPMatrix setEnabled:NO];
-    }else { // UDP
+        [_streamMountPointField setEnabled:NO];
+        [_streamUsernameField setEnabled:NO];
+        [_streamPasswordField setEnabled:NO];
+    }else if(index == 3) { // UDP
         [_streamTTLField setEnabled:YES];
         [_streamTTLStepper setEnabled:YES];
         [_streamSAPCheckbox setEnabled:YES];
         [_streamSDPMatrix setEnabled:NO];
+        [_streamMountPointField setEnabled:NO];
+        [_streamUsernameField setEnabled:NO];
+        [_streamPasswordField setEnabled:NO];
+    }else { //Icecast
+        [_streamTTLField setEnabled:NO];
+        [_streamTTLStepper setEnabled:NO];
+        [_streamSAPCheckbox setEnabled:NO];
+        [_streamSDPMatrix setEnabled:NO];
+        [_streamMountPointField setEnabled:YES];
+        [_streamUsernameField setEnabled:YES];
+        [_streamPasswordField setEnabled:YES];
+       
     }
     [self streamAnnouncementToggle:sender];
 }

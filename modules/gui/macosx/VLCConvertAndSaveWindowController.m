@@ -961,12 +961,25 @@
         [composedOptions appendFormat:@",access=file{no-overwrite},dst=\"%@\"}", _outputDestination];
     } else {
         /* streaming */
+        /*
+         m.begin( "rtp" );
+         m.option( "dst", RTPEdit->text() );
+         m.option( "port", RTPPort->value() );
+         /outcast
+         m.begin( "std" );
+         m.option( "access", "shout" );
+         m.option( "mux", "ogg" );
+         QString url = "//" + ICEPassEdit->text() + "@"
+         + ICEEdit->text()
+         + ":" + QString::number( ICEPort->value(), 10 )
+         + "/" + ICEMountEdit->text();
+         */
         if ([[[_streamTypePopup selectedItem] title] isEqualToString:@"RTP"])
             [composedOptions appendFormat:@":rtp{mux=ts,dst=%@,port=%@", _outputDestination, [_streamPortField stringValue]];
         else if ([[[_streamTypePopup selectedItem] title] isEqualToString:@"UDP"])
             [composedOptions appendFormat:@":standard{mux=ts,dst=%@,port=%@,access=udp", _outputDestination, [_streamPortField stringValue]];
         else if ([[[_streamTypePopup selectedItem] title] isEqualToString:@"Icecast"])
-            [composedOptions appendFormat:@":standard{mux=ts,dst=%@,port=%@,access=icecast", _outputDestination, [_streamPortField stringValue]];
+            [composedOptions appendFormat:@":standard{mux=ogg,dst=%@,port=%@,access=shout", _outputDestination, [_streamPortField stringValue]];
         else if ([[[_streamTypePopup selectedItem] title] isEqualToString:@"MMSH"])
             [composedOptions appendFormat:@":standard{mux=asfh,dst=%@,port=%@,access=mmsh", _outputDestination, [_streamPortField stringValue]];
         else

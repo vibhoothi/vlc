@@ -202,6 +202,7 @@ static int Open( vlc_object_t *p_this )
     psz_url = var_GetNonEmptyString( p_access, SOUT_CFG_PREFIX "url" );
 
     p_shout = p_sys->p_shout = shout_new();
+    /*
     if( !p_shout
          || shout_set_host( p_shout, url.psz_host ) != SHOUTERR_SUCCESS
          || shout_set_protocol( p_shout, SHOUT_PROTOCOL_ICY ) != SHOUTERR_SUCCESS
@@ -214,12 +215,133 @@ static int Open( vlc_object_t *p_this )
          || shout_set_description( p_shout, psz_description ) != SHOUTERR_SUCCESS
          || shout_set_genre( p_shout, psz_genre ) != SHOUTERR_SUCCESS
          || shout_set_url( p_shout, psz_url ) != SHOUTERR_SUCCESS
-         /* || shout_set_nonblocking( p_shout, 1 ) != SHOUTERR_SUCCESS */
+         /* || shout_set_nonblocking( p_shout, 1 ) != SHOUTERR_SUCCESS /
       )
     {
-        msg_Err( p_access, "failed to initialize shout streaming to %s:%i/%s",
-                 url.psz_host, url.i_port, url.psz_path );
+       	msg_Err( p_access, "failed to open shout stream to %s:%i/%s: %s; %s",
+	       		 url.psz_host, url.i_port, url.psz_path,shout_get_error(p_shout) );
 
+        free( psz_name );
+        free( psz_description );
+        free( psz_genre );
+        free( psz_url );
+        goto error;
+    }
+    */
+        if( !p_shout)
+    {
+       	msg_Err( p_access, "#1 failed to open shout stream to %s:%i/%s: %s; %s",
+	       		 url.psz_host, url.i_port, url.psz_path,shout_get_error(p_shout) );
+        free( psz_name );
+        free( psz_description );
+        free( psz_genre );
+        free( psz_url );
+        goto error; 
+    }
+    if(shout_set_host( p_shout, url.psz_host ) != SHOUTERR_SUCCESS)
+    {
+       	msg_Err( p_access, "#2 failed to open shout stream to %s:%i/%s: %s; %s",
+	       		 url.psz_host, url.i_port, url.psz_path,shout_get_error(p_shout) );
+        free( psz_name );
+        free( psz_description );
+        free( psz_genre );
+        free( psz_url );
+        goto error;
+    }
+    if(shout_set_protocol( p_shout, SHOUT_PROTOCOL_ICY ) != SHOUTERR_SUCCESS)
+    {
+       	msg_Err( p_access, "#3 failed to open shout stream to %s:%i/%s: %s; %s",
+	       		 url.psz_host, url.i_port, url.psz_path,shout_get_error(p_shout) );
+        free( psz_name );
+        free( psz_description );
+        free( psz_genre );
+        free( psz_url );
+        goto error;
+    }
+    if(shout_set_port( p_shout, url.i_port ) != SHOUTERR_SUCCESS)
+    {
+       	msg_Err( p_access, "#4 failed to open shout stream to %s:%i/%s: %s; %s",
+	       		 url.psz_host, url.i_port, url.psz_path,shout_get_error(p_shout) );
+        free( psz_name );
+        free( psz_description );
+        free( psz_genre );
+        free( psz_url );
+        goto error;
+    }
+    if(shout_set_password( p_shout, url.psz_password ) != SHOUTERR_SUCCESS)
+    {
+       	msg_Err( p_access, "#5 failed to open shout stream to %s:%i/%s: %s; %s",
+	       		 url.psz_host, url.i_port, url.psz_path,shout_get_error(p_shout) );
+        free( psz_name );
+        free( psz_description );
+        free( psz_genre );
+        free( psz_url );
+        goto error;
+    }
+    if(shout_set_mount( p_shout, url.psz_path ) != SHOUTERR_SUCCESS)
+    {
+       	msg_Err( p_access, "#6 failed to open shout stream to %s:%i/%s: %s; %s",
+	       		 url.psz_host, url.i_port, url.psz_path,shout_get_error(p_shout) );
+        free( psz_name );
+        free( psz_description );
+        free( psz_genre );
+        free( psz_url );
+        goto error;
+    }
+    if(shout_set_user( p_shout, url.psz_username ) != SHOUTERR_SUCCESS)
+    {
+       	msg_Err( p_access, "#7 failed to open shout stream to %s:%i/%s: %s; %s",
+	       		 url.psz_host, url.i_port, url.psz_path,shout_get_error(p_shout) );
+        free( psz_name );
+        free( psz_description );
+        free( psz_genre );
+        free( psz_url );
+        goto error;
+    }
+    if(shout_set_agent( p_shout, "VLC media player " VERSION ) != SHOUTERR_SUCCESS)
+    {
+       	msg_Err( p_access, "#8 failed to open shout stream to %s:%i/%s: %s; %s",
+	       		 url.psz_host, url.i_port, url.psz_path,shout_get_error(p_shout) );
+        free( psz_name );
+        free( psz_description );
+        free( psz_genre );
+        free( psz_url );
+        goto error;
+    }
+    if(shout_set_name( p_shout, psz_name ) != SHOUTERR_SUCCESS)
+    {
+       	msg_Err( p_access, "#9 failed to open shout stream to %s:%i/%s: %s; %s",
+	       		 url.psz_host, url.i_port, url.psz_path,shout_get_error(p_shout) );
+        free( psz_name );
+        free( psz_description );
+        free( psz_genre );
+        free( psz_url );
+        goto error;
+    }
+    if(shout_set_description( p_shout, psz_description ) != SHOUTERR_SUCCESS)
+    {
+       	msg_Err( p_access, "#10 failed to open shout stream to %s:%i/%s: %s; %s",
+	       		 url.psz_host, url.i_port, url.psz_path,shout_get_error(p_shout) );
+        free( psz_name );
+        free( psz_description );
+        free( psz_genre );
+        free( psz_url );
+        goto error;
+    }
+    if(shout_set_genre( p_shout, psz_genre ) != SHOUTERR_SUCCESS)
+    {
+       	msg_Err( p_access, "#11 failed to open shout stream to %s:%i/%s: %s; %s",
+	       		 url.psz_host, url.i_port, url.psz_path,shout_get_error(p_shout) );
+        free( psz_name );
+        free( psz_description );
+        free( psz_genre );
+        free( psz_url );
+        goto error;
+    }
+    if(shout_set_url( p_shout, psz_url ) != SHOUTERR_SUCCESS)
+    {
+       	msg_Err( p_access, "#12 failed to open shout stream to %s:%i/%s: %s; %s",
+	       		 url.psz_host, url.i_port, url.psz_path,shout_get_error(p_shout) );
         free( psz_name );
         free( psz_description );
         free( psz_genre );

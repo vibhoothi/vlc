@@ -976,13 +976,17 @@
          + "/" + ICEMountEdit->text();
          it's transcode{...}:standard{...}
          00:14 yours is transcode{...:standard{...}
+         host:port
+         20:29 so basically dst is user:pass@host:port/mountpoint
          */
         if ([[[_streamTypePopup selectedItem] title] isEqualToString:@"RTP"])
             [composedOptions appendFormat:@":rtp{mux=ts,dst=%@,port=%@", _outputDestination, [_streamPortField stringValue]];
         else if ([[[_streamTypePopup selectedItem] title] isEqualToString:@"UDP"])
             [composedOptions appendFormat:@":standard{mux=ts,dst=%@,port=%@,access=udp", _outputDestination, [_streamPortField stringValue]];
         else if ([[[_streamTypePopup selectedItem] title] isEqualToString:@"Icecast"])
-            [composedOptions appendFormat:@":standard{mux=ogg,dst=%@,port=%@,access=shout", _outputDestination, [_streamPortField stringValue]];
+           // [composedOptions appendFormat:@":standard{mux=ogg,dst=%@,access=shout", _outputDestination, [_streamPortField stringValue]];
+            //user:pass@host:port/mountpoint the "@%@" part is @host:port/mountpoint
+            [composedOptions appendFormat:@":standard{mux=ogg,dst=%@:%@@%@,access=shout",  [_streamUsernameField stringValue], [_streamPasswordField stringValue], _outputDestination];
         else if ([[[_streamTypePopup selectedItem] title] isEqualToString:@"MMSH"])
             [composedOptions appendFormat:@":standard{mux=asfh,dst=%@,port=%@,access=mmsh", _outputDestination, [_streamPortField stringValue]];
         else

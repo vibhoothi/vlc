@@ -948,7 +948,7 @@
         if ([[self.currentProfile objectAtIndex:15] intValue])
             [composedOptions appendFormat:@",soverlay"];
     }
-
+    
     if (!b_streaming) {
         /* file transcoding */
         // add muxer
@@ -960,6 +960,7 @@
                                                                            withString:@"\\\""];
         [composedOptions appendFormat:@",access=file{no-overwrite},dst=\"%@\"}", _outputDestination];
     } else {
+        [composedOptions appendString:@"}"];
         /* streaming */
         /*
          m.begin( "rtp" );
@@ -973,6 +974,8 @@
          + ICEEdit->text()
          + ":" + QString::number( ICEPort->value(), 10 )
          + "/" + ICEMountEdit->text();
+         it's transcode{...}:standard{...}
+         00:14 yours is transcode{...:standard{...}
          */
         if ([[[_streamTypePopup selectedItem] title] isEqualToString:@"RTP"])
             [composedOptions appendFormat:@":rtp{mux=ts,dst=%@,port=%@", _outputDestination, [_streamPortField stringValue]];
@@ -1003,7 +1006,7 @@
             }
         }
 
-        [composedOptions appendString:@"} :sout-keep"];
+        [composedOptions appendString:@"}"];
     }
 
     return [NSString stringWithString:composedOptions];

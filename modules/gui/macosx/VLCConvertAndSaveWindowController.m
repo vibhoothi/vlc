@@ -519,7 +519,7 @@
         return;
 
     /* provide a summary of the user selections */
-    NSMutableString * labelContent = [[NSMutableString alloc] initWithFormat:_NS("%@ stream to %@:%@"), [_streamTypePopup titleOfSelectedItem], [_streamAddressField stringValue], [_streamPortField stringValue]];
+    NSMutableString * labelContent = [[NSMutableString alloc] initWithFormat:_NS("%@ stream to %@:%@"), [_streamTypePopup titleOfSelectedItem], [_streamAddressField stringValue] ];
 
     if ([_streamTypePopup indexOfSelectedItem] > 1)
         [labelContent appendFormat:@" (\"%@\")", [_streamChannelField stringValue]];
@@ -556,21 +556,39 @@
 - (IBAction)streamTypeToggle:(id)sender
 {
     NSUInteger index = [_streamTypePopup indexOfSelectedItem];
-    if (index <= 1) { // HTTP, MMSH
+    if (index <= 1) { // HTTP , MMSH
         [_streamTTLField setEnabled:NO];
         [_streamTTLStepper setEnabled:NO];
         [_streamSAPCheckbox setEnabled:NO];
         [_streamSDPMatrix setEnabled:NO];
+        [_streamMountPointField setEnabled:NO];
+        [_streamUsernameField setEnabled:NO];
+        [_streamPasswordField setEnabled:NO];
     } else if (index == 2) { // RTP
         [_streamTTLField setEnabled:YES];
         [_streamTTLStepper setEnabled:YES];
         [_streamSAPCheckbox setEnabled:YES];
         [_streamSDPMatrix setEnabled:YES];
-    } else { // UDP
+        [_streamMountPointField setEnabled:NO];
+        [_streamUsernameField setEnabled:NO];
+        [_streamPasswordField setEnabled:NO];
+    }else if(index == 3) { // UDP
         [_streamTTLField setEnabled:YES];
         [_streamTTLStepper setEnabled:YES];
         [_streamSAPCheckbox setEnabled:YES];
         [_streamSDPMatrix setEnabled:NO];
+        [_streamMountPointField setEnabled:NO];
+        [_streamUsernameField setEnabled:NO];
+        [_streamPasswordField setEnabled:NO];
+    }else { //Icecast
+        [_streamTTLField setEnabled:NO];
+        [_streamTTLStepper setEnabled:NO];
+        [_streamSAPCheckbox setEnabled:NO];
+        [_streamSDPMatrix setEnabled:NO];
+        [_streamMountPointField setEnabled:YES];
+        [_streamUsernameField setEnabled:YES];
+        [_streamPasswordField setEnabled:YES];
+       
     }
     [self streamAnnouncementToggle:sender];
 }
@@ -930,7 +948,7 @@
         if ([[self.currentProfile objectAtIndex:15] intValue])
             [composedOptions appendFormat:@",soverlay"];
     }
-
+    
     if (!b_streaming) {
         /* file transcoding */
         // add muxer
@@ -942,11 +960,14 @@
                                                                            withString:@"\\\""];
         [composedOptions appendFormat:@",access=file{no-overwrite},dst=\"%@\"}", _outputDestination];
     } else {
+        [composedOptions appendString:@"}"];
         /* streaming */
         if ([[[_streamTypePopup selectedItem] title] isEqualToString:@"RTP"])
             [composedOptions appendFormat:@":rtp{mux=ts,dst=%@,port=%@", _outputDestination, [_streamPortField stringValue]];
         else if ([[[_streamTypePopup selectedItem] title] isEqualToString:@"UDP"])
             [composedOptions appendFormat:@":standard{mux=ts,dst=%@,port=%@,access=udp", _outputDestination, [_streamPortField stringValue]];
+        else if ([[[_streamTypePopup selectedItem] title] isEqualToString:@"Icecast"])
+            [composedOptions appendFormat:@":standard{mux=ogg,dst=%@:%@@%@,access=shout",  [_streamUsernameField stringValue], [_streamPasswordField stringValue], _outputDestination];
         else if ([[[_streamTypePopup selectedItem] title] isEqualToString:@"MMSH"])
             [composedOptions appendFormat:@":standard{mux=asfh,dst=%@,port=%@,access=mmsh", _outputDestination, [_streamPortField stringValue]];
         else
@@ -970,7 +991,7 @@
             }
         }
 
-        [composedOptions appendString:@"} :sout-keep"];
+        [composedOptions appendString:@"}"];
     }
 
     return [NSString stringWithString:composedOptions];

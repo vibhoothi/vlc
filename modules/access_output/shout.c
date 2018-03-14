@@ -271,14 +271,16 @@ static int Open( vlc_object_t *p_this )
     if(shout_set_password( p_shout, url.psz_password ) != SHOUTERR_SUCCESS)
     {
        	msg_Err( p_access, "#5 failed to open shout stream to %s:%i/%s: %s; %s",
-	       		 url.psz_host, url.i_port, url.psz_path,shout_get_error(p_shout) );
+	       		 url.psz_host, url.i_port, url.psz_path,shout_get_error(p_shout),url.psz_password);
         free( psz_name );
         free( psz_description );
         free( psz_genre );
         free( psz_url );
         goto error;
     }
-    if(shout_set_mount( p_shout, url.psz_path ) != SHOUTERR_SUCCESS)
+    //if(shout_set_mount( p_shout, url.psz_path ) != SHOUTERR_SUCCESS)
+    if (shout_set_mount(p_shout, (url.psz_path != NULL)?url.psz_path:"/") != SHOUTERR_SUCCESS)
+    
     {
        	msg_Err( p_access, "#6 failed to open shout stream to %s:%i/%s: %s; %s",
 	       		 url.psz_host, url.i_port, url.psz_path,shout_get_error(p_shout) );

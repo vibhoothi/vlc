@@ -202,12 +202,13 @@ static int Open( vlc_object_t *p_this )
     psz_url = var_GetNonEmptyString( p_access, SOUT_CFG_PREFIX "url" );
 
     p_shout = p_sys->p_shout = shout_new();
+    
     if( !p_shout
          || shout_set_host( p_shout, url.psz_host ) != SHOUTERR_SUCCESS
          || shout_set_protocol( p_shout, SHOUT_PROTOCOL_ICY ) != SHOUTERR_SUCCESS
          || shout_set_port( p_shout, url.i_port ) != SHOUTERR_SUCCESS
          || shout_set_password( p_shout, url.psz_password ) != SHOUTERR_SUCCESS
-         || shout_set_mount( p_shout, url.psz_path ) != SHOUTERR_SUCCESS
+         || shout_set_mount(p_shout, (url.psz_path != NULL)?url.psz_path:"/") != SHOUTERR_SUCCESS
          || shout_set_user( p_shout, url.psz_username ) != SHOUTERR_SUCCESS
          || shout_set_agent( p_shout, "VLC media player " VERSION ) != SHOUTERR_SUCCESS
          || shout_set_name( p_shout, psz_name ) != SHOUTERR_SUCCESS
@@ -217,16 +218,14 @@ static int Open( vlc_object_t *p_this )
          /* || shout_set_nonblocking( p_shout, 1 ) != SHOUTERR_SUCCESS */
       )
     {
-        msg_Err( p_access, "failed to initialize shout streaming to %s:%i/%s",
-                 url.psz_host, url.i_port, url.psz_path );
-
+       	msg_Err( p_access, "failed to initialize shout streaming to s:%i/%s: %s; %s",
+                 url.psz_host, url.i_port, url.psz_path,shout_get_error(p_shout) );
         free( psz_name );
         free( psz_description );
         free( psz_genre );
         free( psz_url );
         goto error;
     }
-
     free( psz_name );
     free( psz_description );
     free( psz_genre );

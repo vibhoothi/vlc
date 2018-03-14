@@ -38,6 +38,7 @@
 #include <assert.h>
 #include <limits.h>
 #include "../codec/cc.h"
+#include "heif.h"
 
 /*****************************************************************************
  * Module descriptor
@@ -50,6 +51,11 @@ static void Close( vlc_object_t * );
 #define MP4_M4A_TEXT     N_("M4A audio only")
 #define MP4_M4A_LONGTEXT N_("Ignore non audio tracks from iTunes audio files")
 
+#define HEIF_DURATION_TEXT N_("Duration in seconds")
+#define HEIF_DURATION_LONGTEXT N_( \
+    "Duration in seconds before simulating an end of file. " \
+    "A negative value means an unlimited play time.")
+
 vlc_module_begin ()
     set_category( CAT_INPUT )
     set_subcategory( SUBCAT_INPUT_DEMUX )
@@ -60,6 +66,18 @@ vlc_module_begin ()
 
     add_category_hint("Hacks", NULL, true)
     add_bool( CFG_PREFIX"m4a-audioonly", false, MP4_M4A_TEXT, MP4_M4A_LONGTEXT, true )
+
+    add_submodule()
+        set_category( CAT_INPUT )
+        set_subcategory( SUBCAT_INPUT_DEMUX )
+        set_description( N_("HEIF demuxer") )
+        set_shortname( "heif" )
+        set_capability( "demux", 239 )
+        set_callbacks( OpenHEIF, CloseHEIF )
+        set_section( N_("HEIF demuxer"), NULL )
+        add_float( "heif-image-duration", HEIF_DEFAULT_DURATION,
+                   HEIF_DURATION_TEXT, HEIF_DURATION_LONGTEXT, false )
+            change_safe()
 vlc_module_end ()
 
 /*****************************************************************************
@@ -668,6 +686,9 @@ static void MP4_Block_Send( demux_t *p_demux, mp4_track_t *p_track, block_t *p_b
         es_out_Send( p_demux->out, p_track->p_es, p_block );
 }
 
+int  OpenHEIF ( vlc_object_t * );
+void CloseHEIF( vlc_object_t * );
+
 /*****************************************************************************
  * Open: check file and initializes MP4 structures
  *****************************************************************************/
@@ -685,7 +706,7 @@ static int Open( vlc_object_t * p_this )
     bool      b_enabled_es;
 
     /* A little test to see if it could be a mp4 */
-    if( vlc_stream_Peek( p_demux->s, &p_peek, 11 ) < 11 ) return VLC_EGENERIC;
+    if( vlc_stream_Peek( p_demux->s, &p_peek, 12 ) < 12 ) return VLC_EGENERIC;
 
     switch( VLC_FOURCC( p_peek[4], p_peek[5], p_peek[6], p_peek[7] ) )
     {
@@ -701,10 +722,22 @@ static int Open( vlc_object_t * p_this )
         case VLC_FOURCC( 'p', 'n', 'o', 't' ):
             break;
         case ATOM_ftyp:
-            /* We don't yet support f4v, but avformat does. */
-            if( p_peek[8] == 'f' && p_peek[9] == '4' && p_peek[10] == 'v' )
-                return VLC_EGENERIC;
+        {
+            /* Early handle some brands */
+            switch( VLC_FOURCC(p_peek[8], p_peek[9], p_peek[10], p_peek[11]) )
+            {
+                /* HEIF pictures goes to heif demux */
+                case MAJOR_heic:
+                case MAJOR_heix:
+                case MAJOR_mif1:
+                /* We don't yet support f4v, but avformat does. */
+                case MAJOR_f4v:
+                    return VLC_EGENERIC;
+                default:
+                    break;
+            }
             break;
+        }
          default:
             return VLC_EGENERIC;
     }
@@ -3327,6 +3360,10 @@ static void MP4_TrackSetup( demux_t *p_demux, mp4_track_t *p_track,
                 return;
             }
             es_format_Change( &p_track->fmt, AUDIO_ES, 0 );
+            break;
+
+        case( ATOM_pict ): /* heif */
+            es_format_Change( &p_track->fmt, VIDEO_ES, 0 );
             break;
 
         case( ATOM_vide ):

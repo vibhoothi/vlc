@@ -462,14 +462,12 @@ static void AllocateAllPlugins (vlc_object_t *p_this)
 #else
     /* Contruct the special search path for system that have a relocatable
      * executable. Set it to <vlc path>/plugins. */
-    char *vlcpath = config_GetLibDir ();
-    if (likely(vlcpath != NULL)
-     && likely(asprintf (&paths, "%s" DIR_SEP "plugins", vlcpath) != -1))
+    char *vlcpath = config_GetSysPath(VLC_PKG_LIB_DIR, "plugins");
+    if (likely(vlcpath != NULL))
     {
-        AllocatePluginPath (p_this, paths, mode);
-        free( paths );
+        AllocatePluginPath(p_this, vlcpath, mode);
+        free(vlcpath);
     }
-    free (vlcpath);
 #endif /* VLC_WINSTORE_APP */
 
     /* If the user provided a plugin path, we add it to the list */
@@ -657,9 +655,8 @@ void module_EndBank (bool b_plugins)
  * Fills the module bank structure with the plugin modules.
  *
  * \param p_this vlc object structure
- * \return total number of modules in bank after loading all plug-ins
  */
-size_t module_LoadPlugins (vlc_object_t *obj)
+void module_LoadPlugins(vlc_object_t *obj)
 {
     /*vlc_assert_locked (&modules.lock); not for static mutexes :( */
 
@@ -681,7 +678,6 @@ size_t module_LoadPlugins (vlc_object_t *obj)
     module_t **list = module_list_get (&count);
     module_list_free (list);
     msg_Dbg (obj, "plug-ins loaded: %zu modules", count);
-    return count;
 }
 
 /**

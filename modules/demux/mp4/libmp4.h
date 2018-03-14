@@ -37,10 +37,17 @@ typedef int64_t stime_t;
 #define MAJOR_isml VLC_FOURCC( 'i', 's', 'm', 'l' )
 #define MAJOR_isom VLC_FOURCC( 'i', 's', 'o', 'm' )
 #define MAJOR_qt__ VLC_FOURCC( 'q', 't', ' ', ' ' )
+#define MAJOR_f4v  VLC_FOURCC( 'f', '4', 'v', ' ' ) /* Adobe Flash */
 #define MAJOR_dash VLC_FOURCC( 'd', 'a', 's', 'h' )
 #define MAJOR_mp41 VLC_FOURCC( 'm', 'p', '4', '1' )
 #define MAJOR_avc1 VLC_FOURCC( 'a', 'v', 'c', '1' )
 #define MAJOR_M4A  VLC_FOURCC( 'M', '4', 'A', ' ' )
+#define MAJOR_mif1 VLC_FOURCC( 'm', 'i', 'f', '1' ) /* heif */
+#define MAJOR_msf1 VLC_FOURCC( 'm', 's', 'f', '1' ) /* heif */
+#define MAJOR_heic VLC_FOURCC( 'h', 'e', 'i', 'c' ) /* heif */
+#define MAJOR_heix VLC_FOURCC( 'h', 'e', 'i', 'x' ) /* heif */
+#define MAJOR_hevc VLC_FOURCC( 'h', 'e', 'v', 'c' ) /* heif */
+#define MAJOR_hevx VLC_FOURCC( 'h', 'e', 'v', 'x' ) /* heif */
 
 #define ATOM_root VLC_FOURCC( 'r', 'o', 'o', 't' )
 #define ATOM_uuid VLC_FOURCC( 'u', 'u', 'i', 'd' )
@@ -384,6 +391,7 @@ typedef int64_t stime_t;
 #define ATOM_gsst VLC_FOURCC( 'g', 's', 's', 't' )
 #define ATOM_gstd VLC_FOURCC( 'g', 's', 't', 'd' )
 #define ATOM_colr VLC_FOURCC( 'c', 'o', 'l', 'r' )
+#define ATOM_irot VLC_FOURCC( 'i', 'r', 'o', 't' )
 #define ATOM_SmDm VLC_FOURCC( 'S', 'm', 'D', 'm' )
 #define ATOM_CoLL VLC_FOURCC( 'C', 'o', 'L', 'L' )
 
@@ -396,11 +404,26 @@ typedef int64_t stime_t;
 
 #define ATOM_SA3D VLC_FOURCC( 'S', 'A', '3', 'D' )
 
+/* iso4 meta references */
+#define ATOM_iloc VLC_FOURCC('i','l','o','c')
+#define ATOM_iinf VLC_FOURCC('i','i','n','f')
+#define ATOM_infe VLC_FOURCC('i','n','f','e')
+#define ATOM_iref VLC_FOURCC('i','r','e','f')
+#define ATOM_pitm VLC_FOURCC('p','i','t','m')
+/* HEIF specific meta */
+#define ATOM_iprp VLC_FOURCC('i','p','r','p')
+#define ATOM_ipco VLC_FOURCC('i','p','c','o')
+#define ATOM_ispe VLC_FOURCC('i','s','p','e')
+#define ATOM_ipma VLC_FOURCC('i','p','m','a')
+
 #define HANDLER_mdta VLC_FOURCC('m', 'd', 't', 'a')
 #define HANDLER_mdir VLC_FOURCC('m', 'd', 'i', 'r')
 #define HANDLER_ID32 ATOM_ID32
 
 #define SAMPLEGROUP_rap  VLC_FOURCC('r', 'a', 'p', ' ')
+
+/* HEIF Specific */
+#define HANDLER_pict VLC_FOURCC('p', 'i', 'c', 't')
 
 /* Do you want some debug information on all read boxes ? */
 #ifndef NDEBUG
@@ -652,6 +675,11 @@ typedef struct MP4_Box_data_colr_s
         } nclc;
     };
 } MP4_Box_data_colr_t;
+
+typedef struct
+{
+    uint16_t i_ccw_degrees;
+} MP4_Box_data_irot_t;
 
 typedef struct MP4_Box_data_sample_soun_s
 {
@@ -1621,6 +1649,88 @@ typedef struct
     uint32_t i_num_channels;
 } MP4_Box_data_SA3D_t;
 
+typedef struct
+{
+    uint32_t i_from_item_id;
+    uint16_t i_reference_count;
+    struct
+    {
+        uint32_t i_to_item_id;
+    } *p_references;
+} MP4_Box_data_refbox_t;
+
+typedef struct
+{
+    uint8_t i_version;
+    uint32_t i_flags;
+} MP4_Box_data_iref_t;
+
+typedef struct
+{
+    uint8_t i_offset_size;
+    uint8_t i_length_size;
+    uint8_t i_base_offset_size;
+    uint8_t i_index_size;
+    uint32_t i_item_count;
+    struct
+    {
+        uint32_t i_item_id;
+        uint8_t  i_construction_method;
+        uint16_t i_data_reference_index;
+        uint64_t i_base_offset;
+        uint16_t i_extent_count;
+        struct
+        {
+            uint64_t i_extent_index;
+            uint64_t i_extent_offset;
+            uint64_t i_extent_length;
+        } *p_extents;
+    } *p_items;
+} MP4_Box_data_iloc_t;
+
+typedef struct
+{
+    uint32_t i_entry_count;
+} MP4_Box_data_iinf_t;
+
+typedef struct
+{
+    uint32_t i_flags;
+    uint32_t i_item_id;
+    uint16_t i_item_protection_index;
+    vlc_fourcc_t item_type;
+    char *psz_item_name;
+    char *psz_content_type;
+    char *psz_content_encoding;
+    char *psz_item_uri_type;
+} MP4_Box_data_infe_t;
+
+typedef struct
+{
+    uint32_t i_item_id;
+} MP4_Box_data_pitm_t;
+
+typedef struct
+{
+    uint32_t i_width;
+    uint32_t i_height;
+} MP4_Box_data_ispe_t;
+
+typedef struct
+{
+    uint32_t i_entry_count;
+    struct
+    {
+        uint32_t i_item_id;
+        uint8_t  i_association_count;
+        struct
+        {
+            uint8_t b_essential;
+            uint16_t i_property_index;
+        } *p_assocs;
+    } *p_entries;
+} MP4_Box_data_ipma_t;
+
 /*
 typedef struct MP4_Box_data__s
 {
@@ -1653,6 +1763,7 @@ typedef union MP4_Box_data_s
     MP4_Box_data_ctts_t *p_ctts;
     MP4_Box_data_cslg_t *p_cslg;
     MP4_Box_data_colr_t *p_colr;
+    MP4_Box_data_irot_t *p_irot;
 
     MP4_Box_data_sbgp_t *p_sbgp;
     MP4_Box_data_sgpd_t *p_sgpd;
@@ -1734,6 +1845,15 @@ typedef union MP4_Box_data_s
     MP4_Box_data_equi_t *p_equi;
     MP4_Box_data_cbmp_t *p_cbmp;
     MP4_Box_data_SA3D_t *p_SA3D;
+
+    MP4_Box_data_refbox_t *p_refbox;
+    MP4_Box_data_iref_t *p_iref;
+    MP4_Box_data_iloc_t *p_iloc;
+    MP4_Box_data_iinf_t *p_iinf;
+    MP4_Box_data_infe_t *p_infe;
+    MP4_Box_data_pitm_t *p_pitm;
+    MP4_Box_data_ispe_t *p_ispe; /* heif */
+    MP4_Box_data_ipma_t *p_ipma; /* heif */
 
     /* for generic handlers */
     MP4_Box_data_binary_t *p_binary;

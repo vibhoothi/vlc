@@ -69,14 +69,13 @@
 
     /* this is only true, when we have NO video playing inside the main window */
 
-    BOOL b_podcastView_displayed;
+
 
     NSRect frameBeforePlayback;
 }
 - (void)makeSplitViewVisible;
 - (void)makeSplitViewHidden;
-- (void)showPodcastControls;
-- (void)hidePodcastControls;
+
 @end
 
 static const float f_min_window_height = 307.;
@@ -190,21 +189,7 @@ static const float f_min_window_height = 307.;
     [_dropzoneButton.cell accessibilitySetOverrideValue:_NS("Open a dialog to select the media to play")
                                            forAttribute:NSAccessibilityDescriptionAttribute];
 
-    // Podcast view
-    [_podcastAddButton setTitle:_NS("Subscribe")];
-    [_podcastRemoveButton setTitle:_NS("Unsubscribe")];
 
-    // Podcast subscribe window
-    [_podcastSubscribeTitle setStringValue:_NS("Subscribe to a podcast")];
-    [_podcastSubscribeSubtitle setStringValue:_NS("Enter URL of the podcast to subscribe to:")];
-    [_podcastSubscribeOkButton setTitle:_NS("Subscribe")];
-    [_podcastSubscribeCancelButton setTitle:_NS("Cancel")];
-
-    // Podcast unsubscribe window
-    [_podcastUnsubscirbeTitle setStringValue:_NS("Unsubscribe from a podcast")];
-    [_podcastUnsubscribeSubtitle setStringValue:_NS("Select the podcast you would like to unsubscribe from:")];
-    [_podcastUnsubscribeOkButton setTitle:_NS("Unsubscribe")];
-    [_podcastUnsubscribeCancelButton setTitle:_NS("Cancel")];
 
     /* interface builder action */
     CGFloat f_threshold_height = f_min_video_height + [self.controlsBar height];
@@ -302,7 +287,6 @@ static const float f_min_window_height = 307.;
         switch (*p_category) {
             case SD_CAT_INTERNET:
                 [internetItems addObject: [SideBarItem itemWithTitle: _NS(*ppsz_longname) identifier: o_identifier]];
-                [[internetItems lastObject] setIcon: imageFromRes(@"sidebar-podcast")];
                 [[internetItems lastObject] setSdtype: SD_CAT_INTERNET];
                 break;
             case SD_CAT_DEVICES:
@@ -1038,12 +1022,6 @@ static const float f_min_window_height = 307.;
         PL_UNLOCK;
     }
 
-    // Note the order: first hide the podcast controls, then show the drop zone
-    if ([[item identifier] isEqualToString:@"podcast"])
-        [self showPodcastControls];
-    else
-        [self hidePodcastControls];
-
     PL_LOCK;
     if ([[[[VLCMain sharedInstance] playlist] model] currentRootType] != ROOT_TYPE_PLAYLIST ||
         [[[[VLCMain sharedInstance] playlist] model] hasChildren])
@@ -1129,83 +1107,6 @@ static const float f_min_window_height = 307.;
     }
 
     return nil;
-}
-
-#pragma mark -
-#pragma mark Podcast
-
-- (IBAction)addPodcast:(id)sender
-{
-    [NSApp beginSheet:_podcastSubscribeWindow modalForWindow:self modalDelegate:self didEndSelector:NULL contextInfo:nil];
-}
-
-- (IBAction)addPodcastWindowAction:(id)sender
-{
-    [_podcastSubscribeWindow orderOut:sender];
-    [NSApp endSheet:_podcastSubscribeWindow];
-
-    if (sender == _podcastSubscribeOkButton && [[_podcastSubscribeUrlField stringValue] length] > 0) {
-        NSMutableString *podcastConf = [[NSMutableString alloc] init];
-        if (config_GetPsz("podcast-urls") != NULL)
-            [podcastConf appendFormat:@"%s|", config_GetPsz("podcast-urls")];
-
-        [podcastConf appendString: [_podcastSubscribeUrlField stringValue]];
-        config_PutPsz("podcast-urls", [podcastConf UTF8String]);
-        var_SetString(pl_Get(getIntf()), "podcast-urls", [podcastConf UTF8String]);
-    }
-}
-
-- (IBAction)removePodcast:(id)sender
-{
-    char *psz_urls = var_InheritString(pl_Get(getIntf()), "podcast-urls");
-    if (psz_urls != NULL) {
-        [_podcastUnsubscribePopUpButton removeAllItems];
-        [_podcastUnsubscribePopUpButton addItemsWithTitles:[toNSStr(psz_urls) componentsSeparatedByString:@"|"]];
-        [NSApp beginSheet:_podcastUnsubscribeWindow modalForWindow:self modalDelegate:self didEndSelector:NULL contextInfo:nil];
-    }
-    free(psz_urls);
-}
-
-- (IBAction)removePodcastWindowAction:(id)sender
-{
-    [_podcastUnsubscribeWindow orderOut:sender];
-    [NSApp endSheet:_podcastUnsubscribeWindow];
-
-    if (sender == _podcastUnsubscribeOkButton) {
-        playlist_t * p_playlist = pl_Get(getIntf());
-        char *psz_urls = var_InheritString(p_playlist, "podcast-urls");
-
-        NSMutableArray * urls = [[NSMutableArray alloc] initWithArray:[toNSStr(config_GetPsz("podcast-urls")) componentsSeparatedByString:@"|"]];
-        [urls removeObjectAtIndex: [_podcastUnsubscribePopUpButton indexOfSelectedItem]];
-        const char *psz_new_urls = [[urls componentsJoinedByString:@"|"] UTF8String];
-        var_SetString(pl_Get(getIntf()), "podcast-urls", psz_new_urls);
-        config_PutPsz("podcast-urls", psz_new_urls);
-
-        free(psz_urls);
-
-        /* update playlist table */
-        if (playlist_IsServicesDiscoveryLoaded(p_playlist, "podcast")) {
-            [[[VLCMain sharedInstance] playlist] playlistUpdated];
-        }
-    }
-}
-
-- (void)showPodcastControls
-{
-    _tableViewToPodcastConstraint.priority = 999;
-    _podcastView.hidden = NO;
-
-    b_podcastView_displayed = YES;
-}
-
-- (void)hidePodcastControls
-{
-    if (b_podcastView_displayed) {
-        _tableViewToPodcastConstraint.priority = 1;
-        _podcastView.hidden = YES;
-
-        b_podcastView_displayed = NO;
-    }
 }
 
 @end

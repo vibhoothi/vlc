@@ -45,7 +45,6 @@
 #import "VLCVoutView.h"
 #import "VLCVideoOutputProvider.h"
 
-
 @interface VLCMainWindow() <NSWindowDelegate, NSAnimationDelegate>
 {
     BOOL videoPlaybackEnabled;
@@ -56,7 +55,6 @@
     CGFloat lastCollectionViewHeight;
     NSRect frameBeforePlayback;
 }
-
 @end
 
 static const float f_min_window_height = 307.;
@@ -65,52 +63,6 @@ static const float f_min_window_height = 307.;
 
 #pragma mark -
 #pragma mark Initialization
-
-- (BOOL)isEvent:(NSEvent *)o_event forKey:(const char *)keyString
-{
-    char *key;
-    NSString *o_key;
-
-    key = config_GetPsz(keyString);
-    o_key = [NSString stringWithFormat:@"%s", key];
-    FREENULL(key);
-
-    unsigned int i_keyModifiers = [[VLCStringUtility sharedInstance] VLCModifiersToCocoa:o_key];
-
-    NSString * characters = [o_event charactersIgnoringModifiers];
-    if ([characters length] > 0) {
-        return [[characters lowercaseString] isEqualToString: [[VLCStringUtility sharedInstance] VLCKeyToString: o_key]] &&
-                (i_keyModifiers & NSShiftKeyMask)     == ([o_event modifierFlags] & NSShiftKeyMask) &&
-                (i_keyModifiers & NSControlKeyMask)   == ([o_event modifierFlags] & NSControlKeyMask) &&
-                (i_keyModifiers & NSAlternateKeyMask) == ([o_event modifierFlags] & NSAlternateKeyMask) &&
-                (i_keyModifiers & NSCommandKeyMask)   == ([o_event modifierFlags] & NSCommandKeyMask);
-    }
-    return NO;
-}
-
-- (BOOL)performKeyEquivalent:(NSEvent *)o_event
-{
-    BOOL b_force = NO;
-    // these are key events which should be handled by vlc core, but are attached to a main menu item
-    if (![self isEvent: o_event forKey: "key-vol-up"] &&
-        ![self isEvent: o_event forKey: "key-vol-down"] &&
-        ![self isEvent: o_event forKey: "key-vol-mute"] &&
-        ![self isEvent: o_event forKey: "key-prev"] &&
-        ![self isEvent: o_event forKey: "key-next"] &&
-        ![self isEvent: o_event forKey: "key-jump+short"] &&
-        ![self isEvent: o_event forKey: "key-jump-short"]) {
-        /* We indeed want to prioritize some Cocoa key equivalent against libvlc,
-         so we perform the menu equivalent now. */
-        if ([[NSApp mainMenu] performKeyEquivalent:o_event])
-            return TRUE;
-    }
-    else
-        b_force = YES;
-
-    VLCCoreInteraction *coreInteraction = [VLCCoreInteraction sharedInstance];
-    return [coreInteraction hasDefinedShortcutKey:o_event force:b_force] ||
-           [coreInteraction keyEvent:o_event];
-}
 
 - (void)dealloc
 {
@@ -141,8 +93,6 @@ static const float f_min_window_height = 307.;
 
     // Window title
     [self setTitle:_NS("VLC media player")];
-    
-    /* interface builder action */
 
     // Set that here as IB seems to be buggy
     [self setContentMinSize:NSMakeSize(604., f_min_window_height)];
@@ -180,6 +130,56 @@ static const float f_min_window_height = 307.;
     if (var_InheritBool(pl_Get(getIntf()), "fullscreen"))
         [self.controlsBar setFullscreenState:YES];
 }
+
+#pragma mark - key and event handling
+
+- (BOOL)isEvent:(NSEvent *)o_event forKey:(const char *)keyString
+{
+    char *key;
+    NSString *o_key;
+
+    key = config_GetPsz(keyString);
+    o_key = [NSString stringWithFormat:@"%s", key];
+    FREENULL(key);
+
+    unsigned int i_keyModifiers = [[VLCStringUtility sharedInstance] VLCModifiersToCocoa:o_key];
+
+    NSString * characters = [o_event charactersIgnoringModifiers];
+    if ([characters length] > 0) {
+        return [[characters lowercaseString] isEqualToString: [[VLCStringUtility sharedInstance] VLCKeyToString: o_key]] &&
+        (i_keyModifiers & NSShiftKeyMask)     == ([o_event modifierFlags] & NSShiftKeyMask) &&
+        (i_keyModifiers & NSControlKeyMask)   == ([o_event modifierFlags] & NSControlKeyMask) &&
+        (i_keyModifiers & NSAlternateKeyMask) == ([o_event modifierFlags] & NSAlternateKeyMask) &&
+        (i_keyModifiers & NSCommandKeyMask)   == ([o_event modifierFlags] & NSCommandKeyMask);
+    }
+    return NO;
+}
+
+- (BOOL)performKeyEquivalent:(NSEvent *)o_event
+{
+    BOOL b_force = NO;
+    // these are key events which should be handled by vlc core, but are attached to a main menu item
+    if (![self isEvent: o_event forKey: "key-vol-up"] &&
+        ![self isEvent: o_event forKey: "key-vol-down"] &&
+        ![self isEvent: o_event forKey: "key-vol-mute"] &&
+        ![self isEvent: o_event forKey: "key-prev"] &&
+        ![self isEvent: o_event forKey: "key-next"] &&
+        ![self isEvent: o_event forKey: "key-jump+short"] &&
+        ![self isEvent: o_event forKey: "key-jump-short"]) {
+        /* We indeed want to prioritize some Cocoa key equivalent against libvlc,
+         so we perform the menu equivalent now. */
+        if ([[NSApp mainMenu] performKeyEquivalent:o_event])
+            return TRUE;
+    }
+    else
+        b_force = YES;
+
+    VLCCoreInteraction *coreInteraction = [VLCCoreInteraction sharedInstance];
+    return [coreInteraction hasDefinedShortcutKey:o_event force:b_force] ||
+    [coreInteraction keyEvent:o_event];
+}
+
+#pragma mark - data view vs video output handling
 
 - (void)makeCollectionViewVisible
 {
@@ -316,7 +316,7 @@ static const float f_min_window_height = 307.;
 }
 
 #pragma mark -
-#pragma mark overwritten default functionality
+#pragma mark overwritten default window functionality
 
 - (void)windowResizedOrMoved:(NSNotification *)notification
 {

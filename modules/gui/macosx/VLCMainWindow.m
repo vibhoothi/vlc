@@ -51,15 +51,12 @@
     BOOL videoPlaybackEnabled;
     BOOL dropzoneActive;
     BOOL minimizedView;
+    BOOL collectionViewRemoved;
 
-    BOOL b_video_playback_enabled;
-    BOOL b_minimized_view;
-    CGFloat f_lastSplitViewHeight;
-    CGFloat f_lastLeftSplitViewWidth;
+    CGFloat lastCollectionViewHeight;
 
     NSRect frameBeforePlayback;
 }
-
 
 @end
 
@@ -188,22 +185,60 @@ static const float f_min_window_height = 307.;
     /* update fs button to reflect state for next startup */
     if (var_InheritBool(pl_Get(getIntf()), "fullscreen"))
         [self.controlsBar setFullscreenState:YES];
+}
 
+- (void)makeCollectionViewVisible
+{
+    [self setContentMinSize: NSMakeSize(604., f_min_window_height)];
 
+    NSRect old_frame = [self frame];
+    CGFloat newHeight = [self minSize].height;
+    if (old_frame.size.height < newHeight) {
+        NSRect new_frame = old_frame;
+        new_frame.origin.y = old_frame.origin.y + old_frame.size.height - newHeight;
+        new_frame.size.height = newHeight;
+
+        [[self animator] setFrame:new_frame display:YES animate:YES];
+    }
+
+    [self.videoView setHidden:YES];
+    [_collectionView setHidden:NO];
+    if (self.nativeFullscreenMode && [self fullscreen]) {
+        [self showControlsBar];
+        [self.fspanel setNonActive];
+    }
+
+    [self makeFirstResponder:_collectionView];
+}
+
+// Hides the collection view and makes the vout view in foreground
+- (void)makeCollectionViewHidden
+{
+    [self setContentMinSize: NSMakeSize(604., f_min_video_height)];
+
+    [_collectionView setHidden:YES];
+    [self.videoView setHidden:NO];
+    if (self.nativeFullscreenMode && [self fullscreen]) {
+        [self hideControlsBar];
+        [self.fspanel setActive];
+    }
+
+    if ([[self.videoView subviews] count] > 0)
+        [self makeFirstResponder: [[self.videoView subviews] firstObject]];
 }
 
 - (void)changePlaylistState:(VLCPlaylistStateEvent)event
 {
     // Beware, this code is really ugly
 
-    msg_Dbg(getIntf(), "toggle playlist from state: minimized view %i. Event %i", b_minimized_view, event);
+    msg_Dbg(getIntf(), "toggle playlist from state: removed collectionview %i, minimized view %i. Event %i", collectionViewRemoved, minimizedView, event);
     if (![self isVisible] && event == psUserMenuEvent) {
         [self makeKeyAndOrderFront: nil];
         return;
     }
 
-    BOOL b_activeVideo = [[VLCMain sharedInstance] activeVideoPlayback];
-    BOOL b_restored = NO;
+    BOOL activeVideo = [[VLCMain sharedInstance] activeVideoPlayback];
+    BOOL restored = NO;
 
     // ignore alt if triggered through main menu shortcut
     BOOL b_have_alt_key = ([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask) != 0;
@@ -214,20 +249,74 @@ static const float f_min_window_height = 307.;
     if(event == psUserMenuEvent)
         event = psUserEvent;
 
-    if (!(self.nativeFullscreenMode && self.fullscreen) && ((b_have_alt_key && b_activeVideo)
-                                                                              || (self.nonembedded && event == psUserEvent)
-                                                                              || (!b_activeVideo && event == psUserEvent)
-                                                                              || (b_minimized_view && event == psVideoStartedOrStoppedEvent))) {
+    if (!(self.nativeFullscreenMode && self.fullscreen) && !collectionViewRemoved && ((b_have_alt_key && activeVideo)
+                                                                                    || (self.nonembedded && event == psUserEvent)
+                                                                                    || (!activeVideo && event == psUserEvent)
+                                                                                    || (minimizedView && event == psVideoStartedOrStoppedEvent))) {
         // for starting playback, window is resized through resized events
         // for stopping playback, resize through reset to previous frame
-        b_minimized_view = NO;
+        [self hideCollectionView: event != psVideoStartedOrStoppedEvent];
+        minimizedView = NO;
+    } else {
+        if (collectionViewRemoved) {
+            if (!self.nonembedded || (event == psUserEvent && self.nonembedded))
+                [self showCollectionView: event != psVideoStartedOrStoppedEvent];
+
+            if (event != psUserEvent)
+                minimizedView = YES;
+            else
+                minimizedView = NO;
+
+            if (activeVideo)
+                restored = YES;
+        }
+
+        if (!self.nonembedded) {
+            if (([self.videoView isHidden] && activeVideo) || restored || (activeVideo && event != psUserEvent))
+                [self makeCollectionViewHidden];
+            else
+                [self makeCollectionViewVisible];
+        } else {
+            [_collectionView setHidden: NO];
+            [self.videoView setHidden: YES];
+            [self showControlsBar];
+        }
     }
-    msg_Dbg(getIntf(), "toggle playlist to state: minimized view %i", b_minimized_view);
+
+    msg_Dbg(getIntf(), "toggle playlist to state: removed collectionview %i, minimized view %i", collectionViewRemoved, minimizedView);
 }
 
-- (IBAction)dropzoneButtonAction:(id)sender
+- (void)hideCollectionView:(BOOL)resize
 {
-    [[[VLCMain sharedInstance] open] openFileGeneric];
+    if (resize) {
+        NSRect winrect = [self frame];
+        lastCollectionViewHeight = [_collectionView frame].size.height;
+        winrect.size.height = winrect.size.height - lastCollectionViewHeight;
+        winrect.origin.y = winrect.origin.y + lastCollectionViewHeight;
+        [self setFrame:winrect display:YES animate:YES];
+    }
+
+    [self setContentMinSize: NSMakeSize(604., [self.controlsBar height])];
+    [self setContentMaxSize: NSMakeSize(FLT_MAX, [self.controlsBar height])];
+
+    collectionViewRemoved = YES;
+}
+
+- (void)showCollectionView:(BOOL)resize
+{
+    [self updateWindow];
+    [self setContentMinSize:NSMakeSize(604., f_min_window_height)];
+    [self setContentMaxSize: NSMakeSize(FLT_MAX, FLT_MAX)];
+
+    if (resize) {
+        NSRect winrect;
+        winrect = [self frame];
+        winrect.size.height = winrect.size.height + lastCollectionViewHeight;
+        winrect.origin.y = winrect.origin.y - lastCollectionViewHeight;
+        [self setFrame:winrect display:YES animate:YES];
+    }
+
+    collectionViewRemoved = NO;
 }
 
 #pragma mark -
@@ -409,7 +498,7 @@ static const float f_min_window_height = 307.;
 
             // only resize back to minimum view of this is still desired final state
             CGFloat f_threshold_height = f_min_video_height + [self.controlsBar height];
-            if(frameBeforePlayback.size.height > f_threshold_height || b_minimized_view) {
+            if(frameBeforePlayback.size.height > f_threshold_height || minimizedView) {
 
                 if ([[VLCMain sharedInstance] isTerminating])
                     [self setFrame:frameBeforePlayback display:YES];

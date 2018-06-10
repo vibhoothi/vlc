@@ -25,13 +25,42 @@
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="3Bj-Gx-5iu" userLabel="Middle Content">
                         <rect key="frame" x="0.0" y="36" width="716" height="297"/>
                         <subviews>
+                            <scrollView wantsLayer="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ke-Vb-9dU">
+                                <rect key="frame" x="0.0" y="0.0" width="716" height="297"/>
+                                <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="V1V-11-Tss">
+                                    <rect key="frame" x="1" y="1" width="714" height="295"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <collectionView id="9My-dJ-ffm">
+                                            <rect key="frame" x="0.0" y="0.0" width="714" height="158"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                            <color key="primaryBackgroundColor" name="systemGreenColor" catalog="System" colorSpace="catalog"/>
+                                            <connections>
+                                                <outlet property="itemPrototype" destination="jCi-fI-3Z2" id="hDE-WR-6dZ"/>
+                                            </connections>
+                                        </collectionView>
+                                    </subviews>
+                                </clipView>
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="EAD-vz-amF">
+                                    <rect key="frame" x="1" y="144" width="233" height="15"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="CoO-yc-KK4">
+                                    <rect key="frame" x="234" y="1" width="15" height="143"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
                             <customView focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="4665" customClass="VLCVoutView">
                                 <rect key="frame" x="0.0" y="0.0" width="716" height="297"/>
                             </customView>
                         </subviews>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="5Ke-Vb-9dU" secondAttribute="bottom" id="90T-Zr-m2C"/>
+                            <constraint firstItem="5Ke-Vb-9dU" firstAttribute="leading" secondItem="3Bj-Gx-5iu" secondAttribute="leading" id="Fc8-GH-CLd"/>
                             <constraint firstItem="4665" firstAttribute="leading" secondItem="3Bj-Gx-5iu" secondAttribute="leading" id="P14-cO-Y3q"/>
                             <constraint firstAttribute="bottom" secondItem="4665" secondAttribute="bottom" id="Tzn-Qi-iVK"/>
+                            <constraint firstItem="5Ke-Vb-9dU" firstAttribute="top" secondItem="3Bj-Gx-5iu" secondAttribute="top" id="VhT-Bp-0jB"/>
+                            <constraint firstAttribute="trailing" secondItem="5Ke-Vb-9dU" secondAttribute="trailing" id="lCs-r3-s73"/>
                             <constraint firstAttribute="trailing" secondItem="4665" secondAttribute="trailing" id="lec-La-MnM"/>
                             <constraint firstItem="4665" firstAttribute="top" secondItem="3Bj-Gx-5iu" secondAttribute="top" id="nz6-sf-xgK"/>
                         </constraints>
@@ -342,6 +371,7 @@
                 </constraints>
             </view>
             <connections>
+                <outlet property="collectionView" destination="9My-dJ-ffm" id="c6h-CY-Y2b"/>
                 <outlet property="controlsBar" destination="5339" id="5624"/>
                 <outlet property="videoView" destination="4665" id="5622"/>
                 <outlet property="videoViewBottomConstraint" destination="ZVn-EJ-9CG" id="8F2-BP-yVS"/>
@@ -376,6 +406,15 @@
                 <outlet property="volumeUpButton" destination="3652" id="vXR-KC-L2N"/>
             </connections>
         </customObject>
+        <collectionViewItem id="jCi-fI-3Z2">
+            <connections>
+                <outlet property="view" destination="LL0-re-ZbQ" id="mmD-XP-2Sr"/>
+            </connections>
+        </collectionViewItem>
+        <view id="LL0-re-ZbQ">
+            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+            <autoresizingMask key="autoresizingMask"/>
+        </view>
     </objects>
     <resources>
         <image name="backward-6btns" width="28" height="23"/>

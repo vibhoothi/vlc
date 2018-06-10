@@ -823,7 +823,7 @@ static inline const char * __config_GetLabel(vlc_object_t *p_this, const char *p
             [self resetControls];
 
             /* force config file creation, since libvlc won't exit normally */
-            config_SaveConfigFile(self->p_intf);
+            config_SaveConfigFile(p_intf);
 
             /* reset OS X defaults */
             [[VLCMain sharedInstance] resetAndReinitializeUserDefaults];

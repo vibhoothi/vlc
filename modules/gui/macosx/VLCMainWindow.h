@@ -66,28 +66,6 @@ typedef enum {
 @property (readwrite, weak) IBOutlet NSBox              *dropzoneBox;
 @property (readwrite, weak) IBOutlet NSImageView        *dropzoneImageView;
 
-// Podcast View outlets
-@property (readwrite, weak) IBOutlet NSView             *podcastView;
-@property (readwrite, weak) IBOutlet NSButton           *podcastAddButton;
-@property (readwrite, weak) IBOutlet NSButton           *podcastRemoveButton;
-@property (weak) IBOutlet NSLayoutConstraint *tableViewToPodcastConstraint;
-
-// Podcast Subscribe Window outlets
-@property (readwrite)       IBOutlet NSWindow           *podcastSubscribeWindow;
-@property (readwrite, weak) IBOutlet NSTextField        *podcastSubscribeTitle;
-@property (readwrite, weak) IBOutlet NSTextField        *podcastSubscribeSubtitle;
-@property (readwrite, weak) IBOutlet NSTextField        *podcastSubscribeUrlField;
-@property (readwrite, weak) IBOutlet NSButton           *podcastSubscribeOkButton;
-@property (readwrite, weak) IBOutlet NSButton           *podcastSubscribeCancelButton;
-
-// Podcast Unsubscribe Window outlets
-@property (readwrite)       IBOutlet NSWindow           *podcastUnsubscribeWindow;
-@property (readwrite, weak) IBOutlet NSTextField        *podcastUnsubscirbeTitle;
-@property (readwrite, weak) IBOutlet NSTextField        *podcastUnsubscribeSubtitle;
-@property (readwrite, weak) IBOutlet NSPopUpButton      *podcastUnsubscribePopUpButton;
-@property (readwrite, weak) IBOutlet NSButton           *podcastUnsubscribeOkButton;
-@property (readwrite, weak) IBOutlet NSButton           *podcastUnsubscribeCancelButton;
-
 @property (readonly) BOOL nativeFullscreenMode;
 @property (readwrite) BOOL nonembedded;
 
@@ -96,11 +74,6 @@ typedef enum {
 - (void)changePlaylistState:(VLCPlaylistStateEvent)event;
 
 - (IBAction)dropzoneButtonAction:(id)sender;
-
-- (IBAction)addPodcast:(id)sender;
-- (IBAction)addPodcastWindowAction:(id)sender;
-- (IBAction)removePodcast:(id)sender;
-- (IBAction)removePodcastWindowAction:(id)sender;
 
 - (IBAction)searchItem:(id)sender;
 - (IBAction)highlightSearchField:(id)sender;

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14113" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14269.12" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14269.12"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -13,11 +13,11 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="VLC media player" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="21" userLabel="Main Window" customClass="VLCMainWindow">
+        <window title="VLC media player" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="21" userLabel="Main Window" customClass="VLCMainWindow">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
             <rect key="contentRect" x="53" y="419" width="716" height="333"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="800"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1178"/>
             <view key="contentView" id="2">
                 <rect key="frame" x="0.0" y="0.0" width="716" height="333"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -25,7 +25,7 @@
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="3Bj-Gx-5iu" userLabel="Middle Content">
                         <rect key="frame" x="0.0" y="36" width="716" height="297"/>
                         <subviews>
-                            <customView hidden="YES" focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="4665" customClass="VLCVoutView">
+                            <customView focusRingType="none" translatesAutoresizingMaskIntoConstraints="NO" id="4665" customClass="VLCVoutView">
                                 <rect key="frame" x="0.0" y="0.0" width="716" height="297"/>
                             </customView>
                         </subviews>
@@ -343,18 +343,6 @@
             </view>
             <connections>
                 <outlet property="controlsBar" destination="5339" id="5624"/>
-                <outlet property="podcastSubscribeCancelButton" destination="5268" id="nSd-2J-TCb"/>
-                <outlet property="podcastSubscribeOkButton" destination="5269" id="vHf-fh-21u"/>
-                <outlet property="podcastSubscribeSubtitle" destination="5274" id="wLI-Bk-rB1"/>
-                <outlet property="podcastSubscribeTitle" destination="5275" id="foW-M7-zvQ"/>
-                <outlet property="podcastSubscribeUrlField" destination="5289" id="atN-De-g9Y"/>
-                <outlet property="podcastSubscribeWindow" destination="5265" id="dbr-XL-jEV"/>
-                <outlet property="podcastUnsubscirbeTitle" destination="5311" id="XeP-LX-gv4"/>
-                <outlet property="podcastUnsubscribeCancelButton" destination="5307" id="5ns-Wt-16P"/>
-                <outlet property="podcastUnsubscribeOkButton" destination="5308" id="n0p-PI-HLp"/>
-                <outlet property="podcastUnsubscribePopUpButton" destination="5319" id="dnR-ci-Uv7"/>
-                <outlet property="podcastUnsubscribeSubtitle" destination="5310" id="oMV-ik-riY"/>
-                <outlet property="podcastUnsubscribeWindow" destination="5305" id="9yb-CN-b5O"/>
                 <outlet property="videoView" destination="4665" id="5622"/>
                 <outlet property="videoViewBottomConstraint" destination="ZVn-EJ-9CG" id="8F2-BP-yVS"/>
             </connections>
@@ -388,173 +376,6 @@
                 <outlet property="volumeUpButton" destination="3652" id="vXR-KC-L2N"/>
             </connections>
         </customObject>
-        <window title="Subscribe to a podcast" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="5265" userLabel="Add Podcast">
-            <windowStyleMask key="styleMask" titled="YES"/>
-            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="265" y="520" width="612" height="157"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
-            <value key="minSize" type="size" width="612" height="157"/>
-            <value key="maxSize" type="size" width="612" height="159"/>
-            <view key="contentView" id="5266">
-                <rect key="frame" x="0.0" y="0.0" width="612" height="157"/>
-                <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="572" translatesAutoresizingMaskIntoConstraints="NO" id="5275">
-                        <rect key="frame" x="18" y="120" width="576" height="17"/>
-                        <textFieldCell key="cell" selectable="YES" sendsActionOnEndEditing="YES" title="Subscribe to a podcast" id="5276">
-                            <font key="font" metaFont="systemBold"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="572" translatesAutoresizingMaskIntoConstraints="NO" id="5274">
-                        <rect key="frame" x="18" y="98" width="576" height="14"/>
-                        <textFieldCell key="cell" selectable="YES" sendsActionOnEndEditing="YES" title="Enter URL of the podcast to subscribe to:" usesSingleLineMode="YES" id="5277">
-                            <font key="font" metaFont="smallSystem"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5289">
-                        <rect key="frame" x="20" y="68" width="572" height="22"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="5290">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5269">
-                        <rect key="frame" x="497" y="13" width="101" height="32"/>
-                        <buttonCell key="cell" type="push" title="Subscribe" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="5284">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                            <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
-                        </buttonCell>
-                        <connections>
-                            <action selector="addPodcastWindowAction:" target="21" id="5301"/>
-                        </connections>
-                    </button>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5268">
-                        <rect key="frame" x="415" y="13" width="82" height="32"/>
-                        <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="5285">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                            <string key="keyEquivalent" base64-UTF8="YES">
-Gw
-</string>
-                        </buttonCell>
-                        <connections>
-                            <action selector="addPodcastWindowAction:" target="21" id="5300"/>
-                        </connections>
-                    </button>
-                </subviews>
-                <constraints>
-                    <constraint firstItem="5289" firstAttribute="top" secondItem="5274" secondAttribute="bottom" constant="8" id="1za-0q-K87"/>
-                    <constraint firstAttribute="bottom" secondItem="5269" secondAttribute="bottom" constant="20" symbolic="YES" id="3eF-Uc-ilV"/>
-                    <constraint firstItem="5269" firstAttribute="leading" secondItem="5268" secondAttribute="trailing" constant="12" symbolic="YES" id="5K2-Jv-18Q"/>
-                    <constraint firstItem="5275" firstAttribute="leading" secondItem="5266" secondAttribute="leading" constant="20" symbolic="YES" id="9La-tT-5fw"/>
-                    <constraint firstItem="5289" firstAttribute="leading" secondItem="5274" secondAttribute="leading" id="9Vx-M4-eXI"/>
-                    <constraint firstItem="5269" firstAttribute="top" secondItem="5289" secondAttribute="bottom" constant="27" id="Grp-4N-cMG"/>
-                    <constraint firstAttribute="trailing" secondItem="5269" secondAttribute="trailing" constant="20" symbolic="YES" id="Hg7-9m-md4"/>
-                    <constraint firstItem="5274" firstAttribute="leading" secondItem="5275" secondAttribute="leading" id="LVm-oc-HZO"/>
-                    <constraint firstItem="5274" firstAttribute="trailing" secondItem="5275" secondAttribute="trailing" id="Pet-sl-mWc"/>
-                    <constraint firstItem="5275" firstAttribute="top" secondItem="5266" secondAttribute="top" constant="20" id="Q5c-aC-NA7"/>
-                    <constraint firstItem="5274" firstAttribute="top" secondItem="5275" secondAttribute="bottom" constant="8" id="ZNK-fK-xXa"/>
-                    <constraint firstItem="5289" firstAttribute="trailing" secondItem="5274" secondAttribute="trailing" id="l00-Ic-bRw"/>
-                    <constraint firstAttribute="trailing" secondItem="5275" secondAttribute="trailing" constant="20" symbolic="YES" id="o0Y-9T-Ntg"/>
-                    <constraint firstItem="5268" firstAttribute="centerY" secondItem="5269" secondAttribute="centerY" id="xVB-xB-E42"/>
-                </constraints>
-            </view>
-        </window>
-        <window title="Unsubscribe from a podcast" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="5305" userLabel="Remove Podcast">
-            <windowStyleMask key="styleMask" titled="YES"/>
-            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="265" y="520" width="612" height="156"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
-            <value key="minSize" type="size" width="612" height="156"/>
-            <value key="maxSize" type="size" width="612" height="159"/>
-            <view key="contentView" id="5306">
-                <rect key="frame" x="0.0" y="0.0" width="612" height="156"/>
-                <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="572" translatesAutoresizingMaskIntoConstraints="NO" id="5311">
-                        <rect key="frame" x="18" y="119" width="576" height="17"/>
-                        <textFieldCell key="cell" selectable="YES" sendsActionOnEndEditing="YES" title="Unsubscribe from a podcast" id="5312">
-                            <font key="font" metaFont="systemBold"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="572" translatesAutoresizingMaskIntoConstraints="NO" id="5310">
-                        <rect key="frame" x="18" y="97" width="576" height="14"/>
-                        <textFieldCell key="cell" selectable="YES" sendsActionOnEndEditing="YES" title="Select the podcast you would like to unsubscribe from:" usesSingleLineMode="YES" id="5313">
-                            <font key="font" metaFont="smallSystem"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5319">
-                        <rect key="frame" x="18" y="65" width="577" height="26"/>
-                        <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="5322" id="5320">
-                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="menu"/>
-                            <menu key="menu" title="OtherViews" id="5321">
-                                <items>
-                                    <menuItem title="Item 1" state="on" id="5322"/>
-                                    <menuItem title="Item 2" id="5323"/>
-                                    <menuItem title="Item 3" id="5324"/>
-                                </items>
-                            </menu>
-                        </popUpButtonCell>
-                    </popUpButton>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5308">
-                        <rect key="frame" x="481" y="13" width="117" height="32"/>
-                        <buttonCell key="cell" type="push" title="Unsubscribe" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="5315">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                            <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
-                        </buttonCell>
-                        <connections>
-                            <action selector="removePodcastWindowAction:" target="21" id="5332"/>
-                        </connections>
-                    </button>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5307">
-                        <rect key="frame" x="399" y="13" width="82" height="32"/>
-                        <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="5316">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                            <string key="keyEquivalent" base64-UTF8="YES">
-Gw
-</string>
-                        </buttonCell>
-                        <connections>
-                            <action selector="removePodcastWindowAction:" target="21" id="5333"/>
-                        </connections>
-                    </button>
-                </subviews>
-                <constraints>
-                    <constraint firstItem="5310" firstAttribute="top" secondItem="5311" secondAttribute="bottom" constant="8" id="006-80-vNL"/>
-                    <constraint firstAttribute="bottom" secondItem="5308" secondAttribute="bottom" constant="20" symbolic="YES" id="5i3-W3-j3J"/>
-                    <constraint firstItem="5307" firstAttribute="centerY" secondItem="5308" secondAttribute="centerY" id="8ME-Va-xMm"/>
-                    <constraint firstItem="5311" firstAttribute="leading" secondItem="5306" secondAttribute="leading" constant="20" symbolic="YES" id="9l2-yj-Vyc"/>
-                    <constraint firstItem="5319" firstAttribute="trailing" secondItem="5310" secondAttribute="trailing" id="Aes-LX-9SJ"/>
-                    <constraint firstItem="5319" firstAttribute="top" secondItem="5310" secondAttribute="bottom" constant="8" id="Jph-cy-eOW"/>
-                    <constraint firstItem="5308" firstAttribute="leading" secondItem="5307" secondAttribute="trailing" constant="12" symbolic="YES" id="KEY-Ky-xcn"/>
-                    <constraint firstItem="5310" firstAttribute="trailing" secondItem="5311" secondAttribute="trailing" id="Ugo-of-dNJ"/>
-                    <constraint firstItem="5319" firstAttribute="leading" secondItem="5310" secondAttribute="leading" id="YHw-aU-bzs"/>
-                    <constraint firstItem="5310" firstAttribute="leading" secondItem="5311" secondAttribute="leading" id="dlc-tz-X5d"/>
-                    <constraint firstItem="5308" firstAttribute="top" secondItem="5319" secondAttribute="bottom" constant="27" id="jFb-4F-Aop"/>
-                    <constraint firstAttribute="trailing" secondItem="5308" secondAttribute="trailing" constant="20" symbolic="YES" id="pWc-DY-K5v"/>
-                    <constraint firstAttribute="trailing" secondItem="5311" secondAttribute="trailing" constant="20" symbolic="YES" id="t4M-tP-BdL"/>
-                    <constraint firstItem="5311" firstAttribute="top" secondItem="5306" secondAttribute="top" constant="20" symbolic="YES" id="yGf-Jb-tLN"/>
-                </constraints>
-            </view>
-            <point key="canvasLocation" x="426" y="875"/>
-        </window>
     </objects>
     <resources>
         <image name="backward-6btns" width="28" height="23"/>

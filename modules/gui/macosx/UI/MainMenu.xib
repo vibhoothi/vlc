@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12121" systemVersion="17E139j" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14269.12" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <development version="7000" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12121"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14269.12"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="VLCMainMenu">
@@ -146,7 +147,6 @@
                 <outlet property="toggleEffectsButton" destination="5537" id="Gg8-nl-gzx"/>
                 <outlet property="toggleJumpButtons" destination="5240" id="53V-UC-536"/>
                 <outlet property="togglePlaymodeButtons" destination="5242" id="9TB-F7-ttT"/>
-                <outlet property="toggleSidebar" destination="5413" id="cz7-Zr-1lC"/>
                 <outlet property="trackSynchronization" destination="4412" id="BHW-NJ-jbd"/>
                 <outlet property="videoMenu" destination="334" id="7Ri-Tc-yej"/>
                 <outlet property="videoeffects" destination="2390" id="fXe-JA-9GI"/>
@@ -356,11 +356,7 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="K9x-W6-ycv"/>
-                            <menuItem title="Find" keyEquivalent="F" id="6J6-tz-ctn">
-                                <connections>
-                                    <action selector="highlightSearchField:" target="-1" id="GlP-7U-XF1"/>
-                                </connections>
-                            </menuItem>
+                            <menuItem title="Find" keyEquivalent="F" id="6J6-tz-ctn"/>
                         </items>
                     </menu>
                 </menuItem>
@@ -384,12 +380,6 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="toggleEffectsButton:" target="-2" id="QSm-2E-Nlo"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Show Sidebar" id="5413">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="toggleSidebar:" target="-2" id="e7y-3l-ZUS"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="5250"/>

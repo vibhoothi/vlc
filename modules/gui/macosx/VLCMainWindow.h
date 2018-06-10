@@ -37,7 +37,6 @@
 @class VLCDetachedVideoWindow;
 @class VLCMainWindowControlsBar;
 @class VLCVoutView;
-@class PXSourceList;
 
 typedef enum {
     psUserEvent,
@@ -48,24 +47,6 @@ typedef enum {
 
 @interface VLCMainWindow : VLCVideoWindowCommon
 
-// General MainWindow outlets
-@property (readwrite, weak) IBOutlet NSTextField        *searchField;
-@property (readwrite, weak) IBOutlet NSScrollView       *playlistScrollView;
-@property (readwrite, weak) IBOutlet NSOutlineView      *outlineView;
-@property (readwrite, weak) IBOutlet NSSplitView        *splitView;
-@property (readwrite, weak) IBOutlet NSView             *splitViewLeft;
-@property (readwrite, weak) IBOutlet NSView             *splitViewRight;
-@property (readwrite, weak) IBOutlet PXSourceList       *sidebarView;
-@property (readwrite, weak) IBOutlet NSScrollView       *sidebarScrollView;
-@property (readwrite, weak) IBOutlet NSTextField        *categoryLabel;
-
-// Dropzone outlets
-@property (readwrite, weak) IBOutlet NSView             *dropzoneView;
-@property (readwrite, weak) IBOutlet NSButton           *dropzoneButton;
-@property (readwrite, weak) IBOutlet NSTextField        *dropzoneLabel;
-@property (readwrite, weak) IBOutlet NSBox              *dropzoneBox;
-@property (readwrite, weak) IBOutlet NSImageView        *dropzoneImageView;
-
 @property (readonly) BOOL nativeFullscreenMode;
 @property (readwrite) BOOL nonembedded;
 
@@ -73,18 +54,8 @@ typedef enum {
 
 - (void)changePlaylistState:(VLCPlaylistStateEvent)event;
 
-- (IBAction)dropzoneButtonAction:(id)sender;
-
-- (IBAction)searchItem:(id)sender;
-- (IBAction)highlightSearchField:(id)sender;
-
 - (void)windowResizedOrMoved:(NSNotification *)notification;
 
-- (void)reloadSidebar;
-
-- (void)toggleLeftSubSplitView;
-- (void)showDropZone;
-- (void)hideDropZone;
 - (void)updateTimeSlider;
 - (void)updateWindow;
 - (void)updateName;

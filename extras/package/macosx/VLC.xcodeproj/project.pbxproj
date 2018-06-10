@@ -57,6 +57,7 @@
 		1C3113F11E508C7600D4DD76 /* VLCRendererItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BBBB8B11D10A994001BD9BA /* VLCRendererItem.m */; };
 		1C3113F31E508C7600D4DD76 /* VLCRendererMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BBBB8A81D108A17001BD9BA /* VLCRendererMenuController.m */; };
 		1C3114031E508C8800D4DD76 /* AppleRemote.m in Sources */ = {isa = PBXBuildFile; fileRef = CC6D8D9D0A878DED006F2BBE /* AppleRemote.m */; };
+		1C31140B1E508C8800D4DD76 /* SPInvocationGrabbing.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF0777A13659A8000AF19FD /* SPInvocationGrabbing.m */; };
 		1C31140D1E508C8800D4DD76 /* SPMediaKeyTap.m in Sources */ = {isa = PBXBuildFile; fileRef = CCF0777C13659A8000AF19FD /* SPMediaKeyTap.m */; };
 		1C5716AC1F5B142200678627 /* coreaudio_common.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C5716AB1F5B142200678627 /* coreaudio_common.c */; };
 		1CAC3EE820CD1B3B00613DB2 /* VLCVideoOutputProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CAC3EE620CD1B3B00613DB2 /* VLCVideoOutputProvider.m */; };
@@ -1377,31 +1378,10 @@
 			name = "UI Graphics";
 			sourceTree = "<group>";
 		};
-		CC0CD0E413DE0EB500B0D90D /* PXSourceList */ = {
-			isa = PBXGroup;
-			children = (
-				6B8A6AEF21279D2500DC29F3 /* Internal */,
-				6B8A6AF621279D2600DC29F3 /* PXSourceList.h */,
-				6B8A6AF921279D2600DC29F3 /* PXSourceList.m */,
-				6B8A6AFA21279D2600DC29F3 /* PXSourceListBadgeCell.h */,
-				6B8A6AFC21279D2600DC29F3 /* PXSourceListBadgeCell.m */,
-				6B8A6AF821279D2600DC29F3 /* PXSourceListBadgeView.h */,
-				6B8A6AEB21279D2500DC29F3 /* PXSourceListBadgeView.m */,
-				6B8A6AEC21279D2500DC29F3 /* PXSourceListDataSource.h */,
-				6B8A6AFB21279D2600DC29F3 /* PXSourceListDelegate.h */,
-				6B8A6AEE21279D2500DC29F3 /* PXSourceListItem.h */,
-				6B8A6AF521279D2500DC29F3 /* PXSourceListItem.m */,
-				6B8A6AED21279D2500DC29F3 /* PXSourceListTableCellView.h */,
-				6B8A6AF721279D2600DC29F3 /* PXSourceListTableCellView.m */,
-			);
-			path = PXSourceList;
-			sourceTree = "<group>";
-		};
 		CC0CD0E513DE0FC600B0D90D /* Imported Code */ = {
 			isa = PBXGroup;
 			children = (
 				6B8223FD1E4D29F100833BE1 /* Apple Remote */,
-				CC0CD0E413DE0EB500B0D90D /* PXSourceList */,
 				CC78DA4A13DE0E0100E9603C /* SPMediaKeyTap */,
 			);
 			name = "Imported Code";
@@ -1601,7 +1581,7 @@
 				1CFE8D591EA0D42A00E94451 /* VLCErrorWindowController.m in Sources */,
 				6B4D50961E7A7D16004479B5 /* NSSound+VLCAdditions.m in Sources */,
 				6BF093F91EE0182B0049D8B0 /* VLCTimeField.m in Sources */,
-				6B8A6B0E21286D3600DC29F3 /* VLCSourceListBadgeButton.m in Sources */,
+				1C31140B1E508C8800D4DD76 /* SPInvocationGrabbing.m in Sources */,
 				1C31140D1E508C8800D4DD76 /* SPMediaKeyTap.m in Sources */,
 				1C3113EF1E508C7600D4DD76 /* VLCRendererDiscovery.m in Sources */,
 				1C3113F11E508C7600D4DD76 /* VLCRendererItem.m in Sources */,

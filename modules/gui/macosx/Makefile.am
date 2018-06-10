@@ -48,9 +48,6 @@ libmacosx_plugin_la_SOURCES = \
 	gui/macosx/VLCPLModel.h gui/macosx/VLCPLModel.m \
 	gui/macosx/prefs.h gui/macosx/prefs.m \
 	gui/macosx/prefs_widgets.h gui/macosx/prefs_widgets.m \
-	gui/macosx/PXSourceList.h gui/macosx/PXSourceList.m \
-	gui/macosx/PXSourceListDataSource.h gui/macosx/PXSourceListDelegate.h \
-	gui/macosx/SideBarItem.h gui/macosx/SideBarItem.m \
 	gui/macosx/VLCPopupPanelController.h gui/macosx/VLCPopupPanelController.m \
 	gui/macosx/VLCTextfieldPanelController.h gui/macosx/VLCTextfieldPanelController.m \
 	gui/macosx/VLCSimplePrefsController.h gui/macosx/VLCSimplePrefsController.m \

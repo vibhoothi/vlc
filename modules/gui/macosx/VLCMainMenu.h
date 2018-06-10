@@ -66,7 +66,6 @@
 @property (readwrite, weak) IBOutlet NSMenuItem *toggleJumpButtons;
 @property (readwrite, weak) IBOutlet NSMenuItem *togglePlaymodeButtons;
 @property (readwrite, weak) IBOutlet NSMenuItem *toggleEffectsButton;
-@property (readwrite, weak) IBOutlet NSMenuItem *toggleSidebar;
 @property (readwrite, weak) IBOutlet NSMenu *playlistTableColumnsMenu;
 @property (readwrite, weak) IBOutlet NSMenuItem *playlistTableColumns;
 
@@ -214,7 +213,6 @@
 - (void)setupMenus;
 - (void)setSubmenusEnabled:(BOOL)b_enabled;
 - (void)setRateControlsEnabled:(BOOL)b_enabled;
-- (void)updateSidebarMenuItem:(BOOL)show;
 
 - (IBAction)openAddonManager:(id)sender;
 
@@ -228,7 +226,6 @@
 - (IBAction)toggleEffectsButton:(id)sender;
 - (IBAction)toggleJumpButtons:(id)sender;
 - (IBAction)togglePlaymodeButtons:(id)sender;
-- (IBAction)toggleSidebar:(id)sender;
 
 - (IBAction)play:(id)sender;
 - (IBAction)stop:(id)sender;

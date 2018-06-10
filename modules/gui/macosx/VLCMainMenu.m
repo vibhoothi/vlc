@@ -377,7 +377,6 @@
     [_togglePlaymodeButtons setState: var_InheritBool(getIntf(), "macosx-show-playmode-buttons")];
     [_toggleEffectsButton setTitle: _NS("Show Audio Effects Button")];
     [_toggleEffectsButton setState: var_InheritBool(getIntf(), "macosx-show-effects-button")];
-    [_toggleSidebar setTitle: _NS("Show Sidebar")];
     [_playlistTableColumns setTitle: _NS("Playlist Table Columns")];
 
     [_controlsMenu setTitle: _NS("Playback")];
@@ -695,16 +694,6 @@
     config_PutInt("macosx-show-playmode-buttons", b_value);
     [(VLCMainWindowControlsBar *)[[[VLCMain sharedInstance] mainWindow] controlsBar] togglePlaymodeButtons];
     [_togglePlaymodeButtons setState: b_value];
-}
-
-- (IBAction)toggleSidebar:(id)sender
-{
-    [[[VLCMain sharedInstance] mainWindow] toggleLeftSubSplitView];
-}
-
-- (void)updateSidebarMenuItem:(BOOL)show;
-{
-    [_toggleSidebar setState:show];
 }
 
 #pragma mark - Playback

@@ -1,7 +1,7 @@
 /*****************************************************************************
  * VLCMainWindow.h: MacOS X interface module
  *****************************************************************************
- * Copyright (C) 2002-2014 VLC authors and VideoLAN
+ * Copyright (C) 2002-2018 VLC authors and VideoLAN
  * $Id$
  *
  * Authors: Felix Paul Kühne <fkuehne -at- videolan -dot- org>
@@ -49,6 +49,8 @@ typedef enum {
 
 @property (readonly) BOOL nativeFullscreenMode;
 @property (readwrite) BOOL nonembedded;
+
+@property (strong) IBOutlet NSCollectionView *collectionView;
 
 @property (readonly) VLCFSPanelController* fspanel;
 

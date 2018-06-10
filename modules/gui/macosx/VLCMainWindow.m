@@ -50,20 +50,19 @@
 #import "VLCVideoOutputProvider.h"
 
 
-@interface VLCMainWindow() <PXSourceListDataSource, PXSourceListDelegate, NSOutlineViewDataSource, NSOutlineViewDelegate, NSWindowDelegate, NSAnimationDelegate, NSSplitViewDelegate>
+@interface VLCMainWindow() <PXSourceListDataSource, PXSourceListDelegate, NSOutlineViewDataSource, NSOutlineViewDelegate, NSWindowDelegate, NSAnimationDelegate>
 {
     BOOL videoPlaybackEnabled;
     BOOL dropzoneActive;
-    BOOL splitViewRemoved;
     BOOL minimizedView;
 
     BOOL b_video_playback_enabled;
     BOOL b_dropzone_active;
     BOOL b_splitview_removed;
     BOOL b_minimized_view;
-
     CGFloat f_lastSplitViewHeight;
     CGFloat f_lastLeftSplitViewWidth;
+
 
 
     /* this is only true, when we have NO video playing inside the main window */
@@ -72,8 +71,7 @@
 
     NSRect frameBeforePlayback;
 }
-- (void)makeSplitViewVisible;
-- (void)makeSplitViewHidden;
+
 
 @end
 
@@ -146,7 +144,6 @@ static const float f_min_window_height = 307.;
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-    BOOL splitViewShouldBeHidden = NO;
 
     [self setDelegate:self];
     [self setRestorable:NO];
@@ -191,8 +188,6 @@ static const float f_min_window_height = 307.;
     /* interface builder action */
     CGFloat f_threshold_height = f_min_video_height + [self.controlsBar height];
 
-    if ([[self contentView] frame].size.height < f_threshold_height)
-        splitViewShouldBeHidden = YES;
 
     // Set that here as IB seems to be buggy
     [self setContentMinSize:NSMakeSize(604., f_min_window_height)];
@@ -220,12 +215,6 @@ static const float f_min_window_height = 307.;
     [defaultCenter addObserver: self selector: @selector(someWindowWillClose:) name: NSWindowWillCloseNotification object: nil];
     [defaultCenter addObserver: self selector: @selector(someWindowWillMiniaturize:) name: NSWindowWillMiniaturizeNotification object:nil];
     [defaultCenter addObserver: self selector: @selector(applicationWillTerminate:) name: NSApplicationWillTerminateNotification object: nil];
-    [defaultCenter addObserver: self selector: @selector(mainSplitViewDidResizeSubviews:) name: NSSplitViewDidResizeSubviewsNotification object:_splitView];
-
-    if (splitViewShouldBeHidden) {
-        [self hideSplitView:YES];
-        f_lastSplitViewHeight = 300;
-    }
 
     /* sanity check for the window size */
     NSRect frame = [self frame];
@@ -242,55 +231,11 @@ static const float f_min_window_height = 307.;
 
 }
 
-#pragma mark -
-#pragma mark appearance management
-
-// Show split view and hide the video view
-- (void)makeSplitViewVisible
-{
-    [self setContentMinSize: NSMakeSize(604., f_min_window_height)];
-
-    NSRect old_frame = [self frame];
-    CGFloat newHeight = [self minSize].height;
-    if (old_frame.size.height < newHeight) {
-        NSRect new_frame = old_frame;
-        new_frame.origin.y = old_frame.origin.y + old_frame.size.height - newHeight;
-        new_frame.size.height = newHeight;
-
-        [[self animator] setFrame:new_frame display:YES animate:YES];
-    }
-
-    [self.videoView setHidden:YES];
-    [_splitView setHidden:NO];
-    if (self.nativeFullscreenMode && [self fullscreen]) {
-        [self showControlsBar];
-        [self.fspanel setNonActive];
-    }
-
-    [self makeFirstResponder:_playlistScrollView];
-}
-
-// Hides the split view and makes the vout view in foreground
-- (void)makeSplitViewHidden
-{
-    [self setContentMinSize: NSMakeSize(604., f_min_video_height)];
-
-    [_splitView setHidden:YES];
-    [self.videoView setHidden:NO];
-    if (self.nativeFullscreenMode && [self fullscreen]) {
-        [self hideControlsBar];
-        [self.fspanel setActive];
-    }
-
-    if ([[self.videoView subviews] count] > 0)
-        [self makeFirstResponder: [[self.videoView subviews] firstObject]];
-}
-
 - (void)changePlaylistState:(VLCPlaylistStateEvent)event
 {
     // Beware, this code is really ugly
 
-    msg_Dbg(getIntf(), "toggle playlist from state: removed splitview %i, minimized view %i. Event %i", b_splitview_removed, b_minimized_view, event);
+    msg_Dbg(getIntf(), "toggle playlist from state: minimized view %i. Event %i", b_minimized_view, event);
     if (![self isVisible] && event == psUserMenuEvent) {
         [self makeKeyAndOrderFront: nil];
         return;
@@ -313,7 +258,7 @@ static const float f_min_window_height = 307.;
         return;
     }
 
-    if (!(self.nativeFullscreenMode && self.fullscreen) && !b_splitview_removed && ((b_have_alt_key && b_activeVideo)
+    if (!(self.nativeFullscreenMode && self.fullscreen) && ((b_have_alt_key && b_activeVideo)
                                                                               || (self.nonembedded && event == psUserEvent)
                                                                               || (!b_activeVideo && event == psUserEvent)
                                                                               || (b_minimized_view && event == psVideoStartedOrStoppedEvent))) {
@@ -321,34 +266,8 @@ static const float f_min_window_height = 307.;
         // for stopping playback, resize through reset to previous frame
         [self hideSplitView: event != psVideoStartedOrStoppedEvent];
         b_minimized_view = NO;
-    } else {
-        if (b_splitview_removed) {
-            if (!self.nonembedded || (event == psUserEvent && self.nonembedded))
-                [self showSplitView: event != psVideoStartedOrStoppedEvent];
-
-            if (event != psUserEvent)
-                b_minimized_view = YES;
-            else
-                b_minimized_view = NO;
-
-            if (b_activeVideo)
-                b_restored = YES;
-        }
-
-        if (!self.nonembedded) {
-            if (([self.videoView isHidden] && b_activeVideo) || b_restored || (b_activeVideo && event != psUserEvent))
-                [self makeSplitViewHidden];
-            else
-                [self makeSplitViewVisible];
-        } else {
-            [_splitView setHidden: NO];
-            [_playlistScrollView setHidden: NO];
-            [self.videoView setHidden: YES];
-            [self showControlsBar];
-        }
     }
-
-    msg_Dbg(getIntf(), "toggle playlist to state: removed splitview %i, minimized view %i", b_splitview_removed, b_minimized_view);
+    msg_Dbg(getIntf(), "toggle playlist to state: minimized view %i", b_minimized_view);
 }
 
 - (IBAction)dropzoneButtonAction:(id)sender

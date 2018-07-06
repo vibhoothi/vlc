@@ -45,13 +45,13 @@
 #import "VLCVoutView.h"
 #import "VLCVideoOutputProvider.h"
 
-@interface VLCMainWindow() <NSWindowDelegate, NSAnimationDelegate>
+@interface VLCMainWindow() <NSWindowDelegate, NSAnimationDelegate, NSCollectionViewDelegate,NSCollectionViewDataSource>
 {
     BOOL videoPlaybackEnabled;
     BOOL dropzoneActive;
     BOOL minimizedView;
     BOOL collectionViewRemoved;
-    
+    NSSet<NSIndexPath *> * VLCLibraryViewItem;
     CGFloat lastCollectionViewHeight;
     NSRect frameBeforePlayback;
 }
@@ -129,7 +129,13 @@ static const float f_min_window_height = 307.;
     /* update fs button to reflect state for next startup */
     if (var_InheritBool(pl_Get(getIntf()), "fullscreen"))
         [self.controlsBar setFullscreenState:YES];
+
+    /* Make collectionview visible when Player loads  */
+    [self makeCollectionViewVisible];
+    [self.collectionView reloadData];
+
 }
+
 
 #pragma mark - key and event handling
 
@@ -203,6 +209,67 @@ static const float f_min_window_height = 307.;
     }
 
     [self makeFirstResponder:_collectionView];
+    self.collectionViewItem = [VLCMainWindowCollectionViewItem new];
+    self.collectionView.wantsLayer = YES;
+    
+    self.images = [NSMutableArray arrayWithCapacity:0];
+    [self prepareData];
+    self.collectionView.delegate = self;
+    self.collectionView.dataSource = self;
+    self.collectionView.wantsLayer = YES;
+    [self.collectionView registerClass:[VLCMainWindowCollectionViewItem class] forItemWithIdentifier:@"fr_item"];
+    
+    NSCollectionViewFlowLayout *flowLayout = [[NSCollectionViewFlowLayout alloc]  init];
+    flowLayout.itemSize = NSMakeSize(100, 100);
+    flowLayout.sectionInset = NSEdgeInsetsMake(10, 10, 10, 10);
+    flowLayout.minimumInteritemSpacing = 20.0;
+    flowLayout.minimumLineSpacing = 20.0;
+    self.collectionView.collectionViewLayout = flowLayout;
+    [self.collectionView reloadData];
+}
+
+- (void)prepareData {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *rootPath = @"/Users/vibhoothiiaanand/Desktop/Image ";
+    NSError *error = nil;
+    NSArray *paths = [fileManager contentsOfDirectoryAtPath:rootPath error:&error];
+    for (NSString *path in paths) {
+        NSString *imagePath = [rootPath stringByAppendingFormat:@"/%@",path];
+        NSLog(@"imagepath = %@",imagePath);
+        NSImage *image = [[NSImage alloc] initWithContentsOfFile:imagePath];
+        if (image) {
+            [self.images addObject:image];
+        }
+        
+    }
+}
+
+#pragma mark - NSCollectionViewDelegate
+
+- (NSSet<NSIndexPath *> *)collectionView:(NSCollectionView *)collectionView shouldChangeItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths toHighlightState:(NSCollectionViewItemHighlightState)highlightState {
+    return indexPaths;
+}
+
+#pragma mark - NSCollectionViewDataSource
+
+
+- (void)collectionView:(NSCollectionView *)collectionView didSelectItemsAtIndexPaths:VLCLibraryViewItem
+{
+    NSLog(@"Video at:%@ is Selected",VLCLibraryViewItem);
+}
+
+- (NSInteger)collectionView:(NSCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return self.images.count;
+}
+- (NSCollectionViewItem *)collectionView:(NSCollectionView *)collectionView itemForRepresentedObjectAtIndexPath:(NSIndexPath *)indexPath {
+    
+    VLCMainWindowCollectionViewItem *item = [collectionView makeItemWithIdentifier:@"fr_item" forIndexPath:indexPath];
+    item.VLCItemImageView.image= [self.images objectAtIndex:indexPath.item];
+    return item;
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(NSCollectionView *)collectionView {
+    return 1;
 }
 
 // Hides the collection view and makes the vout view in foreground

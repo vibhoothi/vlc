@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11CE023120DBFE42008B0A7F /* VLCMainWindowCollectionViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CE022F20DBFE41008B0A7F /* VLCMainWindowCollectionViewItem.m */; };
 		1C1C62011F8260A90052DD4F /* VLCWrappableTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1C62001F8260A90052DD4F /* VLCWrappableTextField.m */; };
 		1C31138E1E508C6900D4DD76 /* VLCAboutWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C67C8A71D58C0A40079E1C1 /* VLCAboutWindowController.m */; };
 		1C3113901E508C6900D4DD76 /* VLCHelpWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C67C8A41D58C0980079E1C1 /* VLCHelpWindowController.m */; };
@@ -137,6 +138,9 @@
 		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		11CE022E20DBFE41008B0A7F /* VLCMainWindowCollectionViewItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCMainWindowCollectionViewItem.h; sourceTree = "<group>"; };
+		11CE022F20DBFE41008B0A7F /* VLCMainWindowCollectionViewItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCMainWindowCollectionViewItem.m; sourceTree = "<group>"; };
+		11CE023020DBFE42008B0A7F /* VLCMainWindowCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VLCMainWindowCollectionViewItem.xib; sourceTree = "<group>"; };
 		1C06F2A21F08F1250068846F /* osx_notifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = osx_notifications.m; path = ../../../modules/notify/osx_notifications.m; sourceTree = "<group>"; };
 		1C18BE461F2926700053D329 /* keychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = keychain.m; path = ../../../modules/keystore/keychain.m; sourceTree = "<group>"; };
 		1C1C61FF1F8260A90052DD4F /* VLCWrappableTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCWrappableTextField.h; sourceTree = "<group>"; };
@@ -1055,6 +1059,8 @@
 		7D349C9320CBC770003359A1 /* Main Window */ = {
 			isa = PBXGroup;
 			children = (
+				11CE022E20DBFE41008B0A7F /* VLCMainWindowCollectionViewItem.h */,
+				11CE022F20DBFE41008B0A7F /* VLCMainWindowCollectionViewItem.m */,
 				E0382C00160BA09E0031D7FF /* VLCControlsBarCommon.h */,
 				E0382C01160BA09E0031D7FF /* VLCControlsBarCommon.m */,
 				7D5678EE1D5BA397002698F3 /* VLCMainWindowControlsBar.h */,
@@ -1409,6 +1415,7 @@
 			children = (
 				6B8224091E4D2A9000833BE1 /* MainMenu.xib */,
 				6B82240A1E4D2A9000833BE1 /* MainWindow.xib */,
+				11CE023020DBFE42008B0A7F /* VLCMainWindowCollectionViewItem.xib */,
 				6B82241A1E4D2A9000833BE1 /* VLCStatusBarIconMainMenu.xib */,
 				6B8224181E4D2A9000833BE1 /* VLCFullScreenPanel.xib */,
 				6B8223FE1E4D2A8F00833BE1 /* About.xib */,
@@ -1464,7 +1471,7 @@
 		089C1669FE841209C02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0940;
 				TargetAttributes = {
 					1CCB5F2E1A62A6A5004C3E90 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -1556,6 +1563,7 @@
 				1C31139F1E508C6900D4DD76 /* VLCMainWindowControlsBar.m in Sources */,
 				1C3113A11E508C6900D4DD76 /* VLCConvertAndSaveWindowController.m in Sources */,
 				1C3113A31E508C6900D4DD76 /* VLCCoreDialogProvider.m in Sources */,
+				11CE023120DBFE42008B0A7F /* VLCMainWindowCollectionViewItem.m in Sources */,
 				6B2EFC631F281A0900F3C0EA /* VLCVolumeSliderCell.m in Sources */,
 				1C3113A51E508C6900D4DD76 /* VLCCoreInteraction.m in Sources */,
 				1C3113A71E508C6900D4DD76 /* VLCLogWindowController.m in Sources */,
@@ -1638,6 +1646,7 @@
 					"-framework",
 					Sparkle,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.videolan.vlc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 			};
@@ -1672,6 +1681,7 @@
 					"-framework",
 					Sparkle,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.videolan.vlc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 			};
@@ -1706,6 +1716,7 @@
 					"-framework",
 					Sparkle,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.videolan.vlc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 			};
@@ -1715,12 +1726,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1757,12 +1776,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1797,12 +1824,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;

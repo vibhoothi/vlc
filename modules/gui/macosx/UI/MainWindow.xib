@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14269.12" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14113" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14269.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -17,7 +17,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
             <rect key="contentRect" x="53" y="419" width="716" height="333"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1178"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="900"/>
             <view key="contentView" id="2">
                 <rect key="frame" x="0.0" y="0.0" width="716" height="333"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -25,16 +25,16 @@
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="3Bj-Gx-5iu" userLabel="Middle Content">
                         <rect key="frame" x="0.0" y="36" width="716" height="297"/>
                         <subviews>
-                            <scrollView wantsLayer="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ke-Vb-9dU">
+                            <scrollView wantsLayer="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ke-Vb-9dU">
                                 <rect key="frame" x="0.0" y="0.0" width="716" height="297"/>
                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="V1V-11-Tss">
                                     <rect key="frame" x="1" y="1" width="714" height="295"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <collectionView id="9My-dJ-ffm">
-                                            <rect key="frame" x="0.0" y="0.0" width="714" height="158"/>
+                                        <collectionView selectable="YES" id="9My-dJ-ffm">
+                                            <rect key="frame" x="0.0" y="0.0" width="714" height="295"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                            <color key="primaryBackgroundColor" name="systemGreenColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="primaryBackgroundColor" red="0.48883186943438339" green="0.52322152074126116" blue="0.52881107233502544" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <connections>
                                                 <outlet property="itemPrototype" destination="jCi-fI-3Z2" id="hDE-WR-6dZ"/>
                                             </connections>
@@ -42,7 +42,7 @@
                                     </subviews>
                                 </clipView>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="EAD-vz-amF">
-                                    <rect key="frame" x="1" y="144" width="233" height="15"/>
+                                    <rect key="frame" x="-100" y="-100" width="233" height="15"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="CoO-yc-KK4">
@@ -406,15 +406,7 @@
                 <outlet property="volumeUpButton" destination="3652" id="vXR-KC-L2N"/>
             </connections>
         </customObject>
-        <collectionViewItem id="jCi-fI-3Z2">
-            <connections>
-                <outlet property="view" destination="LL0-re-ZbQ" id="mmD-XP-2Sr"/>
-            </connections>
-        </collectionViewItem>
-        <view id="LL0-re-ZbQ">
-            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
-            <autoresizingMask key="autoresizingMask"/>
-        </view>
+        <collectionViewItem id="jCi-fI-3Z2"/>
     </objects>
     <resources>
         <image name="backward-6btns" width="28" height="23"/>

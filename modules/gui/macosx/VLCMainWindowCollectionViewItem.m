@@ -31,15 +31,6 @@
 
 @implementation VLCMainWindowCollectionViewItem
 
-- (void)loadView {
-    self.view = [[libraryView alloc] init];
-    
-    
-    self.VLCItemImageView = [[NSImageView alloc] initWithFrame:self.view.bounds];
-    self.VLCItemImageView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-    [self.view addSubview:self.VLCItemImageView];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do view setup here.
@@ -78,16 +69,21 @@
     }
 }
 
-
-@end
-
-
-@interface libraryView () {
- 
+- (BOOL)buttonIsPressed
+{
+    return self.VLCPopOverTriggerButton.intValue == 1;
 }
+
+- (IBAction)popOver:(id)sender {
+    NSLog(@"VLC: Popup tapped");
+        if (self.buttonIsPressed)
+        {
+            [self.VLCPopOver showRelativeToRect:[self.VLCPopOverTriggerButton bounds] ofView:self.VLCPopOverTriggerButton preferredEdge:NSMaxYEdge];
+        } else {
+            [self.VLCPopOver close];
+        }
+}
+
+
 @end
 
-
-@implementation libraryView
-
-@end

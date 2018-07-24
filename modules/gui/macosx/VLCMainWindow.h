@@ -26,7 +26,7 @@
  *****************************************************************************/
 
 #import <Cocoa/Cocoa.h>
-
+#import <AVFoundation/AVFoundation.h>
 #import <vlc_input.h>
 #import <vlc_vout_window.h>
 
@@ -53,6 +53,7 @@ typedef enum {
 @property (weak) IBOutlet NSCollectionView *collectionView;
 @property (strong) VLCMainWindowCollectionViewItem *collectionViewItem;
 @property (strong)          NSMutableArray *images;
+@property (strong)          NSMutableArray *labels;
 @property (readonly) VLCFSPanelController* fspanel;
 @property (nonatomic, copy) NSDictionary *overrideClassNames;
 

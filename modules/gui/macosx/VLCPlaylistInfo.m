@@ -396,9 +396,10 @@ FREENULL( psz_##foo );
         return @"";
 
     if ([[tableColumn identifier] isEqualToString:@"0"])
-        return [item name];
+        return [(VLCInfoTreeItem *)item name];
     else
-        return [item value];
+        return [(VLCInfoTreeItem *) item value];
+
 }
 
 @end

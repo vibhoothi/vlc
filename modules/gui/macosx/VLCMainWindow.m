@@ -53,7 +53,7 @@
     BOOL collectionViewRemoved;
     NSSet<NSIndexPath *> * VLCLibraryViewItem;
     CGFloat lastCollectionViewHeight;
-
+    
     NSRect frameBeforePlayback;
 }
 @end
@@ -216,11 +216,12 @@ static const float f_min_window_height = 307.;
     self.collectionView.wantsLayer = YES;
     
     self.images = [NSMutableArray arrayWithCapacity:0];
+    self.labels = [NSMutableArray arrayWithCapacity:0];
     [self prepareData];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     self.collectionView.wantsLayer = YES;
-    [self.collectionView registerClass:[VLCMainWindowCollectionViewItem class] forItemWithIdentifier:@"fr_item"];
+    [self.collectionView registerClass:[VLCMainWindowCollectionViewItem class] forItemWithIdentifier:@"VLCItemT"];
     
     NSCollectionViewFlowLayout *flowLayout = [[NSCollectionViewFlowLayout alloc]  init];
     flowLayout.itemSize = NSMakeSize(100, 100);
@@ -233,16 +234,52 @@ static const float f_min_window_height = 307.;
 
 - (void)prepareData {
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *rootPath = @"/Users/vibhoothiiaanand/Desktop/Image ";
+    NSString *rootPath = @"/Users/vibhoothiiaanand/Desktop/dummyVideos";
     NSError *error = nil;
     NSArray *paths = [fileManager contentsOfDirectoryAtPath:rootPath error:&error];
+    
+    /*
     for (NSString *path in paths) {
         NSString *imagePath = [rootPath stringByAppendingFormat:@"/%@",path];
         NSLog(@"imagepath = %@",imagePath);
+        NSLog(@"Path = %@",path);
+        NSLog(@"Paths = %@",paths);
         NSImage *image = [[NSImage alloc] initWithContentsOfFile:imagePath];
         if (image) {
             [self.images addObject:image];
         }
+        */
+  //  NSLog(@"paths %@",paths);
+    for(NSString *path in paths){
+         NSString *imagePath = [rootPath stringByAppendingFormat:@"/%@",path];
+        NSURL *url = [NSURL fileURLWithPath:imagePath];
+   
+  //      NSLog(@"URL: %@ ",url);
+    //    NSLog(@"Path 1= %@",path);
+    AVAsset *asset = [AVAsset assetWithURL:url];
+     //   NSLog(@"asset %@",asset);
+    AVAssetImageGenerator *imageGenerator = [[AVAssetImageGenerator alloc]initWithAsset:asset];
+     //   NSLog(@"Image Generator: %@",imageGenerator);
+        imageGenerator.appliesPreferredTrackTransform=YES;
+//    self.imageGenerator.appliesPreferredTrackTransform = YES;
+    CMTime time = [asset duration];
+    time.value = 0;
+    float duration = CMTimeGetSeconds([asset duration]);
+    //    NSLog(@"Just Outside deep LOOP");
+     //   CMTimeShow(time);
+   //     NSLog(@"duration %f",duration);
+        CGImageRef imgRef = [imageGenerator copyCGImageAtTime:CMTimeMake(10, duration) actualTime:NULL error:nil];
+     //   NSLog(@"Path = %@",path);
+   //     NSLog(@"ImgRef = %@",imgRef);
+        NSImage *thumbinail =[[NSImage alloc] initWithCGImage:imgRef size:NSSizeFromCGSize(CGSizeMake(100.0, 100.0))];
+    //    NSLog(@"Thumb = %@",thumbinail);
+        if(thumbinail){
+            [self.images addObject:thumbinail];
+          //  NSLog(@"Paths .%@",path);
+            [self.labels addObject:path];
+        //    [self.labels addObject:path];
+       //     NSLog(@"Labels:%@,Path %@",self.labels,path);
+    }
         
     }
 }
@@ -266,8 +303,9 @@ static const float f_min_window_height = 307.;
 }
 - (NSCollectionViewItem *)collectionView:(NSCollectionView *)collectionView itemForRepresentedObjectAtIndexPath:(NSIndexPath *)indexPath {
     
-    VLCMainWindowCollectionViewItem *item = [collectionView makeItemWithIdentifier:@"fr_item" forIndexPath:indexPath];
-    item.VLCItemImageView.image= [self.images objectAtIndex:indexPath.item];
+    VLCMainWindowCollectionViewItem *item = [collectionView makeItemWithIdentifier:@"VLCItemT" forIndexPath:indexPath];
+    item.VLCItemImageView.image = [self.images objectAtIndex:indexPath.item];
+    item.VLCItemLabel.stringValue  = [self.labels  objectAtIndex:indexPath.item];
     return item;
 }
 

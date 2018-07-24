@@ -9,6 +9,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="VLCMainWindowCollectionViewItem">
             <connections>
                 <outlet property="VLCItemImageView" destination="LRe-wn-Y2z" id="HPo-O1-7R6"/>
+                <outlet property="VLCItemLabel" destination="KFD-Gv-9GE" id="Y3t-Ag-E8M"/>
                 <outlet property="VLCPopOver" destination="IPI-0k-cD6" id="bHD-Ef-Aap"/>
                 <outlet property="VLCPopOverTriggerButton" destination="rgr-zW-apm" id="pcH-Tf-4VZ"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
@@ -17,31 +18,28 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView autoresizesSubviews="NO" id="Hz6-mo-xeY" userLabel="Library View">
-            <rect key="frame" x="0.0" y="0.0" width="172" height="187"/>
+            <rect key="frame" x="0.0" y="0.0" width="300" height="302"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KFD-Gv-9GE">
+                    <rect key="frame" x="18" y="46" width="264" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Label" id="ZkO-z1-lsg">
+                        <font key="font" metaFont="systemMedium" size="13"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LRe-wn-Y2z">
-                    <rect key="frame" x="17" y="38" width="138" height="138"/>
+                    <rect key="frame" x="20" y="73" width="260" height="209"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="138" id="biX-SG-mPc"/>
-                        <constraint firstAttribute="width" constant="138" id="wRe-s9-JbM"/>
+                        <constraint firstAttribute="width" constant="260" id="YT2-3Y-Cx9"/>
+                        <constraint firstAttribute="height" constant="209" id="kfn-BH-lNb"/>
                     </constraints>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" image="VLC" id="szu-Su-VAK"/>
                 </imageView>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KFD-Gv-9GE">
-                    <rect key="frame" x="14" y="14" width="124" height="16"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="VLCConeConey.mp4" id="ZkO-z1-lsg">
-                        <font key="font" metaFont="systemMedium" size="12"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rgr-zW-apm">
-                    <rect key="frame" x="136" y="14" width="32" height="19"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="32" id="vzW-9Y-bv7"/>
-                    </constraints>
-                    <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="NSAdvanced" imagePosition="overlaps" alignment="left" imageScaling="proportionallyDown" inset="2" id="5di-ev-3yB">
+                    <rect key="frame" x="20" y="10" width="41" height="19"/>
+                    <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="NSColorPanel" imagePosition="only" imageScaling="axesIndependently" inset="2" id="5di-ev-3yB">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="cellTitle"/>
                     </buttonCell>
@@ -51,18 +49,18 @@
                 </button>
             </subviews>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="KFD-Gv-9GE" secondAttribute="bottom" constant="14" id="7nl-uv-7dN"/>
-                <constraint firstItem="KFD-Gv-9GE" firstAttribute="leading" secondItem="LRe-wn-Y2z" secondAttribute="leading" constant="-1" id="KeI-uV-Jie"/>
-                <constraint firstAttribute="trailing" secondItem="rgr-zW-apm" secondAttribute="trailing" constant="4" id="PUY-GM-CQN"/>
-                <constraint firstAttribute="trailing" secondItem="LRe-wn-Y2z" secondAttribute="trailing" constant="17" id="Rbd-YP-FMD"/>
-                <constraint firstItem="rgr-zW-apm" firstAttribute="baseline" secondItem="KFD-Gv-9GE" secondAttribute="baseline" id="eY3-la-UAb"/>
-                <constraint firstItem="rgr-zW-apm" firstAttribute="leading" secondItem="LRe-wn-Y2z" secondAttribute="trailing" constant="-19" id="gDO-FM-zpm"/>
-                <constraint firstItem="LRe-wn-Y2z" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="17" id="gP7-Rx-P3c"/>
-                <constraint firstItem="LRe-wn-Y2z" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="11" id="iAk-Ry-3zJ"/>
-                <constraint firstAttribute="bottom" secondItem="rgr-zW-apm" secondAttribute="bottom" constant="14" id="lxd-iS-dhg"/>
-                <constraint firstItem="KFD-Gv-9GE" firstAttribute="top" secondItem="LRe-wn-Y2z" secondAttribute="bottom" constant="8" id="sfA-nF-Glp"/>
+                <constraint firstAttribute="trailing" secondItem="rgr-zW-apm" secondAttribute="trailing" constant="239" id="M8r-36-CpT"/>
+                <constraint firstItem="rgr-zW-apm" firstAttribute="leading" secondItem="LRe-wn-Y2z" secondAttribute="leading" id="NUG-yW-5HV"/>
+                <constraint firstItem="KFD-Gv-9GE" firstAttribute="leading" secondItem="LRe-wn-Y2z" secondAttribute="leading" id="PHs-vM-L90"/>
+                <constraint firstItem="LRe-wn-Y2z" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" id="PVA-i5-MUP"/>
+                <constraint firstItem="rgr-zW-apm" firstAttribute="top" secondItem="KFD-Gv-9GE" secondAttribute="bottom" constant="17" id="TQ6-TU-26c"/>
+                <constraint firstItem="LRe-wn-Y2z" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="c9V-yO-JLD"/>
+                <constraint firstAttribute="bottom" secondItem="rgr-zW-apm" secondAttribute="bottom" constant="10" id="dlt-eV-IYc"/>
+                <constraint firstItem="KFD-Gv-9GE" firstAttribute="top" secondItem="LRe-wn-Y2z" secondAttribute="bottom" constant="10" id="mJL-Un-jgi"/>
+                <constraint firstItem="KFD-Gv-9GE" firstAttribute="trailing" secondItem="LRe-wn-Y2z" secondAttribute="trailing" id="tp2-C2-Uga"/>
+                <constraint firstAttribute="trailing" secondItem="LRe-wn-Y2z" secondAttribute="trailing" constant="20" id="yoA-wN-liI"/>
             </constraints>
-            <point key="canvasLocation" x="-127" y="789.5"/>
+            <point key="canvasLocation" x="-363" y="1037.5"/>
         </customView>
         <viewController id="N7j-wi-2gE" userLabel="Popover View Controller">
             <connections>
@@ -111,11 +109,11 @@
                     </textFieldCell>
                 </textField>
             </subviews>
-            <point key="canvasLocation" x="-94" y="1016"/>
+            <point key="canvasLocation" x="25" y="1278"/>
         </customView>
     </objects>
     <resources>
-        <image name="NSAdvanced" width="32" height="32"/>
+        <image name="NSColorPanel" width="32" height="32"/>
         <image name="VLC" width="512" height="512"/>
     </resources>
 </document>

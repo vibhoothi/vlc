@@ -27,6 +27,7 @@
 @property (nonatomic,strong) IBOutlet NSImageView *VLCItemImageView;
 @property (strong) IBOutlet NSPopover *VLCPopOver;
 @property (unsafe_unretained) IBOutlet NSButton *VLCPopOverTriggerButton;
+@property (nonatomic,strong) IBOutlet NSTextField *VLCItemLabel;
 
 @end
 

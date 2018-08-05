@@ -12,6 +12,10 @@
                 <outlet property="VLCItemLabel" destination="KFD-Gv-9GE" id="Y3t-Ag-E8M"/>
                 <outlet property="VLCPopOver" destination="IPI-0k-cD6" id="bHD-Ef-Aap"/>
                 <outlet property="VLCPopOverTriggerButton" destination="rgr-zW-apm" id="pcH-Tf-4VZ"/>
+                <outlet property="popOverImage" destination="0sa-wu-dPr" id="xYR-7X-Xbm"/>
+                <outlet property="popOverSize" destination="lSa-IC-VbL" id="8hD-9j-3Uz"/>
+                <outlet property="popOverTitle" destination="bNc-32-jG8" id="gR0-OK-6Oj"/>
+                <outlet property="popOveryear" destination="Ebf-j5-UtS" id="sJY-aq-A4G"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -90,7 +94,7 @@
                 </imageView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ebf-j5-UtS">
                     <rect key="frame" x="81" y="45" width="106" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Cone" id="WF4-b6-t4f">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="2018" id="WF4-b6-t4f">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

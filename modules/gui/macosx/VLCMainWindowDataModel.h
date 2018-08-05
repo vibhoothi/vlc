@@ -24,6 +24,9 @@
 
 @interface VLCMainWindowDataModel : NSObject
 
-
+@property (strong) NSString *videoTitle;
+@property (strong) NSString *year;
+@property (strong) NSString *length;
+@property (strong) NSImage *thumbnail;
 
 @end

@@ -34,6 +34,7 @@
 #import "misc.h"
 #import "VLCFSPanelController.h"
 #import "VLCMainWindowCollectionViewItem.h"
+#import "VLCMainWindowDataModel.h"
 
 @class VLCDetachedVideoWindow;
 @class VLCMainWindowControlsBar;
@@ -52,8 +53,10 @@ typedef enum {
 @property (readwrite) BOOL nonembedded;
 @property (weak) IBOutlet NSCollectionView *collectionView;
 @property (strong) VLCMainWindowCollectionViewItem *collectionViewItem;
+@property (strong) VLCMainWindowDataModel *dataModel;
 @property (strong)          NSMutableArray *thumbinails;
 @property (strong)          NSMutableArray *labels;
+@property (strong)          NSMutableArray *years;
 @property (readonly) VLCFSPanelController* fspanel;
 @property (nonatomic, copy) NSDictionary *overrideClassNames;
 

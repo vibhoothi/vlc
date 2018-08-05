@@ -22,16 +22,25 @@
  *****************************************************************************/
 
 #import <Cocoa/Cocoa.h>
+#import "VLCMainWindowDataModel.h"
 
 @interface VLCMainWindowCollectionViewItem : NSCollectionViewItem < NSCollectionViewDelegate>
+
+//Library View
 @property (nonatomic,strong) IBOutlet NSImageView *VLCItemImageView;
-@property (strong) IBOutlet NSPopover *VLCPopOver;
-@property (unsafe_unretained) IBOutlet NSButton *VLCPopOverTriggerButton;
-@property (nonatomic,strong) IBOutlet NSTextField *VLCItemLabel;
+@property (strong) IBOutlet  NSPopover *VLCPopOver;
+@property (strong) IBOutlet NSButton *VLCPopOverTriggerButton;
+@property (nonatomic,strong)  IBOutlet NSTextField *VLCItemLabel;
 
-@end
 
-@interface libraryView : NSView
+//PopOver View
+@property (strong) IBOutlet NSImageView *popOverImage;
+@property (strong) IBOutlet NSTextField *popOverTitle;
+@property (strong) IBOutlet NSTextField *popOverYear;
+@property (strong) IBOutlet NSTextField *popOverSize;
+
+//method for linking dataModel with View
+-(void)assignValueForDataModel:(VLCMainWindowDataModel *) dataModel;
 
 @end
  

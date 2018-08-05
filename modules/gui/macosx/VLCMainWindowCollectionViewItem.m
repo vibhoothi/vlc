@@ -21,7 +21,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
  *****************************************************************************/
 
+#import <Cocoa/Cocoa.h>
 #import "VLCMainWindowCollectionViewItem.h"
+#import "VLCMainWindowDataModel.h"
 
 @interface VLCMainWindowCollectionViewItem ()
 {
@@ -37,13 +39,14 @@
     [self.collectionView setDelegate:self];
 }
 
--(void)setRepresentedObject:(id)representedObject{
-    [super setRepresentedObject:representedObject];
-    if (representedObject !=nil)
-    {
-        [self.imageView setImage:[[NSBundle mainBundle] imageForResource:[representedObject valueForKey:@"itemImage"]]];
-    }
-    
+-(void)assignValueForDataModel:(VLCMainWindowDataModel *) dataModel
+{
+    NSLog(@"assigning values to views from dataModel");
+    self.VLCItemLabel.stringValue =dataModel.videoTitle;;
+    self.VLCItemImageView.image=dataModel.thumbnail;
+    self.popOverYear.stringValue = dataModel.year;
+    self.popOverImage=self.VLCItemImageView;
+    self.popOverTitle=self.VLCItemLabel;
 }
 
 - (void)setSelected:(BOOL)flag

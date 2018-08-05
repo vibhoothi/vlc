@@ -53,7 +53,7 @@
     BOOL collectionViewRemoved;
     NSSet<NSIndexPath *> * VLCLibraryViewItem;
     CGFloat lastCollectionViewHeight;
-    
+ //   VLCMainWindowDataModel *dataModel;
     NSRect frameBeforePlayback;
 }
 @end
@@ -132,8 +132,8 @@ static const float f_min_window_height = 307.;
         [self.controlsBar setFullscreenState:YES];
 
     /* Make collectionview visible when Player loads  */
-//    [self makeCollectionViewVisible];
- //   [self.collectionView reloadData];
+    [self makeCollectionViewVisible];
+    [self.collectionView reloadData];
 
 }
 
@@ -211,15 +211,17 @@ static const float f_min_window_height = 307.;
 
     [self makeFirstResponder:_collectionView];
     self.collectionViewItem = [VLCMainWindowCollectionViewItem new];
+   // dataModel = [VLCMainWindowDataModel new];
     self.collectionView.wantsLayer = YES;
     
     self.thumbinails = [NSMutableArray arrayWithCapacity:0];
     self.labels = [NSMutableArray arrayWithCapacity:0];
+    self.years = [NSMutableArray arrayWithCapacity:0];
     [self prepareData];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     self.collectionView.wantsLayer = YES;
-    [self.collectionView registerClass:[VLCMainWindowCollectionViewItem class] forItemWithIdentifier:@"VLCItemT"];
+    [self.collectionView registerClass:[VLCMainWindowCollectionViewItem class] forItemWithIdentifier:@"dummyViews"];
     
     NSCollectionViewFlowLayout *flowLayout = [[NSCollectionViewFlowLayout alloc]  init];
     flowLayout.itemSize = NSMakeSize(190,241);
@@ -246,11 +248,14 @@ static const float f_min_window_height = 307.;
     time.value = 0;
     float duration = CMTimeGetSeconds([asset duration]);
         CGImageRef imgRef = [imageGenerator copyCGImageAtTime:CMTimeMake(10, duration) actualTime:NULL error:nil];
+        self.dataModel.thumbnail=[[NSImage alloc] initWithCGImage:imgRef size:NSSizeFromCGSize(CGSizeMake(100.0, 100.0))];
         NSImage *thumbinail =[[NSImage alloc] initWithCGImage:imgRef size:NSSizeFromCGSize(CGSizeMake(100.0, 100.0))];
         if(thumbinail){
-            [self.thumbinails addObject:thumbinail];
-            [self.labels addObject:path];
+            [self.thumbinails  addObject:thumbinail];
+            [self.labels       addObject:path];
+            [self.years        addObject:@"2012"];
         }
+        
     }
 }
 
@@ -278,9 +283,16 @@ static const float f_min_window_height = 307.;
 }
 - (NSCollectionViewItem *)collectionView:(NSCollectionView *)collectionView itemForRepresentedObjectAtIndexPath:(NSIndexPath *)indexPath {
     
-    VLCMainWindowCollectionViewItem *item = [collectionView makeItemWithIdentifier:@"VLCItemT" forIndexPath:indexPath];
-    item.VLCItemImageView.image = [self.thumbinails objectAtIndex:indexPath.item];
-    item.VLCItemLabel.stringValue  = [self.labels  objectAtIndex:indexPath.item];
+    VLCMainWindowCollectionViewItem *item = [collectionView makeItemWithIdentifier:@"dummyViews" forIndexPath:indexPath];
+    VLCMainWindowDataModel *model =[VLCMainWindowDataModel new];
+    /*
+        Pass the metadata to the DataModel for assinging values to the views
+        and return updated view
+     */
+    model.thumbnail = [self.thumbinails objectAtIndex:indexPath.item];
+    model.videoTitle = [self.labels objectAtIndex:indexPath.item];
+    model.year=[self.years objectAtIndex:indexPath.item];
+    [item assignValueForDataModel:model];
     return item;
 }
 

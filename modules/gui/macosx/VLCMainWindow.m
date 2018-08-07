@@ -132,8 +132,8 @@ static const float f_min_window_height = 307.;
         [self.controlsBar setFullscreenState:YES];
 
     /* Make collectionview visible when Player loads  */
-    [self makeCollectionViewVisible];
-    [self.collectionView reloadData];
+//    [self makeCollectionViewVisible];
+ //   [self.collectionView reloadData];
 
 }
 
@@ -213,7 +213,7 @@ static const float f_min_window_height = 307.;
     self.collectionViewItem = [VLCMainWindowCollectionViewItem new];
     self.collectionView.wantsLayer = YES;
     
-    self.images = [NSMutableArray arrayWithCapacity:0];
+    self.thumbinails = [NSMutableArray arrayWithCapacity:0];
     self.labels = [NSMutableArray arrayWithCapacity:0];
     [self prepareData];
     self.collectionView.delegate = self;
@@ -235,50 +235,22 @@ static const float f_min_window_height = 307.;
     NSString *rootPath = @"/Users/vibhoothiiaanand/Desktop/dummyVideos";
     NSError *error = nil;
     NSArray *paths = [fileManager contentsOfDirectoryAtPath:rootPath error:&error];
-    
-    /*
-    for (NSString *path in paths) {
-        NSString *imagePath = [rootPath stringByAppendingFormat:@"/%@",path];
-        NSLog(@"imagepath = %@",imagePath);
-        NSLog(@"Path = %@",path);
-        NSLog(@"Paths = %@",paths);
-        NSImage *image = [[NSImage alloc] initWithContentsOfFile:imagePath];
-        if (image) {
-            [self.images addObject:image];
-        }
-        */
-  //  NSLog(@"paths %@",paths);
     for(NSString *path in paths){
-         NSString *imagePath = [rootPath stringByAppendingFormat:@"/%@",path];
-        NSURL *url = [NSURL fileURLWithPath:imagePath];
-   
-  //      NSLog(@"URL: %@ ",url);
-    //    NSLog(@"Path 1= %@",path);
+         NSString *videoPath = [rootPath stringByAppendingFormat:@"/%@",path];
+        NSLog(@"Video Path:%@",videoPath);
+        NSURL *url = [NSURL fileURLWithPath:videoPath];
     AVAsset *asset = [AVAsset assetWithURL:url];
-     //   NSLog(@"asset %@",asset);
     AVAssetImageGenerator *imageGenerator = [[AVAssetImageGenerator alloc]initWithAsset:asset];
-     //   NSLog(@"Image Generator: %@",imageGenerator);
-        imageGenerator.appliesPreferredTrackTransform=YES;
-//    self.imageGenerator.appliesPreferredTrackTransform = YES;
+    imageGenerator.appliesPreferredTrackTransform=YES;
     CMTime time = [asset duration];
     time.value = 0;
     float duration = CMTimeGetSeconds([asset duration]);
-    //    NSLog(@"Just Outside deep LOOP");
-     //   CMTimeShow(time);
-   //     NSLog(@"duration %f",duration);
         CGImageRef imgRef = [imageGenerator copyCGImageAtTime:CMTimeMake(10, duration) actualTime:NULL error:nil];
-     //   NSLog(@"Path = %@",path);
-   //     NSLog(@"ImgRef = %@",imgRef);
         NSImage *thumbinail =[[NSImage alloc] initWithCGImage:imgRef size:NSSizeFromCGSize(CGSizeMake(100.0, 100.0))];
-    //    NSLog(@"Thumb = %@",thumbinail);
         if(thumbinail){
-            [self.images addObject:thumbinail];
-          //  NSLog(@"Paths .%@",path);
+            [self.thumbinails addObject:thumbinail];
             [self.labels addObject:path];
-        //    [self.labels addObject:path];
-       //     NSLog(@"Labels:%@,Path %@",self.labels,path);
-    }
-        
+        }
     }
 }
 
@@ -294,19 +266,20 @@ static const float f_min_window_height = 307.;
 - (void)collectionView:(NSCollectionView *)collectionView didSelectItemsAtIndexPaths:VLCLibraryViewItem
 {
     NSLog(@"Video at:%@ is Selected",VLCLibraryViewItem);
+   //Hide the CollectionView in favour of playing video when user clicks
     [self performSelector:@selector(makeCollectionViewHidden) withObject:self afterDelay:2.0 ];
-    
- //   [[[VLCMain sharedInstance] playlist] addPlaylistItems:self.images tryAsSubtitle:YES];
-   //  [[VLCCoreInteraction sharedInstance] playOrPause];
+    /*
+     Insert code for playing Video using libVLCCore
+    */
 }
 
 - (NSInteger)collectionView:(NSCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.images.count;
+    return self.thumbinails.count;
 }
 - (NSCollectionViewItem *)collectionView:(NSCollectionView *)collectionView itemForRepresentedObjectAtIndexPath:(NSIndexPath *)indexPath {
     
     VLCMainWindowCollectionViewItem *item = [collectionView makeItemWithIdentifier:@"VLCItemT" forIndexPath:indexPath];
-    item.VLCItemImageView.image = [self.images objectAtIndex:indexPath.item];
+    item.VLCItemImageView.image = [self.thumbinails objectAtIndex:indexPath.item];
     item.VLCItemLabel.stringValue  = [self.labels  objectAtIndex:indexPath.item];
     return item;
 }

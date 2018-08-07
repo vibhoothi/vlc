@@ -294,6 +294,10 @@ static const float f_min_window_height = 307.;
 - (void)collectionView:(NSCollectionView *)collectionView didSelectItemsAtIndexPaths:VLCLibraryViewItem
 {
     NSLog(@"Video at:%@ is Selected",VLCLibraryViewItem);
+    [self performSelector:@selector(makeCollectionViewHidden) withObject:self afterDelay:2.0 ];
+    
+ //   [[[VLCMain sharedInstance] playlist] addPlaylistItems:self.images tryAsSubtitle:YES];
+   //  [[VLCCoreInteraction sharedInstance] playOrPause];
 }
 
 - (NSInteger)collectionView:(NSCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {

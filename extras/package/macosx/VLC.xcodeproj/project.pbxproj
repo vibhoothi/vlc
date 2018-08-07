@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		116DF68F21667694002B459B /* VLCMainWindowCollectionViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 116DF68D21667694002B459B /* VLCMainWindowCollectionViewItem.m */; };
+		116DF69021667694002B459B /* VLCMainWindowDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 116DF68E21667694002B459B /* VLCMainWindowDataModel.m */; };
 		1C1C62011F8260A90052DD4F /* VLCWrappableTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1C62001F8260A90052DD4F /* VLCWrappableTextField.m */; };
 		1C31138E1E508C6900D4DD76 /* VLCAboutWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C67C8A71D58C0A40079E1C1 /* VLCAboutWindowController.m */; };
 		1C3113901E508C6900D4DD76 /* VLCHelpWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C67C8A41D58C0980079E1C1 /* VLCHelpWindowController.m */; };
@@ -146,6 +148,10 @@
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		116DF68A21666F10002B459B /* VLCMainWindowCollectionViewItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCMainWindowCollectionViewItem.xib; sourceTree = "<group>"; };
+		116DF68B21667693002B459B /* VLCMainWindowCollectionViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCMainWindowCollectionViewItem.h; sourceTree = "<group>"; };
+		116DF68C21667694002B459B /* VLCMainWindowDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCMainWindowDataModel.h; sourceTree = "<group>"; };
+		116DF68D21667694002B459B /* VLCMainWindowCollectionViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCMainWindowCollectionViewItem.m; sourceTree = "<group>"; };
+		116DF68E21667694002B459B /* VLCMainWindowDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCMainWindowDataModel.m; sourceTree = "<group>"; };
 		1C06F2A21F08F1250068846F /* osx_notifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = osx_notifications.m; path = ../../../modules/notify/osx_notifications.m; sourceTree = "<group>"; };
 		1C18BE461F2926700053D329 /* keychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = keychain.m; path = ../../../modules/keystore/keychain.m; sourceTree = "<group>"; };
 		1C1C61FF1F8260A90052DD4F /* VLCWrappableTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCWrappableTextField.h; sourceTree = "<group>"; };
@@ -1088,6 +1094,10 @@
 		7D349C9320CBC770003359A1 /* Main Window */ = {
 			isa = PBXGroup;
 			children = (
+				116DF68B21667693002B459B /* VLCMainWindowCollectionViewItem.h */,
+				116DF68D21667694002B459B /* VLCMainWindowCollectionViewItem.m */,
+				116DF68C21667694002B459B /* VLCMainWindowDataModel.h */,
+				116DF68E21667694002B459B /* VLCMainWindowDataModel.m */,
 				E0382C00160BA09E0031D7FF /* VLCControlsBarCommon.h */,
 				E0382C01160BA09E0031D7FF /* VLCControlsBarCommon.m */,
 				7D5678EE1D5BA397002698F3 /* VLCMainWindowControlsBar.h */,
@@ -1560,6 +1570,7 @@
 				6B8A6B082127A3EA00DC29F3 /* VLCSourceListItem.m in Sources */,
 				1CCC89052078A3D500E5626F /* TextfieldPanel.xib in Sources */,
 				1CCC89062078A3D500E5626F /* TimeSelectionPanel.xib in Sources */,
+				116DF68F21667694002B459B /* VLCMainWindowCollectionViewItem.m in Sources */,
 				6B81662C1EBFC38100C26F1B /* VLCUIWidgets.m in Sources */,
 				6B0AB0F11F1AC8B3003A1B4E /* VLCSliderCell.m in Sources */,
 				6B8166291EBFC34300C26F1B /* VLCDefaultValueSlider.m in Sources */,
@@ -1568,6 +1579,7 @@
 				6B4D50901E79781F004479B5 /* VLCHotkeyChangeWindow.m in Sources */,
 				1C3114031E508C8800D4DD76 /* AppleRemote.m in Sources */,
 				1CFE8D591EA0D42A00E94451 /* VLCErrorWindowController.m in Sources */,
+				116DF69021667694002B459B /* VLCMainWindowDataModel.m in Sources */,
 				6B4D50961E7A7D16004479B5 /* NSSound+VLCAdditions.m in Sources */,
 				6BF093F91EE0182B0049D8B0 /* VLCTimeField.m in Sources */,
 				1C31140B1E508C8800D4DD76 /* (null) in Sources */,

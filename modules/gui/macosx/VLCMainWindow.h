@@ -33,8 +33,8 @@
 #import "VLCVideoWindowCommon.h"
 #import "misc.h"
 #import "VLCFSPanelController.h"
-#import "VLCMainWindowCollectionViewItem.h"
-#import "VLCMainWindowDataModel.h"
+#import "VLCLibraryView.h"
+#import "VLCLibraryItem.h"
 
 @class VLCDetachedVideoWindow;
 @class VLCMainWindowControlsBar;
@@ -52,7 +52,7 @@ typedef enum {
 @property (readonly) BOOL nativeFullscreenMode;
 @property (readwrite) BOOL nonembedded;
 @property (weak) IBOutlet NSCollectionView *collectionView;
-@property (strong) VLCMainWindowDataModel *dataModel;
+@property (strong) VLCLibraryItem *dataModel;
 @property (strong)          NSMutableArray *thumbinails;
 @property (strong)          NSMutableArray *labels;
 @property (strong)          NSMutableArray *years;

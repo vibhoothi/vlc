@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCMainWindowCollectionView.h: MacOS X interface module
+ * VLCMainWindowDataModel.m: MacOS X interface module
  *****************************************************************************
  * Copyright (C) 2018 VLC authors and VideoLAN
  * $Id $
@@ -20,27 +20,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
  *****************************************************************************/
+#import "VLCLibraryItem.h"
 
-#import <Cocoa/Cocoa.h>
-#import "VLCMainWindowDataModel.h"
-
-@interface VLCMainWindowCollectionViewItem : NSCollectionViewItem < NSCollectionViewDelegate>
-
-//Library View
-@property (nonatomic,strong) IBOutlet NSImageView *VLCItemImageView;
-@property (strong) IBOutlet  NSPopover *VLCPopOver;
-@property (strong) IBOutlet NSButton *VLCPopOverTriggerButton;
-@property (nonatomic,strong)  IBOutlet NSTextField *VLCItemLabel;
-
-
-//PopOver View
-@property (strong) IBOutlet NSImageView *popOverImage;
-@property (strong) IBOutlet NSTextField *popOverTitle;
-@property (strong) IBOutlet NSTextField *popOverYear;
-@property (strong) IBOutlet NSTextField *popOverSize;
-
-//method for linking dataModel with View
--(void)assignValueForDataModel:(VLCMainWindowDataModel *) dataModel;
+@implementation VLCLibraryItem
 
 @end
- 

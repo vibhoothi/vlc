@@ -22,16 +22,16 @@
  *****************************************************************************/
 
 #import <Cocoa/Cocoa.h>
-#import "VLCMainWindowCollectionViewItem.h"
-#import "VLCMainWindowDataModel.h"
+#import "VLCLibraryView.h"
+#import "VLCLibraryItem.h"
 
-@interface VLCMainWindowCollectionViewItem ()
+@interface VLCLibraryView ()
 {
     
 }
 @end
 
-@implementation VLCMainWindowCollectionViewItem
+@implementation VLCLibraryView
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -39,7 +39,7 @@
     [self.collectionView setDelegate:self];
 }
 
--(void)assignValueForDataModel:(VLCMainWindowDataModel *) dataModel
+-(void)assignValueForDataModel:(VLCLibraryItem *) dataModel
 {
     NSLog(@"dataModel %@",dataModel);
     self.VLCItemLabel.stringValue =dataModel.videoTitle;;

@@ -95,8 +95,8 @@ libmacosx_plugin_la_SOURCES = \
 	gui/macosx/VLCVolumeSlider.h gui/macosx/VLCVolumeSlider.m \
 	gui/macosx/VLCVolumeSliderCell.h gui/macosx/VLCVolumeSliderCell.m \
 	gui/macosx/VLCWrappableTextField.h gui/macosx/VLCWrappableTextField.m \
-	gui/macosx/VLCMainWindowCollectionViewItem.h gui/macosx/VLCMainWindowCollectionViewItem.m \
-	gui/macosx/VLCMainWindowDataModel.h gui/macosx/VLCMainWindowDataModel.m
+	gui/macosx/VLCLibraryView.h gui/macosx/VLCLibraryView.m \
+	gui/macosx/VLCLibraryItem.h gui/macosx/VLCLibraryItem.m
 
 # User interface compilation
 
@@ -128,7 +128,7 @@ nodist_libmacosx_plugin_la_SOURCES = \
 	gui/macosx/UI/VideoEffects.nib \
 	gui/macosx/UI/VLCFullScreenPanel.nib \
 	gui/macosx/UI/VLCStatusBarIconMainMenu.nib \
-	gui/macosx/UI/VLCMainWindowCollectionViewItem.nib
+	gui/macosx/UI/VLCLibraryView.nib
 
 EXTRA_DIST += \
 	gui/macosx/UI/About.xib \
@@ -158,7 +158,7 @@ EXTRA_DIST += \
 	gui/macosx/UI/VideoEffects.xib \
 	gui/macosx/UI/VLCFullScreenPanel.xib \
 	gui/macosx/UI/VLCStatusBarIconMainMenu.xib \
-	gui/macosx/UI/VLCMainWindowCollectionViewItem.xib
+	gui/macosx/UI/VLCLibraryView.xib
 
 xib_verbose = $(xib_verbose_$(V))
 xib_verbose_ = $(xib_verbose__$(AM_DEFAULT_VERBOSITY))

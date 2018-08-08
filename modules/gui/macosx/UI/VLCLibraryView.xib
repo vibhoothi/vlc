@@ -6,7 +6,7 @@
         <capability name="system font weights other than Regular or Bold" minToolsVersion="7.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="VLCMainWindowCollectionViewItem">
+        <customObject id="-2" userLabel="File's Owner" customClass="VLCLibraryView">
             <connections>
                 <outlet property="VLCItemImageView" destination="LRe-wn-Y2z" id="HPo-O1-7R6"/>
                 <outlet property="VLCItemLabel" destination="KFD-Gv-9GE" id="Y3t-Ag-E8M"/>

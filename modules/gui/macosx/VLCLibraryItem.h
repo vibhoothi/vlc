@@ -2,7 +2,7 @@
  * VLCMainWindowDataModel.h: MacOS X interface module
  *****************************************************************************
  * Copyright (C) 2018 VLC authors and VideoLAN
- * $Id $
+ * $Id$
  *
  * Authors: Vibhoothi   <vibhoothiiaanand -at- googlemail dot com>
  *
@@ -22,7 +22,7 @@
  *****************************************************************************/
 #import <Foundation/Foundation.h>
 
-@interface VLCMainWindowDataModel : NSObject
+@interface VLCLibraryItem : NSObject
 
 @property (strong) NSString *videoTitle;
 @property (strong) NSString *year;

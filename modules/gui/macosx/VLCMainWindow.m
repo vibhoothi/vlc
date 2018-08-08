@@ -220,7 +220,7 @@ static const float f_min_window_height = 307.;
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     self.collectionView.wantsLayer = YES;
-    [self.collectionView registerClass:[VLCMainWindowCollectionViewItem class] forItemWithIdentifier:@"dummyViews"];
+    [self.collectionView registerClass:[VLCLibraryView class] forItemWithIdentifier:@"dummyViews"];
     
     NSCollectionViewFlowLayout *flowLayout = [[NSCollectionViewFlowLayout alloc]  init];
     flowLayout.itemSize = NSMakeSize(190,241);
@@ -249,7 +249,7 @@ static const float f_min_window_height = 307.;
         CGImageRef imgRef = [imageGenerator copyCGImageAtTime:CMTimeMake(10, duration) actualTime:NULL error:nil];
         NSImage *thumbinail =[[NSImage alloc] initWithCGImage:imgRef size:NSSizeFromCGSize(CGSizeMake(100.0, 100.0))];
         if(thumbinail){
-            self.dataModel = [[VLCMainWindowDataModel alloc] init ] ;
+            self.dataModel = [[VLCLibraryItem alloc] init ] ;
             self.dataModel.thumbnail = thumbinail;
             self.dataModel.videoTitle= path;
             self.dataModel.year = @"2012";
@@ -299,9 +299,10 @@ static const float f_min_window_height = 307.;
         Pass the metadata to the DataModel for assinging values to the views
         and return updated view
      */
-    VLCMainWindowCollectionViewItem *item = [collectionView makeItemWithIdentifier:@"dummyViews" forIndexPath:indexPath];
-    VLCMainWindowDataModel *model =[VLCMainWindowDataModel new];
-    for(VLCMainWindowDataModel  *subModel in self.dummyData)
+    
+    VLCLibraryView *item = [collectionView makeItemWithIdentifier:@"dummyViews" forIndexPath:indexPath];
+    VLCLibraryItem *model =[VLCLibraryItem new];
+    for(VLCLibraryItem  *subModel in self.dummyData)
     {
       //  self.dataModel = [[VLCMainWindowDataModel alloc] init ] ;
        // VLCMainWindowDataModel *model=[[VLCMainWindowDataModel alloc] init];
@@ -310,8 +311,8 @@ static const float f_min_window_height = 307.;
         NSLog(@"SubModelTitle  %@",subModel.videoTitle);
         [item assignValueForDataModel:model];
     }
+    NSLog(@"Model Thumbinal outside %@",model.videoTitle);
     return item;
-    //NSLog(@"Model %@",model);
     //NSLog(@"model Title:%@,modelThumb :%@",model.videoTitle,model.thumbnail);
     //[item assignValueForDataModel:model];
    

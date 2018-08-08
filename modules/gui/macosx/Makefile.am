@@ -109,8 +109,8 @@ libmacosx_plugin_la_SOURCES = \
 	gui/macosx/VLCVolumeSlider.h gui/macosx/VLCVolumeSlider.m \
 	gui/macosx/VLCVolumeSliderCell.h gui/macosx/VLCVolumeSliderCell.m \
 	gui/macosx/VLCWrappableTextField.h gui/macosx/VLCWrappableTextField.m \
-	gui/macosx/VLCMainWindowCollectionViewItem.h gui/macosx/VLCMainWindowCollectionViewItem.m \
-	gui/macosx/VLCMainWindowDataModel.h gui/macosx/VLCMainWindowDataModel.m
+	gui/macosx/VLCLibraryView.h gui/macosx/VLCLibraryView.m \
+	gui/macosx/VLCLibraryItem.h gui/macosx/VLCLibraryItem.m
 
 # PXSourceList sources
 libmacosx_plugin_la_SOURCES += \
@@ -160,7 +160,7 @@ libmacosx_plugin_la_XIB_SOURCES = \
 	gui/macosx/UI/VideoEffects.xib \
 	gui/macosx/UI/VLCFullScreenPanel.xib \
 	gui/macosx/UI/VLCStatusBarIconMainMenu.xib \
-	gui/macosx/UI/VLCMainWindowCollectionViewItem.xib
+	gui/macosx/UI/VLCLibraryView.xib
 
 libmacosx_plugin_la_SOURCES += $(libmacosx_plugin_la_XIB_SOURCES)
 

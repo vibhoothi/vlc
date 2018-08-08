@@ -215,9 +215,6 @@ static const float f_min_window_height = 307.;
   //  self.dataModel = [[VLCMainWindowDataModel alloc] init ] ;
     self.dummyData=[NSMutableArray arrayWithCapacity:0 ];
     self.collectionView.wantsLayer = YES;
-    self.thumbinails = [NSMutableArray arrayWithCapacity:0];
-    self.labels = [NSMutableArray arrayWithCapacity:0];
-    self.years = [NSMutableArray arrayWithCapacity:0];
     [self prepareData];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
@@ -257,15 +254,6 @@ static const float f_min_window_height = 307.;
             self.dataModel.year = @"2012";
             self.dataModel.length = @"303";
             [self.dummyData addObject:self.dataModel] ;
-          
-            
-            /*
-             [self.thumbinails  addObject:thumbinail];
-             [self.labels       addObject:path];
-             [self.years        addObject:@"2012"];
-             NSLog(@"self thumbs %@",self.thumbinails);
-            */
-        //    NSLog(@"dummyData2:%@",dummyData2);
         }
   
     }
@@ -295,36 +283,16 @@ static const float f_min_window_height = 307.;
     
     return self.dummyData.count;
 }
-- (NSCollectionViewItem *)collectionView:(NSCollectionView *)collectionView itemForRepresentedObjectAtIndexPath:(NSIndexPath *)indexPath {
-
+- (NSCollectionViewItem *)collectionView:(NSCollectionView *)collectionView itemForRepresentedObjectAtIndexPath:(NSIndexPath *)indexPath
+{
     /*
         Pass the metadata to the DataModel for assinging values to the views
         and return updated view
      */
-    
     VLCLibraryView *item = [collectionView makeItemWithIdentifier:@"dummyViews" forIndexPath:indexPath];
-    VLCLibraryItem *model =[VLCLibraryItem new];
-    for(VLCLibraryItem  *subModel in self.dummyData)
-    {
-      //  self.dataModel = [[VLCMainWindowDataModel alloc] init ] ;
-       // VLCMainWindowDataModel *model=[[VLCMainWindowDataModel alloc] init];
-        model=subModel;
-        NSLog(@"ModelTitle  %@",model.videoTitle);
-        NSLog(@"SubModelTitle  %@",subModel.videoTitle);
-        [item assignValueForDataModel:model];
-    }
-    NSLog(@"Model Thumbinal outside %@",model.videoTitle);
+    VLCLibraryItem *libraryItem = [self.dummyData objectAtIndex:indexPath.item];
+    [item assignValueForDataModel:libraryItem];
     return item;
-    //NSLog(@"model Title:%@,modelThumb :%@",model.videoTitle,model.thumbnail);
-    //[item assignValueForDataModel:model];
-   
-    /*
-    model.videoTitle = [self.labels objectAtIndex:indexPath.item];
-    model.thumbnail = [self.thumbinails objectAtIndex:indexPath.item];
-    model.year = [self.years objectAtIndex:indexPath.item];
-    [item assignValueForDataModel:model];
-    */
-    
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(NSCollectionView *)collectionView {

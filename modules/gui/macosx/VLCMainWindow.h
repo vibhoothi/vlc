@@ -53,10 +53,7 @@ typedef enum {
 @property (readwrite) BOOL nonembedded;
 @property (weak) IBOutlet NSCollectionView *collectionView;
 @property (strong) VLCLibraryItem *dataModel;
-@property (strong)          NSMutableArray *thumbinails;
-@property (strong)          NSMutableArray *labels;
-@property (strong)          NSMutableArray *years;
-@property (strong)          NSMutableArray *dummyData;
+@property (strong) NSMutableArray *dummyData;
 @property (readonly) VLCFSPanelController* fspanel;
 @property (nonatomic, copy) NSDictionary *overrideClassNames;
 

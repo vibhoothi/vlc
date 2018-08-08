@@ -41,12 +41,11 @@
 
 -(void)assignValueForDataModel:(VLCLibraryItem *) dataModel
 {
-    NSLog(@"dataModel %@",dataModel);
-    self.VLCItemLabel.stringValue =dataModel.videoTitle;;
-    self.VLCItemImageView.image=dataModel.thumbnail;
+    self.VLCItemLabel.stringValue = dataModel.videoTitle;;
+    self.VLCItemImageView.image = dataModel.thumbnail;
     self.popOverYear.stringValue = dataModel.year;
-    self.popOverImage=self.VLCItemImageView;
-    self.popOverTitle=self.VLCItemLabel;
+    self.popOverImage.image = self.VLCItemImageView.image;
+    self.popOverTitle.stringValue = self.VLCItemLabel.stringValue;
 }
 
 - (void)setSelected:(BOOL)flag

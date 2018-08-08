@@ -15,7 +15,7 @@
                 <outlet property="popOverImage" destination="0sa-wu-dPr" id="xYR-7X-Xbm"/>
                 <outlet property="popOverSize" destination="lSa-IC-VbL" id="8hD-9j-3Uz"/>
                 <outlet property="popOverTitle" destination="bNc-32-jG8" id="gR0-OK-6Oj"/>
-                <outlet property="popOveryear" destination="Ebf-j5-UtS" id="sJY-aq-A4G"/>
+                <outlet property="popOverYear" destination="Ebf-j5-UtS" id="rXH-bR-4Gn"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>

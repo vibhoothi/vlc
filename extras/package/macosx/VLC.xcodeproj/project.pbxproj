@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		11CC2FBD21106C080091B834 /* VLCMainWindowDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CC2FBC21106C080091B834 /* VLCMainWindowDataModel.m */; };
+		1106202421197CC6000039A8 /* VLCMainWindowDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1106202321197CC5000039A8 /* VLCMainWindowDataModel.m */; };
 		11CE023120DBFE42008B0A7F /* VLCMainWindowCollectionViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 11CE022F20DBFE41008B0A7F /* VLCMainWindowCollectionViewItem.m */; };
 		1C1C62011F8260A90052DD4F /* VLCWrappableTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1C62001F8260A90052DD4F /* VLCWrappableTextField.m */; };
 		1C31138E1E508C6900D4DD76 /* VLCAboutWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C67C8A71D58C0A40079E1C1 /* VLCAboutWindowController.m */; };
@@ -139,8 +139,8 @@
 		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		11CC2FBB21106C080091B834 /* VLCMainWindowDataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCMainWindowDataModel.h; sourceTree = "<group>"; };
-		11CC2FBC21106C080091B834 /* VLCMainWindowDataModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCMainWindowDataModel.m; sourceTree = "<group>"; };
+		1106202221197CC5000039A8 /* VLCMainWindowDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCMainWindowDataModel.h; sourceTree = "<group>"; };
+		1106202321197CC5000039A8 /* VLCMainWindowDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VLCMainWindowDataModel.m; sourceTree = "<group>"; };
 		11CE022E20DBFE41008B0A7F /* VLCMainWindowCollectionViewItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCMainWindowCollectionViewItem.h; sourceTree = "<group>"; };
 		11CE022F20DBFE41008B0A7F /* VLCMainWindowCollectionViewItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCMainWindowCollectionViewItem.m; sourceTree = "<group>"; };
 		11CE023020DBFE42008B0A7F /* VLCMainWindowCollectionViewItem.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VLCMainWindowCollectionViewItem.xib; sourceTree = "<group>"; };
@@ -638,10 +638,10 @@
 		11CC2FBA211068490091B834 /* LibraryView */ = {
 			isa = PBXGroup;
 			children = (
+				1106202221197CC5000039A8 /* VLCMainWindowDataModel.h */,
+				1106202321197CC5000039A8 /* VLCMainWindowDataModel.m */,
 				11CE022E20DBFE41008B0A7F /* VLCMainWindowCollectionViewItem.h */,
 				11CE022F20DBFE41008B0A7F /* VLCMainWindowCollectionViewItem.m */,
-				11CC2FBB21106C080091B834 /* VLCMainWindowDataModel.h */,
-				11CC2FBC21106C080091B834 /* VLCMainWindowDataModel.m */,
 			);
 			name = LibraryView;
 			sourceTree = "<group>";
@@ -1601,9 +1601,9 @@
 				6BBB05DA1EEFEA29003A1019 /* VLCHUDOutlineView.m in Sources */,
 				1C3113CB1E508C6900D4DD76 /* VLCPLItem.m in Sources */,
 				1C3113CD1E508C6900D4DD76 /* VLCPLModel.m in Sources */,
-				11CC2FBD21106C080091B834 /* VLCMainWindowDataModel.m in Sources */,
 				1C3113CF1E508C6900D4DD76 /* prefs_widgets.m in Sources */,
 				1C3113D11E508C6900D4DD76 /* prefs.m in Sources */,
+				1106202421197CC6000039A8 /* VLCMainWindowDataModel.m in Sources */,
 				1C3113D31E508C6900D4DD76 /* VLCResumeDialogController.m in Sources */,
 				1C5716AC1F5B142200678627 /* coreaudio_common.c in Sources */,
 				1C3113D51E508C6900D4DD76 /* VLCTextfieldPanelController.m in Sources */,

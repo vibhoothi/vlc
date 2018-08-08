@@ -52,11 +52,11 @@ typedef enum {
 @property (readonly) BOOL nativeFullscreenMode;
 @property (readwrite) BOOL nonembedded;
 @property (weak) IBOutlet NSCollectionView *collectionView;
-@property (strong) VLCMainWindowCollectionViewItem *collectionViewItem;
 @property (strong) VLCMainWindowDataModel *dataModel;
 @property (strong)          NSMutableArray *thumbinails;
 @property (strong)          NSMutableArray *labels;
 @property (strong)          NSMutableArray *years;
+@property (strong)          NSMutableArray *dummyData;
 @property (readonly) VLCFSPanelController* fspanel;
 @property (nonatomic, copy) NSDictionary *overrideClassNames;
 

@@ -41,7 +41,7 @@
 
 -(void)assignValueForDataModel:(VLCMainWindowDataModel *) dataModel
 {
-    NSLog(@"assigning values to views from dataModel");
+    NSLog(@"dataModel %@",dataModel);
     self.VLCItemLabel.stringValue =dataModel.videoTitle;;
     self.VLCItemImageView.image=dataModel.thumbnail;
     self.popOverYear.stringValue = dataModel.year;

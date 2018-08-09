@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCMainWindowCollectionView.m: MacOS X interface module
+ * VLCLibraryView.m: MacOS X interface module
  *****************************************************************************
  * Copyright (C) 2002-2018 VLC authors and VideoLAN
  * $Id $
@@ -35,9 +35,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do view setup here.
     [self.collectionView setDelegate:self];
 }
+
+#pragma mark - dataModel and View handling
+
+/*
+ Assigning values from the dataModel to the view fields like
+ - Thumbnail
+ - Video Title
+ - Fields in the popOver where diffrent metadatas are shown
+ - Small thumbnail
+ - Title of the video
+ - Size of the video
+ - Year of the video
+ */
 
 -(void)assignValueForDataModel:(VLCLibraryItem *) dataModel
 {
@@ -46,7 +58,10 @@
     self.popOverYear.stringValue = dataModel.year;
     self.popOverImage.image = self.VLCItemImageView.image;
     self.popOverTitle.stringValue = self.VLCItemLabel.stringValue;
+    self.popOverSize.stringValue= dataModel.length;
 }
+
+#pragma mark - Selection Highlighting in the libraryView
 
 - (void)setSelected:(BOOL)flag
 {
@@ -70,6 +85,8 @@
         self.view.layer.backgroundColor = [[NSColor clearColor] CGColor];
     }
 }
+
+#pragma mark - popOver Initialisation of the indexed files
 
 - (BOOL)buttonIsPressed
 {

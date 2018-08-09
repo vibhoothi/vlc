@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCMainWindowCollectionView.h: MacOS X interface module
+ * VLCLibraryView.h: MacOS X interface module
  *****************************************************************************
  * Copyright (C) 2018 VLC authors and VideoLAN
  * $Id $

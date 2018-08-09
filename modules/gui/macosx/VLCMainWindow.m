@@ -185,8 +185,8 @@ static const float f_min_window_height = 307.;
     [coreInteraction keyEvent:o_event];
 }
 
-#pragma mark - data view vs video output handling
-
+#pragma mark - LibraryView
+#pragma mark  data view vs video output handling
 - (void)makeCollectionViewVisible
 {
     [self setContentMinSize: NSMakeSize(604., f_min_window_height)];
@@ -210,7 +210,6 @@ static const float f_min_window_height = 307.;
 
     [self makeFirstResponder:_collectionView];
     
-  //  self.dataModel = [[VLCMainWindowDataModel alloc] init ] ;
     self.dummyData=[NSMutableArray arrayWithCapacity:0 ];
     self.collectionView.wantsLayer = YES;
     [self prepareData];
@@ -227,6 +226,60 @@ static const float f_min_window_height = 307.;
     self.collectionView.collectionViewLayout = flowLayout;
     [self.collectionView reloadData];
 }
+
+// Hides the collection view and makes the vout view in foreground
+- (void)makeCollectionViewHidden
+{
+    [self setContentMinSize: NSMakeSize(604., f_min_video_height)];
+    
+    [_collectionView setHidden:YES];
+    [self.videoView setHidden:NO];
+    if (self.nativeFullscreenMode && [self fullscreen]) {
+        [self hideControlsBar];
+        [self.fspanel setActive];
+    }
+    
+    if ([[self.videoView subviews] count] > 0)
+        [self makeFirstResponder: [[self.videoView subviews] firstObject]];
+}
+
+- (void)hideCollectionView:(BOOL)resize
+{
+    if (resize) {
+        NSRect winrect = [self frame];
+        lastCollectionViewHeight = [_collectionView frame].size.height;
+        winrect.size.height = winrect.size.height - lastCollectionViewHeight;
+        winrect.origin.y = winrect.origin.y + lastCollectionViewHeight;
+        [self setFrame:winrect display:YES animate:YES];
+    }
+    
+    [self setContentMinSize: NSMakeSize(604., [self.controlsBar height])];
+    [self setContentMaxSize: NSMakeSize(FLT_MAX, [self.controlsBar height])];
+    
+    collectionViewRemoved = YES;
+}
+
+- (void)showCollectionView:(BOOL)resize
+{
+    [self updateWindow];
+    [self setContentMinSize:NSMakeSize(604., f_min_window_height)];
+    [self setContentMaxSize: NSMakeSize(FLT_MAX, FLT_MAX)];
+    
+    if (resize) {
+        NSRect winrect;
+        winrect = [self frame];
+        winrect.size.height = winrect.size.height + lastCollectionViewHeight;
+        winrect.origin.y = winrect.origin.y - lastCollectionViewHeight;
+        [self setFrame:winrect display:YES animate:YES];
+    }
+    
+    collectionViewRemoved = NO;
+}
+
+#pragma mark  Generating dummyData for the libraryView
+/*
+ Assigning values from local source to the dataModel
+ */
 
 - (void)prepareData {
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -250,7 +303,7 @@ static const float f_min_window_height = 307.;
             self.dataModel.thumbnail = thumbinail;
             self.dataModel.videoTitle= path;
             self.dataModel.year = @"2012";
-            self.dataModel.length = @"303";
+            self.dataModel.length = @"40.4 MB";
             [self.dummyData addObject:self.dataModel] ;
         }
   
@@ -258,14 +311,11 @@ static const float f_min_window_height = 307.;
       NSLog(@"DataModel dummy %@",self.dummyData);
 }
 
-#pragma mark - NSCollectionViewDelegate
+#pragma mark  libraryView generation using modern APIs
 
 - (NSSet<NSIndexPath *> *)collectionView:(NSCollectionView *)collectionView shouldChangeItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths toHighlightState:(NSCollectionViewItemHighlightState)highlightState {
     return indexPaths;
 }
-
-#pragma mark - NSCollectionViewDataSource
-
 
 - (void)collectionView:(NSCollectionView *)collectionView didSelectItemsAtIndexPaths:VLCLibraryViewItem
 {
@@ -284,8 +334,8 @@ static const float f_min_window_height = 307.;
 - (NSCollectionViewItem *)collectionView:(NSCollectionView *)collectionView itemForRepresentedObjectAtIndexPath:(NSIndexPath *)indexPath
 {
     /*
-        Pass the metadata to the DataModel for assinging values to the views
-        and return updated view
+     Pass the metadata to the DataModel for assinging values to the views
+     and return updated view
      */
     VLCLibraryView *item = [collectionView makeItemWithIdentifier:@"dummyViews" forIndexPath:indexPath];
     VLCLibraryItem *libraryItem = [self.dummyData objectAtIndex:indexPath.item];
@@ -297,23 +347,8 @@ static const float f_min_window_height = 307.;
     return 1;
 }
 
-// Hides the collection view and makes the vout view in foreground
-- (void)makeCollectionViewHidden
-{
-    [self setContentMinSize: NSMakeSize(604., f_min_video_height)];
-
-    [_collectionView setHidden:YES];
-    [self.videoView setHidden:NO];
-    if (self.nativeFullscreenMode && [self fullscreen]) {
-        [self hideControlsBar];
-        [self.fspanel setActive];
-    }
-
-    if ([[self.videoView subviews] count] > 0)
-        [self makeFirstResponder: [[self.videoView subviews] firstObject]];
-
-}
-
+#pragma mark -
+#pragma mark  Playlist State toggle
 - (void)changePlaylistState:(VLCPlaylistStateEvent)event
 {
     // Beware, this code is really ugly
@@ -372,39 +407,6 @@ static const float f_min_window_height = 307.;
 
 
     msg_Dbg(getIntf(), "toggle playlist to state: removed collectionview %i, minimized view %i", collectionViewRemoved, minimizedView);
-}
-
-- (void)hideCollectionView:(BOOL)resize
-{
-    if (resize) {
-        NSRect winrect = [self frame];
-        lastCollectionViewHeight = [_collectionView frame].size.height;
-        winrect.size.height = winrect.size.height - lastCollectionViewHeight;
-        winrect.origin.y = winrect.origin.y + lastCollectionViewHeight;
-        [self setFrame:winrect display:YES animate:YES];
-    }
-
-    [self setContentMinSize: NSMakeSize(604., [self.controlsBar height])];
-    [self setContentMaxSize: NSMakeSize(FLT_MAX, [self.controlsBar height])];
-
-    collectionViewRemoved = YES;
-}
-
-- (void)showCollectionView:(BOOL)resize
-{
-    [self updateWindow];
-    [self setContentMinSize:NSMakeSize(604., f_min_window_height)];
-    [self setContentMaxSize: NSMakeSize(FLT_MAX, FLT_MAX)];
-
-    if (resize) {
-        NSRect winrect;
-        winrect = [self frame];
-        winrect.size.height = winrect.size.height + lastCollectionViewHeight;
-        winrect.origin.y = winrect.origin.y - lastCollectionViewHeight;
-        [self setFrame:winrect display:YES animate:YES];
-    }
-
-    collectionViewRemoved = NO;
 }
 
 #pragma mark -

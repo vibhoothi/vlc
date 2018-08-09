@@ -667,6 +667,17 @@
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
+		11FB51642166A07D00D3211F /* LibraryView */ = {
+			isa = PBXGroup;
+			children = (
+				11FB515E21667BDD00D3211F /* VLCLibraryItem.h */,
+				11FB515D21667BDC00D3211F /* VLCLibraryItem.m */,
+				11FB515F21667BDD00D3211F /* VLCLibraryView.h */,
+				11FB516021667BDD00D3211F /* VLCLibraryView.m */,
+			);
+			name = LibraryView;
+			sourceTree = "<group>";
+		};
 		19C28FB8FE9D52D311CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1094,10 +1105,7 @@
 		7D349C9320CBC770003359A1 /* Main Window */ = {
 			isa = PBXGroup;
 			children = (
-				11FB515E21667BDD00D3211F /* VLCLibraryItem.h */,
-				11FB515D21667BDC00D3211F /* VLCLibraryItem.m */,
-				11FB515F21667BDD00D3211F /* VLCLibraryView.h */,
-				11FB516021667BDD00D3211F /* VLCLibraryView.m */,
+				11FB51642166A07D00D3211F /* LibraryView */,
 				E0382C00160BA09E0031D7FF /* VLCControlsBarCommon.h */,
 				E0382C01160BA09E0031D7FF /* VLCControlsBarCommon.m */,
 				7D5678EE1D5BA397002698F3 /* VLCMainWindowControlsBar.h */,

@@ -1,8 +1,8 @@
 /*****************************************************************************
- * VLCMainWindowDataModel.h: MacOS X interface module
+ * VLCLibraryItem.h: MacOS X interface module
  *****************************************************************************
  * Copyright (C) 2018 VLC authors and VideoLAN
- * $Id$
+ * $Id $
  *
  * Authors: Vibhoothi   <vibhoothiiaanand -at- googlemail dot com>
  *

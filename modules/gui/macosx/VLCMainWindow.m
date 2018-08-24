@@ -54,6 +54,10 @@
     NSSet<NSIndexPath *> * VLCLibraryViewItem;
     CGFloat lastCollectionViewHeight;
     NSRect frameBeforePlayback;
+    NSFileManager *fileManager;
+    NSString *rootPath;
+    NSArray *paths ;
+    VLCLibraryItem *libraryItem;
 }
 @end
 
@@ -282,10 +286,10 @@ static const float f_min_window_height = 307.;
  */
 
 - (void)prepareData {
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSString *rootPath = @"/Users/vibhoothiiaanand/Desktop/dummyVideos";
-    NSError *error = nil;
-    NSArray *paths = [fileManager contentsOfDirectoryAtPath:rootPath error:&error];
+     fileManager = [NSFileManager defaultManager];
+     rootPath = @"/Users/vibhoothiiaanand/Desktop/dummyVideos";
+     NSError *error = nil;
+     paths = [fileManager contentsOfDirectoryAtPath:rootPath error:&error];
     for(NSString *path in paths){
          NSString *videoPath = [rootPath stringByAppendingFormat:@"/%@",path];
         NSLog(@"Video Path:%@",videoPath);
@@ -304,6 +308,7 @@ static const float f_min_window_height = 307.;
             self.dataModel.videoTitle= path;
             self.dataModel.year = @"2012";
             self.dataModel.length = @"40.4 MB";
+            self.dataModel.videoURL=url;
             [self.dummyData addObject:self.dataModel] ;
         }
   
@@ -321,10 +326,29 @@ static const float f_min_window_height = 307.;
 {
     NSLog(@"Video at:%@ is Selected",VLCLibraryViewItem);
    //Hide the CollectionView in favour of playing video when user clicks
-    [self performSelector:@selector(makeCollectionViewHidden) withObject:self afterDelay:2.0 ];
+   // [self performSelector:@selector(makeCollectionViewHidden) withObject:self afterDelay:2.0 ];
     /*
      Insert code for playing Video using libVLCCore
+     [[[VLCMain sharedInstance] open] openFileWithAction:^(NSArray *files) {
+     [[[VLCMain sharedInstance] playlist] addPlaylistItems:files];
+     }];
+     if (items.count == 0)
+     return NO;
+     NSString *o_urlString = [self directParameter];
+     
+     if ([o_command isEqualToString:@"GetURL"] || [o_command isEqualToString:@"OpenURL"]) {
+     if (o_urlString) {
+     
+     NSDictionary *o_dic = [NSDictionary dictionaryWithObject:o_urlString forKey:@"ITEM_URL"];
+     NSArray* item = [NSArray arrayWithObject:o_dic];
+     
+     [[[VLCMain sharedInstance] playlist] addPlaylistItems:item tryAsSubtitle:YES];
+     
     */
+    NSDictionary *dic = [NSDictionary dictionaryWithObject:libraryItem.videoURL forKey:@"ITEM_URL"];
+    NSArray *test = [NSArray arrayWithObject:dic];
+    NSLog(@"Test %@",test);
+    [[[VLCMain sharedInstance] playlist] addPlaylistItems:test];
 }
 
 - (NSInteger)collectionView:(NSCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -338,7 +362,7 @@ static const float f_min_window_height = 307.;
      and return updated view
      */
     VLCLibraryView *item = [collectionView makeItemWithIdentifier:@"dummyViews" forIndexPath:indexPath];
-    VLCLibraryItem *libraryItem = [self.dummyData objectAtIndex:indexPath.item];
+    libraryItem = [self.dummyData objectAtIndex:indexPath.item];
     [item assignValueForDataModel:libraryItem];
     return item;
 }
@@ -399,7 +423,7 @@ static const float f_min_window_height = 307.;
             else
                 [self makeCollectionViewVisible];
         } else {
-            [_collectionView setHidden: NO];
+            [self.collectionView setHidden: NO];
             [self.videoView setHidden: YES];
             [self showControlsBar];
         }

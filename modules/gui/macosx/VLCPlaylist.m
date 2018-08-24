@@ -596,10 +596,12 @@
     BOOL b_autoplay = var_InheritBool(getIntf(), "macosx-autoplay");
 
     [self addPlaylistItems:array withParentItemId:i_plItemId atPos:-1 startPlayback:b_autoplay];
+    NSLog(@"addPlaylistItems %@",array);
 }
 
 - (void)addPlaylistItems:(NSArray*)array tryAsSubtitle:(BOOL)isSubtitle
 {
+
     input_thread_t *p_input = pl_CurrentInput(getIntf());
     if (isSubtitle && array.count == 1 && p_input) {
         int i_result = input_AddSlave(p_input, SLAVE_TYPE_SPU,
@@ -615,7 +617,10 @@
         vlc_object_release(p_input);
 
     [self addPlaylistItems:array];
+
+    
 }
+
 
 - (void)addPlaylistItems:(NSArray*)array withParentItemId:(int)i_plItemId atPos:(int)i_position startPlayback:(BOOL)b_start
 {

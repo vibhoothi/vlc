@@ -596,7 +596,7 @@
     BOOL b_autoplay = var_InheritBool(getIntf(), "macosx-autoplay");
 
     [self addPlaylistItems:array withParentItemId:i_plItemId atPos:-1 startPlayback:b_autoplay];
-    NSLog(@"addPlaylistItems %@",array);
+    NSLog(@"addPlaylistItems %@",[array class]);
 }
 
 - (void)addPlaylistItems:(NSArray*)array tryAsSubtitle:(BOOL)isSubtitle

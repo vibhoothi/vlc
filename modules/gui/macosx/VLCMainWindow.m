@@ -310,7 +310,7 @@ static const float f_min_window_height = 307.;
             self.dataModel.videoTitle= path;
             self.dataModel.year = @"2012";
             self.dataModel.length = @"40.4 MB";
-            self.dataModel.videoURL=url;
+            self.dataModel.videoURL=[url absoluteString];
             [self.dummyData addObject:self.dataModel] ;
         }
   
@@ -327,32 +327,16 @@ static const float f_min_window_height = 307.;
 - (void)collectionView:(NSCollectionView *)collectionView didSelectItemsAtIndexPaths:VLCLibraryViewItem
 {
     NSLog(@"Video at:%@ is Selected",VLCLibraryViewItem);
-   //Hide the CollectionView in favour of playing video when user clicks
-   // [self performSelector:@selector(makeCollectionViewHidden) withObject:self afterDelay:2.0 ];
-    /*
-     Insert code for playing Video using libVLCCore
-     [[[VLCMain sharedInstance] open] openFileWithAction:^(NSArray *files) {
-     [[[VLCMain sharedInstance] playlist] addPlaylistItems:files];
-     }];
-     if (items.count == 0)
-     return NO;
-     NSString *o_urlString = [self directParameter];
-     
-     if ([o_command isEqualToString:@"GetURL"] || [o_command isEqualToString:@"OpenURL"]) {
-     if (o_urlString) {
-     
-     NSDictionary *o_dic = [NSDictionary dictionaryWithObject:o_urlString forKey:@"ITEM_URL"];
-     NSArray* item = [NSArray arrayWithObject:o_dic];
-     
-     [[[VLCMain sharedInstance] playlist] addPlaylistItems:item tryAsSubtitle:YES];
-     
-    */
-    NSDictionary *dic = [NSDictionary dictionaryWithObject:libraryItem.videoURL forKey:@"ITEM_URL"];
-    NSArray *test = [NSArray arrayWithObject:dic];
-    NSLog(@"Test %@",test);
-    [[[VLCMain sharedInstance] playlist] addPlaylistItems:test];
+    NSString *videoURL;
+    VLCLibraryItem *video = [self.dummyData objectAtIndex:collectionView.selectionIndexes.firstIndex];
+    videoURL = video.videoURL;
+    NSLog(@"VideoURL:%@ ",videoURL);
+    NSDictionary *dic = [NSDictionary dictionaryWithObject:videoURL forKey:@"ITEM_URL"];
+    NSArray *videoPlayback = [NSArray arrayWithObject:dic];
+    [[[VLCMain sharedInstance] playlist] addPlaylistItems:videoPlayback];
+    
 }
-
+     
 - (NSInteger)collectionView:(NSCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
     return self.dummyData.count;

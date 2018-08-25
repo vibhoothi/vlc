@@ -28,6 +28,6 @@
 @property (strong) NSString *year;
 @property (strong) NSString *length;
 @property (strong) NSImage *thumbnail;
-@property (strong) NSURL *videoURL;
+@property (strong) NSString *videoURL;
 
 @end

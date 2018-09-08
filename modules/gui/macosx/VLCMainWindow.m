@@ -208,6 +208,7 @@ static const float f_min_window_height = 307.;
     }
 
     [self.videoView setHidden:YES];
+    [self.topView setHidden:NO];
     [_collectionView setHidden:NO];
     if (self.nativeFullscreenMode && [self fullscreen]) {
         [self showControlsBar];
@@ -240,6 +241,7 @@ static const float f_min_window_height = 307.;
     
     [_collectionView setHidden:YES];
     [self.videoView setHidden:NO];
+    [self.topView setHidden:YES];
     if (self.nativeFullscreenMode && [self fullscreen]) {
         [self hideControlsBar];
         [self.fspanel setActive];
@@ -263,6 +265,7 @@ static const float f_min_window_height = 307.;
     [self setContentMaxSize: NSMakeSize(FLT_MAX, [self.controlsBar height])];
     
     collectionViewRemoved = YES;
+
 }
 
 - (void)showCollectionView:(BOOL)resize
@@ -327,6 +330,7 @@ static const float f_min_window_height = 307.;
 - (void)collectionView:(NSCollectionView *)collectionView didSelectItemsAtIndexPaths:VLCLibraryViewItem
 {
     NSLog(@"Video at:%@ is Selected",VLCLibraryViewItem);
+    
     NSString *videoURL;
     VLCLibraryItem *video = [self.dummyData objectAtIndex:collectionView.selectionIndexes.firstIndex];
     videoURL = video.videoURL;
@@ -411,6 +415,7 @@ static const float f_min_window_height = 307.;
         } else {
             [self.collectionView setHidden: NO];
             [self.videoView setHidden: YES];
+            [self.topView setHidden:YES];
             [self showControlsBar];
         }
     }

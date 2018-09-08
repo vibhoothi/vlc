@@ -38,3 +38,7 @@
 - (void)releaseVoutThread;
 
 @end
+
+@interface VLCTopBarView : NSView
+
+@end

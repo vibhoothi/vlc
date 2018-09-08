@@ -17,23 +17,60 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
             <rect key="contentRect" x="53" y="419" width="716" height="333"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="900"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="800"/>
             <view key="contentView" id="2">
                 <rect key="frame" x="0.0" y="0.0" width="716" height="333"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="FNp-yn-Vx7" userLabel="Top Bar View">
+                        <rect key="frame" x="0.0" y="293" width="716" height="40"/>
+                        <subviews>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="MHl-Bi-RNm" userLabel="Sections">
+                                <rect key="frame" x="0.0" y="-13" width="716" height="53"/>
+                                <subviews>
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qvK-AZ-JYM">
+                                        <rect key="frame" x="667" y="20" width="29" height="23"/>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="playlist-1btn" id="8sH-MG-Ku4"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="qvK-AZ-JYM" firstAttribute="top" secondItem="MHl-Bi-RNm" secondAttribute="top" constant="10" id="61m-xi-DNh"/>
+                                    <constraint firstAttribute="trailing" secondItem="qvK-AZ-JYM" secondAttribute="trailing" constant="20" symbolic="YES" id="Kss-yP-m3g"/>
+                                    <constraint firstAttribute="bottom" secondItem="qvK-AZ-JYM" secondAttribute="bottom" constant="20" id="Xix-mq-erf"/>
+                                </constraints>
+                            </customView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="MHl-Bi-RNm" secondAttribute="trailing" id="GFS-hW-p8W"/>
+                            <constraint firstItem="MHl-Bi-RNm" firstAttribute="top" secondItem="FNp-yn-Vx7" secondAttribute="top" id="WXO-97-vtc"/>
+                            <constraint firstItem="MHl-Bi-RNm" firstAttribute="leading" secondItem="FNp-yn-Vx7" secondAttribute="leading" id="nea-F0-H2z"/>
+                        </constraints>
+                    </customView>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="3Bj-Gx-5iu" userLabel="Middle Content">
                         <rect key="frame" x="0.0" y="36" width="716" height="297"/>
                         <subviews>
                             <scrollView wantsLayer="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ke-Vb-9dU">
-                                <rect key="frame" x="0.0" y="0.0" width="716" height="297"/>
+                                <rect key="frame" x="0.0" y="0.0" width="716" height="257"/>
                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="V1V-11-Tss">
-                                    <rect key="frame" x="1" y="1" width="714" height="295"/>
+                                    <rect key="frame" x="1" y="1" width="714" height="255"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <collectionView selectable="YES" id="9My-dJ-ffm">
-                                            <rect key="frame" x="0.0" y="0.0" width="714" height="295"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="714" height="255"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                            <animations>
+                                                <caTransition key="subviews">
+                                                    <mutableData key="keyedArchiveRepresentation">
+YnBsaXN0MDDUAQIDBAUGICFYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKcHCA8Q
+CRUbVSRudWxs0wkKCwwNDlR0eXBlViRjbGFzc18QEl9fQ0FDb2RpbmdDb250ZW50c4ACgAaAA1RmYWRl
+0hEKEhRaTlMub2JqZWN0c6ETgASABdIWFxgZWiRjbGFzc25hbWVYJGNsYXNzZXNXTlNBcnJheaIYGlhO
+U09iamVjdNIWFxwdXENBVHJhbnNpdGlvbqMeHxpcQ0FUcmFuc2l0aW9uW0NBQW5pbWF0aW9uXxAPTlNL
+ZXllZEFyY2hpdmVy0SIjVHJvb3SAAQAIABEAGgAjAC0AMgA3AD8ARQBMAFEAWABtAG8AcQBzAHgAfQCI
+AIoAjACOAJMAngCnAK8AsgC7AMAAzQDRAN4A6gD8AP8BBAAAAAAAAAIBAAAAAAAAACQAAAAAAAAAAAAA
+AAAAAAEGA
+</mutableData>
+                                                </caTransition>
+                                            </animations>
                                             <color key="primaryBackgroundColor" red="0.48883186943438339" green="0.52322152074126116" blue="0.52881107233502544" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <connections>
                                                 <outlet property="itemPrototype" destination="jCi-fI-3Z2" id="hDE-WR-6dZ"/>
@@ -45,8 +82,8 @@
                                     <rect key="frame" x="-100" y="-100" width="233" height="15"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
-                                <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="CoO-yc-KK4">
-                                    <rect key="frame" x="234" y="1" width="15" height="143"/>
+                                <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="CoO-yc-KK4">
+                                    <rect key="frame" x="699" y="1" width="16" height="255"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
@@ -59,10 +96,9 @@
                             <constraint firstItem="5Ke-Vb-9dU" firstAttribute="leading" secondItem="3Bj-Gx-5iu" secondAttribute="leading" id="Fc8-GH-CLd"/>
                             <constraint firstItem="4665" firstAttribute="leading" secondItem="3Bj-Gx-5iu" secondAttribute="leading" id="P14-cO-Y3q"/>
                             <constraint firstAttribute="bottom" secondItem="4665" secondAttribute="bottom" id="Tzn-Qi-iVK"/>
-                            <constraint firstItem="5Ke-Vb-9dU" firstAttribute="top" secondItem="3Bj-Gx-5iu" secondAttribute="top" id="VhT-Bp-0jB"/>
+                            <constraint firstItem="5Ke-Vb-9dU" firstAttribute="top" secondItem="3Bj-Gx-5iu" secondAttribute="top" constant="40" id="VhT-Bp-0jB"/>
                             <constraint firstAttribute="trailing" secondItem="5Ke-Vb-9dU" secondAttribute="trailing" id="lCs-r3-s73"/>
                             <constraint firstAttribute="trailing" secondItem="4665" secondAttribute="trailing" id="lec-La-MnM"/>
-                            <constraint firstItem="4665" firstAttribute="top" secondItem="3Bj-Gx-5iu" secondAttribute="top" id="nz6-sf-xgK"/>
                         </constraints>
                     </customView>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="4756" customClass="VLCBottomBarView">
@@ -363,16 +399,22 @@
                     <constraint firstItem="3Bj-Gx-5iu" firstAttribute="top" secondItem="2" secondAttribute="top" id="1tZ-Wy-sCS"/>
                     <constraint firstItem="4756" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="557-Ee-bES"/>
                     <constraint firstAttribute="trailing" secondItem="3Bj-Gx-5iu" secondAttribute="trailing" id="7zX-eF-Vez"/>
+                    <constraint firstItem="FNp-yn-Vx7" firstAttribute="top" secondItem="3Bj-Gx-5iu" secondAttribute="top" id="95f-Bs-Ykv"/>
                     <constraint firstAttribute="bottom" secondItem="4756" secondAttribute="bottom" id="HK1-1U-ca3"/>
-                    <constraint firstAttribute="bottom" secondItem="3Bj-Gx-5iu" secondAttribute="bottom" priority="750" id="OGC-NR-LLR"/>
+                    <constraint firstItem="FNp-yn-Vx7" firstAttribute="leading" secondItem="3Bj-Gx-5iu" secondAttribute="leading" id="MK0-9f-JvG"/>
+                    <constraint firstAttribute="bottom" secondItem="3Bj-Gx-5iu" secondAttribute="bottom" priority="750" constant="36" id="OGC-NR-LLR"/>
                     <constraint firstItem="3Bj-Gx-5iu" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="XkA-TM-ova"/>
                     <constraint firstItem="4756" firstAttribute="top" secondItem="3Bj-Gx-5iu" secondAttribute="bottom" priority="999" id="ZVn-EJ-9CG"/>
+                    <constraint firstItem="FNp-yn-Vx7" firstAttribute="trailing" secondItem="3Bj-Gx-5iu" secondAttribute="trailing" id="cLT-x3-49E"/>
                     <constraint firstAttribute="trailing" secondItem="4756" secondAttribute="trailing" id="uz3-RG-aAD"/>
+                    <constraint firstAttribute="bottom" secondItem="FNp-yn-Vx7" secondAttribute="bottom" constant="293" id="wMM-zQ-rZe"/>
+                    <constraint firstItem="4665" firstAttribute="top" secondItem="2" secondAttribute="top" id="woj-Je-XTq"/>
                 </constraints>
             </view>
             <connections>
                 <outlet property="collectionView" destination="9My-dJ-ffm" id="c6h-CY-Y2b"/>
                 <outlet property="controlsBar" destination="5339" id="5624"/>
+                <outlet property="topView" destination="MHl-Bi-RNm" id="VQW-Cp-YXw"/>
                 <outlet property="videoView" destination="4665" id="5622"/>
                 <outlet property="videoViewBottomConstraint" destination="ZVn-EJ-9CG" id="8F2-BP-yVS"/>
             </connections>
@@ -421,6 +463,7 @@
         <image name="next-6btns-pressed" width="29" height="23"/>
         <image name="play" width="27" height="23"/>
         <image name="play-pressed" width="27" height="23"/>
+        <image name="playlist-1btn" width="29" height="23"/>
         <image name="playlist-btn" width="28" height="23"/>
         <image name="playlist-btn-pressed" width="28" height="23"/>
         <image name="previous-6btns" width="29" height="23"/>

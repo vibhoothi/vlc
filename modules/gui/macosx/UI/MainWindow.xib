@@ -17,7 +17,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" topStrut="YES"/>
             <rect key="contentRect" x="53" y="419" width="716" height="333"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="800"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1280" height="778"/>
             <view key="contentView" id="2">
                 <rect key="frame" x="0.0" y="0.0" width="716" height="333"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -34,6 +34,9 @@
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="popOver:" target="21" id="kD9-Gp-UWG"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -85,7 +88,7 @@ AAAAAAEGA
                                     <rect key="frame" x="-100" y="-100" width="233" height="15"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
-                                <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="CoO-yc-KK4">
+                                <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="CoO-yc-KK4">
                                     <rect key="frame" x="699" y="1" width="16" height="255"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
@@ -417,12 +420,24 @@ AAAAAAEGA
             <connections>
                 <outlet property="collectionView" destination="9My-dJ-ffm" id="c6h-CY-Y2b"/>
                 <outlet property="controlsBar" destination="5339" id="5624"/>
+                <outlet property="playQueueButton" destination="4bZ-fr-NwC" id="6Ba-p8-49J"/>
+                <outlet property="playQueuePopOver" destination="h7i-E8-l3p" id="fzM-Mg-RbQ"/>
                 <outlet property="topView" destination="MHl-Bi-RNm" id="VQW-Cp-YXw"/>
                 <outlet property="videoView" destination="4665" id="5622"/>
                 <outlet property="videoViewBottomConstraint" destination="ZVn-EJ-9CG" id="8F2-BP-yVS"/>
             </connections>
             <point key="canvasLocation" x="465" y="507.5"/>
         </window>
+        <viewController id="SCM-o8-mbV" userLabel="Popover View Controller">
+            <connections>
+                <outlet property="view" destination="28v-Cd-QF2" id="htD-07-qox"/>
+            </connections>
+        </viewController>
+        <popover id="h7i-E8-l3p">
+            <connections>
+                <outlet property="contentViewController" destination="SCM-o8-mbV" id="zoJ-TM-blz"/>
+            </connections>
+        </popover>
         <customObject id="5339" customClass="VLCMainWindowControlsBar">
             <connections>
                 <outlet property="backwardButton" destination="3651" id="spd-Ox-yOI"/>
@@ -436,6 +451,8 @@ AAAAAAEGA
                 <outlet property="nextButton" destination="HBS-xq-EkN" id="MIO-Ba-jDH"/>
                 <outlet property="nextButtonWidthConstraint" destination="uPv-u5-I21" id="Lsk-Nu-vmn"/>
                 <outlet property="playButton" destination="3571" id="5Mf-48-Ga9"/>
+                <outlet property="playQueueButton" destination="4bZ-fr-NwC" id="aQl-rX-J5m"/>
+                <outlet property="playQueuePopOver" destination="h7i-E8-l3p" id="OYH-fl-CNa"/>
                 <outlet property="playlistButton" destination="4671" id="AZd-5b-MrA"/>
                 <outlet property="prevButton" destination="qfh-30-nky" id="uN2-nC-7Mt"/>
                 <outlet property="prevButtonWidthConstraint" destination="bP7-Ec-OLG" id="qs4-ok-Ual"/>
@@ -452,13 +469,78 @@ AAAAAAEGA
             </connections>
         </customObject>
         <collectionViewItem id="jCi-fI-3Z2"/>
+        <customView wantsLayer="YES" id="28v-Cd-QF2">
+            <rect key="frame" x="0.0" y="0.0" width="286" height="323"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EUi-mU-0ed">
+                    <rect key="frame" x="18" y="284" width="110" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Up Next " id="e7d-sf-m0t">
+                        <font key="font" metaFont="systemBold" size="18"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aT0-0y-Lgn">
+                    <rect key="frame" x="20" y="210" width="55" height="53"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="VLC" id="8KE-tm-oag"/>
+                </imageView>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jLZ-zJ-QLq">
+                    <rect key="frame" x="20" y="143" width="55" height="53"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="VLC" id="w63-Cs-ATi"/>
+                </imageView>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1q9-2j-zpH">
+                    <rect key="frame" x="20" y="75" width="55" height="53"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="VLC" id="P6e-Zo-4Mm"/>
+                </imageView>
+                <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="cMd-ZL-keQ">
+                    <rect key="frame" x="12" y="273" width="262" height="5"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                </box>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4oF-e6-yUT">
+                    <rect key="frame" x="229" y="284" width="37" height="29"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="effects-one-button" id="Z5d-YI-SwA"/>
+                </imageView>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ymV-Bt-6cp">
+                    <rect key="frame" x="12" y="2" width="27" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="shuffle" id="Byt-jd-jfH"/>
+                </imageView>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yqh-8L-kCW">
+                    <rect key="frame" x="48" y="2" width="27" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="repeat" id="Z60-3V-hOz"/>
+                </imageView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sst-eL-euq">
+                    <rect key="frame" x="193" y="10" width="77" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Clear queue" id="309-Lm-GhP">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="systemOrangeColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="9bO-Nv-hqW">
+                    <rect key="frame" x="12" y="40" width="262" height="5"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                </box>
+            </subviews>
+            <point key="canvasLocation" x="33" y="1331.5"/>
+        </customView>
     </objects>
     <resources>
+        <image name="VLC" width="512" height="512"/>
         <image name="backward-6btns" width="28" height="23"/>
         <image name="backward-6btns-pressed" width="28" height="23"/>
         <image name="dropzone-background" width="4" height="4"/>
         <image name="effects-double-buttons" width="29" height="23"/>
         <image name="effects-double-buttons-pressed" width="29" height="23"/>
+        <image name="effects-one-button" width="29" height="23"/>
         <image name="forward-6btns" width="28" height="23"/>
         <image name="forward-6btns-pressed" width="28" height="23"/>
         <image name="fullscreen-double-buttons" width="29" height="23"/>

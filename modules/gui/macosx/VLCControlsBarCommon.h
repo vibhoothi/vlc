@@ -39,7 +39,6 @@
 @interface VLCControlsBarCommon : NSObject
 
 @property (readwrite, strong) IBOutlet VLCDragDropView *dropView;
-
 @property (readwrite, strong) IBOutlet NSButton *playButton;
 @property (readwrite, strong) IBOutlet NSButton *backwardButton;
 @property (readwrite, strong) IBOutlet NSButton *forwardButton;

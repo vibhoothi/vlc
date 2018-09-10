@@ -520,6 +520,23 @@
     [self setLevel:i_originalLevel];
 }
 
+#pragma mark - popOver Initialisation
+
+- (BOOL)buttonIsPressed
+{
+    return self.playQueueButton.intValue == 1;
+}
+
+- (IBAction)popOver:(id)sender {
+    NSLog(@"VLC: play-Queue tapped");
+    if (self.buttonIsPressed)
+    {
+        [self.playQueuePopOver showRelativeToRect:[self.playQueueButton bounds] ofView:self.playQueueButton preferredEdge:NSMaxYEdge];
+    } else {
+        [self.playQueuePopOver close];
+    }
+}
+
 #pragma mark -
 #pragma mark Fullscreen Logic
 

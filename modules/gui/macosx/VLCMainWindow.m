@@ -361,6 +361,27 @@ static const float f_min_window_height = 307.;
     return 1;
 }
 
+#pragma mark - Play Queue
+#pragma mark  popOver Initialisation
+
+- (BOOL)buttonIsPressed
+{
+    return self.playQueueButton.intValue == 1;
+}
+
+- (IBAction)popOver:(id)sender {
+    NSLog(@"VLC: play-Queue tapped");
+    if (self.buttonIsPressed)
+    {
+        [self.playQueuePopOver showRelativeToRect:[self.playQueueButton bounds] ofView:self.playQueueButton preferredEdge:NSMaxYEdge];
+    } else {
+        [self.playQueuePopOver close];
+    }
+}
+
+
+
+
 #pragma mark -
 #pragma mark  Playlist State toggle
 - (void)changePlaylistState:(VLCPlaylistStateEvent)event

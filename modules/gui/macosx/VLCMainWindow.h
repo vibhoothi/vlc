@@ -56,6 +56,9 @@ typedef enum {
 @property (strong) NSMutableArray *dummyData;
 @property (readonly) VLCFSPanelController* fspanel;
 @property (nonatomic, copy) NSDictionary *overrideClassNames;
+@property (nonatomic, weak) IBOutlet VLCTopBarView* topView;
+@property (readwrite,strong) IBOutlet NSButton *playQueueButton;
+@property (strong) IBOutlet  NSPopover *playQueuePopOver;
 
 
 

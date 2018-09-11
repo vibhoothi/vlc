@@ -42,9 +42,6 @@ static const float f_min_video_height = 70.0;
 @property (weak) IBOutlet NSLayoutConstraint *videoViewBottomConstraint;
 
 @property (nonatomic, weak) IBOutlet VLCVoutView* videoView;
-@property (nonatomic, weak) IBOutlet VLCTopBarView* topView;
-@property (readwrite,strong) IBOutlet NSButton *playQueueButton;
-@property (strong) IBOutlet  NSPopover *playQueuePopOver;
 @property (nonatomic, weak) IBOutlet VLCControlsBarCommon* controlsBar;
 @property (readonly) BOOL inFullscreenTransition;
 @property (readonly) BOOL windowShouldExitFullscreenWhenFinished;

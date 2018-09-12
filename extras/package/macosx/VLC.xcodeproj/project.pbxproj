@@ -639,11 +639,18 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
-		11CC2FBA211068490091B834 /* LibraryView */ = {
+		11879E8F21497074005797F1 /* PlayQueue */ = {
 			isa = PBXGroup;
 			children = (
 				111F3308214821D100A576E9 /* VLCPlayQueue.h */,
 				111F3309214821D100A576E9 /* VLCPlayQueue.m */,
+			);
+			name = PlayQueue;
+			sourceTree = "<group>";
+		};
+		11CC2FBA211068490091B834 /* LibraryView */ = {
+			isa = PBXGroup;
+			children = (
 				1106202221197CC5000039A8 /* VLCLibraryItem.h */,
 				1106202321197CC5000039A8 /* VLCLibraryItem.m */,
 				11CE022E20DBFE41008B0A7F /* VLCLibraryView.h */,
@@ -1079,6 +1086,7 @@
 		7D349C9320CBC770003359A1 /* Main Window */ = {
 			isa = PBXGroup;
 			children = (
+				11879E8F21497074005797F1 /* PlayQueue */,
 				11CC2FBA211068490091B834 /* LibraryView */,
 				E0382C00160BA09E0031D7FF /* VLCControlsBarCommon.h */,
 				E0382C01160BA09E0031D7FF /* VLCControlsBarCommon.m */,

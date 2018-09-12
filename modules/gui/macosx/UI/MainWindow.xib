@@ -422,6 +422,7 @@ AAAAAAEGA
                 <outlet property="controlsBar" destination="5339" id="5624"/>
                 <outlet property="playQueueButton" destination="4bZ-fr-NwC" id="6Ba-p8-49J"/>
                 <outlet property="playQueuePopOver" destination="h7i-E8-l3p" id="fzM-Mg-RbQ"/>
+                <outlet property="playQueueView" destination="7NT-pn-kBf" id="hvI-jy-lHo"/>
                 <outlet property="topView" destination="MHl-Bi-RNm" id="VQW-Cp-YXw"/>
                 <outlet property="videoView" destination="4665" id="5622"/>
                 <outlet property="videoViewBottomConstraint" destination="ZVn-EJ-9CG" id="8F2-BP-yVS"/>
@@ -517,7 +518,7 @@ AAAAAAEGA
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView ambiguous="YES" id="7NT-pn-kBf">
-                                <rect key="frame" x="0.0" y="0.0" width="254" height="197"/>
+                                <rect key="frame" x="0.0" y="0.0" width="254" height="214"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <color key="primaryBackgroundColor" red="0.83137254901960789" green="0.84313725490196079" blue="0.85490196078431369" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
@@ -528,11 +529,11 @@ AAAAAAEGA
                         <color key="backgroundColor" red="0.8944739232570198" green="0.91764705882352937" blue="0.89710036067083654" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </clipView>
                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="iGt-eN-2Ld">
-                        <rect key="frame" x="1" y="144" width="233" height="15"/>
+                        <rect key="frame" x="1" y="-15" width="0.0" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="Hb1-Fm-C8I">
-                        <rect key="frame" x="234" y="1" width="15" height="143"/>
+                        <rect key="frame" x="-15" y="1" width="16" height="0.0"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>

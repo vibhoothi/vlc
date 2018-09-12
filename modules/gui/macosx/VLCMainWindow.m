@@ -379,7 +379,17 @@ static const float f_min_window_height = 307.;
     }
 }
 
+#pragma mark playQueueView
 
+- (void) initPlayQueueView
+{
+    self.playQueueView.wantsLayer = YES;
+    self.playQueueView.delegate = self;
+    [self.playQueueView registerClass:[VLCPlayQueue class] forItemWithIdentifier:@"playQueueItems"];
+    NSCollectionViewFlowLayout *playQueueList = [[NSCollectionViewFlowLayout alloc] init];
+    playQueueList.itemSize = NSMakeSize( 231, 120);
+  //  playQueueList.sectionInset
+}
 
 
 #pragma mark -

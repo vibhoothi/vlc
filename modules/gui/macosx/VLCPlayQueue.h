@@ -24,6 +24,11 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface VLCPlayQueue : NSCollectionViewItem
+@interface VLCPlayQueue : NSCollectionViewItem < NSCollectionViewDelegate>
+
+//PlayQueue View
+@property (nonatomic,strong) IBOutlet NSImageView *playQueueImage;
+@property (strong) IBOutlet NSTextField *playQueueTitle;
+@property (strong) IBOutlet NSTextField *playQueueArtistName;
 
 @end

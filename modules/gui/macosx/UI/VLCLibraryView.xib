@@ -77,11 +77,11 @@
             </connections>
         </popover>
         <customView id="LAc-1i-9Rt">
-            <rect key="frame" x="0.0" y="0.0" width="205" height="107"/>
+            <rect key="frame" x="0.0" y="0.0" width="245" height="136"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bNc-32-jG8">
-                    <rect key="frame" x="81" y="70" width="106" height="17"/>
+                    <rect key="frame" x="121" y="99" width="106" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="ConeyCone.mp4" id="Cdi-hZ-jxs">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -89,11 +89,11 @@
                     </textFieldCell>
                 </textField>
                 <imageView translatesAutoresizingMaskIntoConstraints="NO" id="0sa-wu-dPr">
-                    <rect key="frame" x="17" y="17" width="61" height="73"/>
+                    <rect key="frame" x="5" y="17" width="113" height="102"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="grayBezel" image="VLC" id="1Ko-ZD-RIh"/>
                 </imageView>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ebf-j5-UtS">
-                    <rect key="frame" x="81" y="45" width="106" height="17"/>
+                    <rect key="frame" x="121" y="74" width="106" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="2018" id="WF4-b6-t4f">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -101,20 +101,32 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lSa-IC-VbL">
-                    <rect key="frame" x="81" y="20" width="106" height="17"/>
+                    <rect key="frame" x="121" y="49" width="106" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="40404.404" id="sj9-oz-6hS">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NZQ-3m-BpI">
+                    <rect key="frame" x="191" y="13" width="40" height="32"/>
+                    <buttonCell key="cell" type="push" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="jeI-yO-Jiz">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="addItemsToPlayQueue:" target="-2" id="IPB-Oc-UQV"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="bNc-32-jG8" firstAttribute="top" secondItem="LAc-1i-9Rt" secondAttribute="top" constant="20" symbolic="YES" id="1ET-JM-75A"/>
-                <constraint firstItem="0sa-wu-dPr" firstAttribute="leading" secondItem="LAc-1i-9Rt" secondAttribute="leading" constant="20" symbolic="YES" id="666-Jk-QXU"/>
+                <constraint firstItem="0sa-wu-dPr" firstAttribute="leading" secondItem="LAc-1i-9Rt" secondAttribute="leading" constant="8" id="666-Jk-QXU"/>
                 <constraint firstItem="0sa-wu-dPr" firstAttribute="top" secondItem="LAc-1i-9Rt" secondAttribute="top" constant="20" symbolic="YES" id="8pi-bg-rag"/>
                 <constraint firstItem="Ebf-j5-UtS" firstAttribute="top" secondItem="bNc-32-jG8" secondAttribute="bottom" constant="8" symbolic="YES" id="DyL-ip-0Yd"/>
+                <constraint firstItem="NZQ-3m-BpI" firstAttribute="trailing" secondItem="bNc-32-jG8" secondAttribute="trailing" id="Ew0-75-wtf"/>
                 <constraint firstItem="lSa-IC-VbL" firstAttribute="leading" secondItem="bNc-32-jG8" secondAttribute="leading" id="HbK-da-iY4"/>
+                <constraint firstItem="lSa-IC-VbL" firstAttribute="trailing" secondItem="bNc-32-jG8" secondAttribute="trailing" id="Hew-4I-sei"/>
                 <constraint firstAttribute="bottom" secondItem="0sa-wu-dPr" secondAttribute="bottom" constant="20" symbolic="YES" id="Kso-LA-kIn"/>
                 <constraint firstItem="Ebf-j5-UtS" firstAttribute="leading" secondItem="bNc-32-jG8" secondAttribute="leading" id="LGG-d0-q9l"/>
                 <constraint firstItem="bNc-32-jG8" firstAttribute="leading" secondItem="0sa-wu-dPr" secondAttribute="trailing" constant="8" symbolic="YES" id="Pxg-KK-dX5"/>
@@ -122,11 +134,12 @@
                 <constraint firstItem="lSa-IC-VbL" firstAttribute="top" secondItem="Ebf-j5-UtS" secondAttribute="bottom" constant="8" symbolic="YES" id="T8r-ec-OaT"/>
                 <constraint firstItem="Ebf-j5-UtS" firstAttribute="leading" secondItem="0sa-wu-dPr" secondAttribute="trailing" constant="8" symbolic="YES" id="UeU-R4-BFq"/>
                 <constraint firstAttribute="trailing" secondItem="bNc-32-jG8" secondAttribute="trailing" constant="20" symbolic="YES" id="UlV-ak-XdR"/>
-                <constraint firstItem="Ebf-j5-UtS" firstAttribute="trailing" secondItem="bNc-32-jG8" secondAttribute="trailing" id="YHN-eK-O6c"/>
-                <constraint firstAttribute="bottom" secondItem="lSa-IC-VbL" secondAttribute="bottom" constant="20" symbolic="YES" id="d6E-ET-pPI"/>
-                <constraint firstItem="lSa-IC-VbL" firstAttribute="trailing" secondItem="bNc-32-jG8" secondAttribute="trailing" id="w3N-35-dXI"/>
+                <constraint firstAttribute="bottom" secondItem="NZQ-3m-BpI" secondAttribute="bottom" constant="20" symbolic="YES" id="WXG-KU-vLT"/>
+                <constraint firstItem="NZQ-3m-BpI" firstAttribute="top" secondItem="lSa-IC-VbL" secondAttribute="bottom" constant="8" symbolic="YES" id="azH-QJ-A49"/>
+                <constraint firstItem="NZQ-3m-BpI" firstAttribute="leading" secondItem="0sa-wu-dPr" secondAttribute="trailing" constant="82" id="gu4-VT-xHX"/>
+                <constraint firstItem="Ebf-j5-UtS" firstAttribute="trailing" secondItem="bNc-32-jG8" secondAttribute="trailing" id="lS6-5e-Eyg"/>
             </constraints>
-            <point key="canvasLocation" x="7.5" y="1278.5"/>
+            <point key="canvasLocation" x="27.5" y="1294"/>
         </customView>
     </objects>
     <resources>

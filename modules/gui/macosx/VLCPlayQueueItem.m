@@ -1,5 +1,5 @@
 /*****************************************************************************
- * VLCPlayQueue.h : MacOS X interface module
+ * VLCPlayQueueItem.m : MacOS X interface module
  *****************************************************************************
  * Copyright (C) 2002-2018 VLC authors and VideoLAN
  * $Id$
@@ -22,17 +22,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
  *****************************************************************************/
 
-#import <Cocoa/Cocoa.h>
 #import "VLCPlayQueueItem.h"
 
-@interface VLCPlayQueue : NSCollectionViewItem < NSCollectionViewDelegate>
-
-//PlayQueue View
-@property (nonatomic,strong) IBOutlet NSImageView *playQueueImage;
-@property (strong) IBOutlet NSTextField *playQueueTitle;
-@property (strong) IBOutlet NSTextField *playQueueArtistName;
-
-//method for linking dataModel of playQueue with the View
-- (void)assignValueForDataModel:(VLCPlayQueueItem *) playQueueDataModel;
+@implementation VLCPlayQueueItem
 
 @end

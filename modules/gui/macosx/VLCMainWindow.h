@@ -64,6 +64,7 @@ typedef enum {
 
 
 - (void)changePlaylistState:(VLCPlaylistStateEvent)event;
+- (void) addItemsToPlayQueue:(NSSet<NSIndexPath *>  *) indexPath;
 
 - (void)windowResizedOrMoved:(NSNotification *)notification;
 

@@ -58,6 +58,7 @@
     NSString *rootPath;
     NSArray *paths ;
     VLCLibraryItem *libraryItem;
+    VLCLibraryView *playQueueItem;
 }
 @end
 
@@ -138,6 +139,7 @@ static const float f_min_window_height = 307.;
 
     /* Initialise collectionview  when Player loads  */
     [self makeCollectionViewVisible];
+    [self initPlayQueueView];
     [self.collectionView reloadData];
 
 }
@@ -189,6 +191,46 @@ static const float f_min_window_height = 307.;
     VLCCoreInteraction *coreInteraction = [VLCCoreInteraction sharedInstance];
     return [coreInteraction hasDefinedShortcutKey:o_event force:b_force] ||
     [coreInteraction keyEvent:o_event];
+}
+
+#pragma mark - Play Queue
+#pragma mark  popOver Initialisation
+
+- (BOOL)buttonIsPressed
+{
+    return self.playQueueButton.intValue == 1;
+}
+
+- (IBAction)popOver:(id)sender {
+    NSLog(@"VLC: play-Queue tapped");
+    if (self.buttonIsPressed)
+    {
+        [self.playQueuePopOver showRelativeToRect:[self.playQueueButton bounds] ofView:self.playQueueButton preferredEdge:NSMaxYEdge];
+    } else {
+        [self.playQueuePopOver close];
+    }
+}
+
+#pragma mark playQueueView
+
+- (void) initPlayQueueView
+{
+    self.playQueueView.wantsLayer = YES;
+    self.playQueueView.delegate = self;
+    [self.playQueueView registerClass:[VLCPlayQueue class] forItemWithIdentifier:@"playQueueItems"];
+    NSCollectionViewFlowLayout *playQueueList = [[NSCollectionViewFlowLayout alloc] init];
+    playQueueList.itemSize = NSMakeSize( 231, 120);
+    NSCollectionViewFlowLayout *flowLayout = [[NSCollectionViewFlowLayout alloc]  init];
+    flowLayout.itemSize = NSMakeSize(190,241);
+    flowLayout.sectionInset = NSEdgeInsetsMake(10, 10, 10, 10);
+    flowLayout.minimumInteritemSpacing = 20.0;
+    flowLayout.minimumLineSpacing = 20.0;
+    self.playQueueView.collectionViewLayout = flowLayout;
+    [self.playQueueView reloadData];
+}
+
+- (void) addItemsToPlayQueue:(NSSet<NSIndexPath *>  *) indexPath
+{
 }
 
 #pragma mark - LibraryView
@@ -338,7 +380,11 @@ static const float f_min_window_height = 307.;
     NSDictionary *dic = [NSDictionary dictionaryWithObject:videoURL forKey:@"ITEM_URL"];
     NSArray *videoPlayback = [NSArray arrayWithObject:dic];
     [[[VLCMain sharedInstance] playlist] addPlaylistItems:videoPlayback];
+    [playQueueItem addItemToPlayQueue:VLCLibraryViewItem :video];
+//    [self addItemsToPlayQueue:VLCLibraryViewItem];
     
+
+
 }
      
 - (NSInteger)collectionView:(NSCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -360,37 +406,6 @@ static const float f_min_window_height = 307.;
 - (NSInteger)numberOfSectionsInCollectionView:(NSCollectionView *)collectionView {
     return 1;
 }
-
-#pragma mark - Play Queue
-#pragma mark  popOver Initialisation
-
-- (BOOL)buttonIsPressed
-{
-    return self.playQueueButton.intValue == 1;
-}
-
-- (IBAction)popOver:(id)sender {
-    NSLog(@"VLC: play-Queue tapped");
-    if (self.buttonIsPressed)
-    {
-        [self.playQueuePopOver showRelativeToRect:[self.playQueueButton bounds] ofView:self.playQueueButton preferredEdge:NSMaxYEdge];
-    } else {
-        [self.playQueuePopOver close];
-    }
-}
-
-#pragma mark playQueueView
-
-- (void) initPlayQueueView
-{
-    self.playQueueView.wantsLayer = YES;
-    self.playQueueView.delegate = self;
-    [self.playQueueView registerClass:[VLCPlayQueue class] forItemWithIdentifier:@"playQueueItems"];
-    NSCollectionViewFlowLayout *playQueueList = [[NSCollectionViewFlowLayout alloc] init];
-    playQueueList.itemSize = NSMakeSize( 231, 120);
-  //  playQueueList.sectionInset
-}
-
 
 #pragma mark -
 #pragma mark  Playlist State toggle

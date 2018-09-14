@@ -103,6 +103,18 @@
             [self.VLCPopOver close];
         }
 }
+//(VLCLibraryItem *) dataModel
+- (void) addItemToPlayQueue:(NSSet<NSIndexPath *>  *) indexPath : (VLCLibraryItem *) dataModel
+{
+    //    NSInteger *test= indexPath.item;
+    
+}
+
+- (IBAction) insertItemToPlayQueue:(id)sender {
+    
+   
+}
+
 
 
 @end

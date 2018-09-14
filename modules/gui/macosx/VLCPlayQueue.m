@@ -23,6 +23,8 @@
  *****************************************************************************/
 
 #import "VLCPlayQueue.h"
+#import "VLCPlayQueueItem.h"
+
 
 @interface VLCPlayQueue ()
 
@@ -34,5 +36,14 @@
     [super viewDidLoad];
     // Do view setup here.
 }
+
+-(void)assignValueForDataModel:(VLCPlayQueueItem *) playQueueDataModel
+{
+    self.playQueueImage.image = playQueueDataModel.thumbnail;
+    self.playQueueTitle.stringValue = playQueueDataModel.videoTitle;
+    self.playQueueArtistName.stringValue = playQueueDataModel.artistName;
+
+}
+
 
 @end

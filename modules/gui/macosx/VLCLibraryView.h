@@ -41,6 +41,7 @@
 
 //method for linking dataModel with View
 -(void)assignValueForDataModel:(VLCLibraryItem *) dataModel;
+- (void) addItemToPlayQueue:(NSSet<NSIndexPath *>  *) indexPath : (VLCLibraryItem *) dataModel;
 
 @end
  

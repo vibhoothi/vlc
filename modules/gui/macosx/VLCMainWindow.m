@@ -223,7 +223,7 @@ static const float f_min_window_height = 307.;
     [self.collectionView registerClass:[VLCLibraryView class] forItemWithIdentifier:@"dummyViews"];
     
     NSCollectionViewFlowLayout *flowLayout = [[NSCollectionViewFlowLayout alloc]  init];
-    flowLayout.itemSize = NSMakeSize(190,241);
+    flowLayout.itemSize = NSMakeSize(190,245);
     flowLayout.sectionInset = NSEdgeInsetsMake(10, 10, 10, 10);
     flowLayout.minimumInteritemSpacing = 20.0;
     flowLayout.minimumLineSpacing = 20.0;

@@ -145,6 +145,7 @@
 		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		116DF68A21666F10002B459B /* VLCMainWindowCollectionViewItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VLCMainWindowCollectionViewItem.xib; sourceTree = "<group>"; };
 		1C06F2A21F08F1250068846F /* osx_notifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = osx_notifications.m; path = ../../../modules/notify/osx_notifications.m; sourceTree = "<group>"; };
 		1C18BE461F2926700053D329 /* keychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = keychain.m; path = ../../../modules/keystore/keychain.m; sourceTree = "<group>"; };
 		1C1C61FF1F8260A90052DD4F /* VLCWrappableTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCWrappableTextField.h; sourceTree = "<group>"; };
@@ -1441,6 +1442,7 @@
 		DCF358BC077F1236007DB450 /* XIBs */ = {
 			isa = PBXGroup;
 			children = (
+				116DF68A21666F10002B459B /* VLCMainWindowCollectionViewItem.xib */,
 				6B8224091E4D2A9000833BE1 /* MainMenu.xib */,
 				6B82240A1E4D2A9000833BE1 /* MainWindow.xib */,
 				6B82241A1E4D2A9000833BE1 /* VLCStatusBarIconMainMenu.xib */,

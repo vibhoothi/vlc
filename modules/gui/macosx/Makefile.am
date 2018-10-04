@@ -120,8 +120,6 @@ libmacosx_plugin_la_SOURCES += \
 	gui/macosx/PXSourceList/PXSourceListBadgeView.m \
 	gui/macosx/PXSourceList/PXSourceListItem.h \
 	gui/macosx/PXSourceList/PXSourceListItem.m \
-	gui/macosx/PXSourceList/PXSourceListTableCellView.h \
-	gui/macosx/PXSourceList/PXSourceListTableCellView.m \
 	gui/macosx/PXSourceList/Internal/PXSourceListDelegateDataSourceProxy.h \
 	gui/macosx/PXSourceList/Internal/PXSourceListDelegateDataSourceProxy.m \
 	gui/macosx/PXSourceList/Internal/PXSourceListRuntimeAdditions.h \

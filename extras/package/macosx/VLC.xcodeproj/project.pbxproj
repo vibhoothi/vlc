@@ -106,13 +106,6 @@
 		6B8166291EBFC34300C26F1B /* VLCDefaultValueSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6A499B1DFD9B23009128AC /* VLCDefaultValueSlider.m */; };
 		6B81662A1EBFC34300C26F1B /* VLCDefaultValueSliderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B6A499D1DFD9B23009128AC /* VLCDefaultValueSliderCell.m */; };
 		6B81662C1EBFC38100C26F1B /* VLCUIWidgets.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CCED71514C0D4A90057F8D1 /* VLCUIWidgets.m */; };
-		6B8A6AFD21279D2600DC29F3 /* PXSourceListBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B8A6AEB21279D2500DC29F3 /* PXSourceListBadgeView.m */; };
-		6B8A6AFE21279D2600DC29F3 /* PXSourceListRuntimeAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B8A6AF021279D2500DC29F3 /* PXSourceListRuntimeAdditions.m */; };
-		6B8A6AFF21279D2600DC29F3 /* PXSourceListDelegateDataSourceProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B8A6AF421279D2500DC29F3 /* PXSourceListDelegateDataSourceProxy.m */; };
-		6B8A6B0021279D2600DC29F3 /* PXSourceListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B8A6AF521279D2500DC29F3 /* PXSourceListItem.m */; };
-		6B8A6B0121279D2600DC29F3 /* PXSourceListTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B8A6AF721279D2600DC29F3 /* PXSourceListTableCellView.m */; };
-		6B8A6B0221279D2600DC29F3 /* PXSourceList.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B8A6AF921279D2600DC29F3 /* PXSourceList.m */; };
-		6B8A6B0321279D2600DC29F3 /* PXSourceListBadgeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B8A6AFC21279D2600DC29F3 /* PXSourceListBadgeCell.m */; };
 		6B8A6B082127A3EA00DC29F3 /* VLCSourceListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B8A6B072127A3EA00DC29F3 /* VLCSourceListItem.m */; };
 		6BBB05DA1EEFEA29003A1019 /* VLCHUDOutlineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BBB05D91EEFEA29003A1019 /* VLCHUDOutlineView.m */; };
 		6BBB05E01EEFF165003A1019 /* VLCHUDTableCornerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BBB05DF1EEFF165003A1019 /* VLCHUDTableCornerView.m */; };
@@ -384,13 +377,6 @@
 		6B8229FF1E4D2DD100833BE1 /* vlc.scriptSuite */ = {isa = PBXFileReference; lastKnownFileType = text.plist.scriptSuite; path = vlc.scriptSuite; sourceTree = "<group>"; };
 		6B822A001E4D2DD100833BE1 /* vlc.scriptTerminology */ = {isa = PBXFileReference; lastKnownFileType = text.plist.scriptTerminology; path = vlc.scriptTerminology; sourceTree = "<group>"; };
 		6B822A031E4D2DEB00833BE1 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
-		6B8A6AEB21279D2500DC29F3 /* PXSourceListBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXSourceListBadgeView.m; sourceTree = "<group>"; };
-		6B8A6AF021279D2500DC29F3 /* PXSourceListRuntimeAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXSourceListRuntimeAdditions.m; sourceTree = "<group>"; };
-		6B8A6AF421279D2500DC29F3 /* PXSourceListDelegateDataSourceProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXSourceListDelegateDataSourceProxy.m; sourceTree = "<group>"; };
-		6B8A6AF521279D2500DC29F3 /* PXSourceListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXSourceListItem.m; sourceTree = "<group>"; };
-		6B8A6AF721279D2600DC29F3 /* PXSourceListTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXSourceListTableCellView.m; sourceTree = "<group>"; };
-		6B8A6AF921279D2600DC29F3 /* PXSourceList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXSourceList.m; sourceTree = "<group>"; };
-		6B8A6AFC21279D2600DC29F3 /* PXSourceListBadgeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXSourceListBadgeCell.m; sourceTree = "<group>"; };
 		6B8A6B0421279FA200DC29F3 /* VLCSourceListItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCSourceListItem.h; sourceTree = "<group>"; };
 		6B8A6B072127A3EA00DC29F3 /* VLCSourceListItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCSourceListItem.m; sourceTree = "<group>"; };
 		6B8A6B0C21286D3600DC29F3 /* VLCSourceListBadgeButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCSourceListBadgeButton.h; sourceTree = "<group>"; };
@@ -656,13 +642,6 @@
 		116DF689216611F1002B459B /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				6B8A6AF721279D2600DC29F3 /* PXSourceListTableCellView.m */,
-				6B8A6AF521279D2500DC29F3 /* PXSourceListItem.m */,
-				6B8A6AF421279D2500DC29F3 /* PXSourceListDelegateDataSourceProxy.m */,
-				6B8A6AF021279D2500DC29F3 /* PXSourceListRuntimeAdditions.m */,
-				6B8A6AFC21279D2600DC29F3 /* PXSourceListBadgeCell.m */,
-				6B8A6AF921279D2600DC29F3 /* PXSourceList.m */,
-				6B8A6AEB21279D2500DC29F3 /* PXSourceListBadgeView.m */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -1600,7 +1579,6 @@
 				1C3113941E508C6900D4DD76 /* VLCAddonsWindowController.m in Sources */,
 				7D2E0EDE20CD206F0033A221 /* VLCVideoWindowCommon.m in Sources */,
 				1C3113961E508C6900D4DD76 /* applescript.m in Sources */,
-				6B8A6B0121279D2600DC29F3 /* PXSourceListTableCellView.m in Sources */,
 				1C3113981E508C6900D4DD76 /* VLCAudioEffectsWindowController.m in Sources */,
 				6BBBF9851F7B257100B404CD /* VLCLogMessage.m in Sources */,
 				1C31139A1E508C6900D4DD76 /* VLCBookmarksWindowController.m in Sources */,
@@ -1608,7 +1586,6 @@
 				6BF5C5041EFE66EF008A9C12 /* VLCHUDTableView.m in Sources */,
 				6BBB05E01EEFF165003A1019 /* VLCHUDTableCornerView.m in Sources */,
 				1C31139D1E508C6900D4DD76 /* VLCControlsBarCommon.m in Sources */,
-				6B8A6B0021279D2600DC29F3 /* PXSourceListItem.m in Sources */,
 				7DD2F5C52081B73B007EE187 /* VLCRemoteControlService.m in Sources */,
 				1C31139F1E508C6900D4DD76 /* VLCMainWindowControlsBar.m in Sources */,
 				1C3113A11E508C6900D4DD76 /* VLCConvertAndSaveWindowController.m in Sources */,
@@ -1639,22 +1616,17 @@
 				1C3113CD1E508C6900D4DD76 /* VLCPLModel.m in Sources */,
 				1C3113CF1E508C6900D4DD76 /* prefs_widgets.m in Sources */,
 				1C3113D11E508C6900D4DD76 /* prefs.m in Sources */,
-				6B8A6AFF21279D2600DC29F3 /* PXSourceListDelegateDataSourceProxy.m in Sources */,
 				1C3113D31E508C6900D4DD76 /* VLCResumeDialogController.m in Sources */,
 				1C5716AC1F5B142200678627 /* coreaudio_common.c in Sources */,
 				11FB516121667BDD00D3211F /* VLCLibraryItem.m in Sources */,
 				1C3113D51E508C6900D4DD76 /* VLCTextfieldPanelController.m in Sources */,
 				1C3113D71E508C6900D4DD76 /* VLCPopupPanelController.m in Sources */,
-				6B8A6AFE21279D2600DC29F3 /* PXSourceListRuntimeAdditions.m in Sources */,
-				6B8A6B0321279D2600DC29F3 /* PXSourceListBadgeCell.m in Sources */,
 				1C3113D91E508C6900D4DD76 /* VLCSimplePrefsController.m in Sources */,
-				6B8A6B0221279D2600DC29F3 /* PXSourceList.m in Sources */,
 				11FB516221667BDD00D3211F /* VLCLibraryView.m in Sources */,
 				6B2EFC601F2819F700F3C0EA /* VLCVolumeSlider.m in Sources */,
 				7D2E0EDB20CD204D0033A221 /* VLCWindow.m in Sources */,
 				1C3113DB1E508C6900D4DD76 /* VLCStringUtility.m in Sources */,
 				6B4D50A71E7AB52C004479B5 /* NSScreen+VLCAdditions.m in Sources */,
-				6B8A6AFD21279D2600DC29F3 /* PXSourceListBadgeView.m in Sources */,
 				1C3113DD1E508C6900D4DD76 /* VLCTrackSynchronizationWindowController.m in Sources */,
 				6B6FFF701EF9EC350001CEB1 /* CompatibilityFixes.m in Sources */,
 				1C3113DF1E508C6900D4DD76 /* VLCVideoEffectsWindowController.m in Sources */,

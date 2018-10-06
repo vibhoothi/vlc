@@ -92,7 +92,6 @@ libmacosx_plugin_la_SOURCES = \
 	gui/macosx/VLCRendererItem.h gui/macosx/VLCRendererItem.m \
 	gui/macosx/VLCRendererMenuController.h gui/macosx/VLCRendererMenuController.m \
 	gui/macosx/VLCResumeDialogController.h gui/macosx/VLCResumeDialogController.m \
-	gui/macosx/VLCSourceListItem.h gui/macosx/VLCSourceListItem.m \
 	gui/macosx/VLCSourceListTableCellView.h gui/macosx/VLCSourceListTableCellView.m \
 	gui/macosx/VLCSourceListBadgeButton.h gui/macosx/VLCSourceListBadgeButton.m \
 	gui/macosx/VLCTrackSynchronizationWindowController.h gui/macosx/VLCTrackSynchronizationWindowController.m \
@@ -120,8 +119,6 @@ libmacosx_plugin_la_SOURCES += \
 	gui/macosx/PXSourceList/PXSourceListBadgeCell.m \
 	gui/macosx/PXSourceList/PXSourceListBadgeView.h \
 	gui/macosx/PXSourceList/PXSourceListBadgeView.m \
-	gui/macosx/PXSourceList/PXSourceListItem.h \
-	gui/macosx/PXSourceList/PXSourceListItem.m \
 	gui/macosx/PXSourceList/Internal/PXSourceListDelegateDataSourceProxy.h \
 	gui/macosx/PXSourceList/Internal/PXSourceListDelegateDataSourceProxy.m \
 	gui/macosx/PXSourceList/Internal/PXSourceListRuntimeAdditions.h \

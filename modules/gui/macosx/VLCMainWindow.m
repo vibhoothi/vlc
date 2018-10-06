@@ -40,6 +40,7 @@
 #import <vlc_url.h>
 #import <vlc_strings.h>
 #import <vlc_services_discovery.h>
+#import <vlc_media_library.h>
 #import "VLCPLModel.h"
 #import "VLCMainWindowControlsBar.h"
 #import "VLCVoutView.h"

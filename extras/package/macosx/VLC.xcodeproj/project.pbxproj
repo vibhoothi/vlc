@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1126C4A021F8E3E100DEB272 /* VLCCustomAspectRatio.m in Sources */ = {isa = PBXBuildFile; fileRef = 1126C49E21F8E3E100DEB272 /* VLCCustomAspectRatio.m */; };
 		1C1C62011F8260A90052DD4F /* VLCWrappableTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1C62001F8260A90052DD4F /* VLCWrappableTextField.m */; };
 		1C31138E1E508C6900D4DD76 /* VLCAboutWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C67C8A71D58C0A40079E1C1 /* VLCAboutWindowController.m */; };
 		1C3113901E508C6900D4DD76 /* VLCHelpWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C67C8A41D58C0980079E1C1 /* VLCHelpWindowController.m */; };
@@ -148,6 +149,9 @@
 		089C1672FE841209C02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		1126C49D21F8E3E100DEB272 /* VLCCustomAspectRatio.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VLCCustomAspectRatio.h; sourceTree = "<group>"; };
+		1126C49E21F8E3E100DEB272 /* VLCCustomAspectRatio.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VLCCustomAspectRatio.m; sourceTree = "<group>"; };
+		1126C49F21F8E3E100DEB272 /* VLCCustomAspectRatio.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VLCCustomAspectRatio.xib; sourceTree = "<group>"; };
 		1C06F2A21F08F1250068846F /* osx_notifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = osx_notifications.m; path = ../../../modules/notify/osx_notifications.m; sourceTree = "<group>"; };
 		1C18BE461F2926700053D329 /* keychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = keychain.m; path = ../../../modules/keystore/keychain.m; sourceTree = "<group>"; };
 		1C1C61FF1F8260A90052DD4F /* VLCWrappableTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VLCWrappableTextField.h; sourceTree = "<group>"; };
@@ -1117,6 +1121,8 @@
 				6B8A6B072127A3EA00DC29F3 /* VLCSourceListItem.m */,
 				6B8A6B092128697E00DC29F3 /* VLCSourceListTableCellView.h */,
 				6B8A6B0A2128697E00DC29F3 /* VLCSourceListTableCellView.m */,
+				1126C49D21F8E3E100DEB272 /* VLCCustomAspectRatio.h */,
+				1126C49E21F8E3E100DEB272 /* VLCCustomAspectRatio.m */,
 			);
 			name = "Main Window";
 			sourceTree = "<group>";
@@ -1489,6 +1495,7 @@
 				6B8223FE1E4D2A8F00833BE1 /* About.xib */,
 				6B8223FF1E4D2A9000833BE1 /* AddonManager.xib */,
 				6B8224001E4D2A9000833BE1 /* AudioEffects.xib */,
+				1126C49F21F8E3E100DEB272 /* VLCCustomAspectRatio.xib */,
 				6B8224171E4D2A9000833BE1 /* VideoEffects.xib */,
 				6B8224011E4D2A9000833BE1 /* Bookmarks.xib */,
 				6B8224141E4D2A9000833BE1 /* SyncTracks.xib */,
@@ -1551,7 +1558,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C2F2A6EA09588F1B00018C74 /* Build configuration list for PBXProject "vlc" */;
+			buildConfigurationList = C2F2A6EA09588F1B00018C74 /* Build configuration list for PBXProject "VLC" */;
 			compatibilityVersion = "Xcode 6.3";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
@@ -1632,6 +1639,7 @@
 				1CCD8FA02117957700407114 /* avaudiocapture.m in Sources */,
 				6BBBF9851F7B257100B404CD /* VLCLogMessage.m in Sources */,
 				1C31139A1E508C6900D4DD76 /* VLCBookmarksWindowController.m in Sources */,
+				1126C4A021F8E3E100DEB272 /* VLCCustomAspectRatio.m in Sources */,
 				6B0AB0F01F1AC8B3003A1B4E /* VLCSlider.m in Sources */,
 				6BF5C5041EFE66EF008A9C12 /* VLCHUDTableView.m in Sources */,
 				6BBB05E01EEFF165003A1019 /* VLCHUDTableCornerView.m in Sources */,
@@ -1970,7 +1978,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Default;
 		};
-		C2F2A6EA09588F1B00018C74 /* Build configuration list for PBXProject "vlc" */ = {
+		C2F2A6EA09588F1B00018C74 /* Build configuration list for PBXProject "VLC" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C2F2A6EB09588F1B00018C74 /* Development */,

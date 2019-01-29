@@ -71,6 +71,7 @@ static NSString * VLCMediaKeySupportSettingChangedNotification = @"VLCMediaKeySu
 @class VLCTrackSynchronizationWindowController;
 @class VLCAudioEffectsWindowController;
 @class VLCVideoEffectsWindowController;
+@class VLCCustomAspectRatio;
 @class VLCConvertAndSaveWindowController;
 @class VLCExtensionsManager;
 @class VLCInfo;
@@ -103,6 +104,7 @@ static NSString * VLCMediaKeySupportSettingChangedNotification = @"VLCMediaKeySu
 - (VLCTrackSynchronizationWindowController *)trackSyncPanel;
 - (VLCAudioEffectsWindowController *)audioEffectsPanel;
 - (VLCVideoEffectsWindowController *)videoEffectsPanel;
+- (VLCCustomAspectRatio *) customAspectRatioPanel;
 
 - (VLCInfo *)currentMediaInfoPanel;
 

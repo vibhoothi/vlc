@@ -50,6 +50,7 @@
 #import "VLCTimeSelectionPanelController.h"
 #import "NSScreen+VLCAdditions.h"
 #import "VLCRendererMenuController.h"
+#import "VLCCustomAspectRatio.h"
 
 #ifdef HAVE_SPARKLE
 #import <Sparkle/Sparkle.h>
@@ -61,6 +62,7 @@
     VLCHelpWindowController  *_helpWindowController;
     VLCAddonsWindowController *_addonsController;
     VLCRendererMenuController *_rendererMenuController;
+    VLCCustomAspectRatio *_customAspectRatioController;
     NSTimer *_cancelRendererDiscoveryTimer;
 
     NSMenu *_playlistTableColumnsContextMenu;
@@ -84,6 +86,7 @@
 - (void)awakeFromNib
 {
     _timeSelectionPanel = [[VLCTimeSelectionPanelController alloc] init];
+    _customAspectRatioController = [[VLCCustomAspectRatio alloc] init];
 
     /* check whether the user runs OSX with a RTL language */
     NSArray* languages = [NSLocale preferredLanguages];
@@ -790,6 +793,24 @@
     [sender setState: [[VLCCoreInteraction sharedInstance] aspectRatioIsLocked]];
 }
 
+- (void)customAspectRatio:(id)sender
+{
+    [_customAspectRatioController runModalForWindow:[NSApp mainWindow]
+                         completionHandler:^(NSInteger returnCode, int64_t returnRatio) {
+                             
+                             if (returnCode != NSModalResponseOK)
+                                 return;
+                             
+                             input_thread_t *p_input = pl_CurrentInput(getIntf());
+                             if (p_input) {
+                                 input_SetTime(p_input, vlc_tick_from_sec(returnRatio),
+                                               var_GetBool(p_input, "input-fast-seek"));
+                                 vlc_object_release(p_input);
+                             }
+                         }];
+
+    NSLog(@"test cusotmRatio shit");
+}
 - (IBAction)quitAfterPlayback:(id)sender
 {
     playlist_t *p_playlist = pl_Get(getIntf());
@@ -1442,11 +1463,14 @@
 
     /* Aspect Ratio */
     if ([[parent title] isEqualToString: _NS("Aspect ratio")] == YES) {
-        NSMenuItem *lmi_tmp2;
-        lmi_tmp2 = [menu addItemWithTitle: _NS("Lock Aspect Ratio") action: @selector(lockVideosAspectRatio:) keyEquivalent: @""];
-        [lmi_tmp2 setTarget: self];
+        NSMenuItem *lmi_tmp2, *lmi_tmp3;
+        lmi_tmp2 = [menu addItemWithTitle:_NS("Custom Aspect Ratio") action:@selector(customAspectRatio:) keyEquivalent:@""];
+        lmi_tmp3 = [menu addItemWithTitle: _NS("Lock Aspect Ratio") action: @selector(lockVideosAspectRatio:) keyEquivalent: @""];
         [lmi_tmp2 setEnabled: YES];
-        [lmi_tmp2 setState: [[VLCCoreInteraction sharedInstance] aspectRatioIsLocked]];
+        [lmi_tmp2 setTarget: self];
+        [lmi_tmp3 setTarget: self];
+        [lmi_tmp3 setEnabled: YES];
+        [lmi_tmp3 setState: [[VLCCoreInteraction sharedInstance] aspectRatioIsLocked]];
         [parent setEnabled: YES];
         [menu addItem: [NSMenuItem separatorItem]];
     }

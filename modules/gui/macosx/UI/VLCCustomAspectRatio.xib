@@ -7,8 +7,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="VLCCustomAspectRatio">
             <connections>
+                <outlet property="cancelButton" destination="sL0-Ax-0Nl" id="vf3-It-Mz5"/>
                 <outlet property="customAspectRatioLabel" destination="dvC-54-UAW" id="vOG-VL-QMA"/>
-                <outlet property="customAspectRatioValue" destination="s0e-Be-Ice" id="I7q-Sw-Xbl"/>
+                <outlet property="okButton" destination="Chj-iK-zge" id="p45-2g-sro"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
@@ -52,6 +53,9 @@
 DQ
 </string>
                         </buttonCell>
+                        <connections>
+                            <action selector="buttonPressed:" target="-2" id="6tB-ur-RWq"/>
+                        </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sL0-Ax-0Nl">
                         <rect key="frame" x="137" y="7" width="62" height="27"/>
@@ -63,6 +67,9 @@ DQ
 Gw
 </string>
                         </buttonCell>
+                        <connections>
+                            <action selector="buttonPressed:" target="-2" id="tyv-TE-wbS"/>
+                        </connections>
                     </button>
                 </subviews>
             </view>

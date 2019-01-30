@@ -25,7 +25,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface VLCCustomAspectRatio : NSWindowController
 @property (readwrite, weak) IBOutlet NSTextField *customAspectRatioLabel;
-@property (readwrite, weak) IBOutlet NSTextField *customAspectRatioValue;
+@property (readwrite, weak) IBOutlet NSButton *okButton;
+@property (readwrite, weak) IBOutlet NSButton *cancelButton;
+@property (nonatomic) int aspectRatioValue;
 
 /**
  * Shows the panel as a modal dialog with window as its owner.

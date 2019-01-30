@@ -803,8 +803,6 @@
                              
                              input_thread_t *p_input = pl_CurrentInput(getIntf());
                              if (p_input) {
-                                 input_SetTime(p_input, vlc_tick_from_sec(returnRatio),
-                                               var_GetBool(p_input, "input-fast-seek"));
                                  vlc_object_release(p_input);
                              }
                          }];

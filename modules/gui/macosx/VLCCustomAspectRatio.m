@@ -47,11 +47,22 @@
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
 }
 
+
 -(int)getCustomRatio
 {
-    int ratioInDecimal = self.aspectRatioValue;
-    return ratioInDecimal;
-    
+    int customAspectRatio;
+    if(_ratioType.state == 1)
+   {
+       customAspectRatio = self.customAspectRatioField.floatValue;
+       NSLog(@"Decimal %d",customAspectRatio);
+   }
+   else
+   {
+       customAspectRatio = self.customAspectRatioField.floatValue;
+       NSLog(@"Ratio Format %d",customAspectRatio);
+       
+   }
+   return customAspectRatio;
 }
 
 - (IBAction)buttonPressed:(id)sender
@@ -59,10 +70,11 @@
     [self.window orderOut:sender];
     [NSApp endSheet: self.window];
     int64_t decimalRatio = [self getCustomRatio];
-    NSLog(@"Decimal Ratio %lldu",decimalRatio);
     if (_customAspectRatioHandler)
         _customAspectRatioHandler(sender == _okButton ? NSModalResponseOK : NSModalResponseCancel, decimalRatio);
 }
+
+
 -(void) runModalForWindow:(NSWindow *)window completionHandler:(VLCCustomAspectRatioHandler)handler
 {
     [self window];

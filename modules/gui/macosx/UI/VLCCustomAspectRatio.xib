@@ -8,8 +8,10 @@
         <customObject id="-2" userLabel="File's Owner" customClass="VLCCustomAspectRatio">
             <connections>
                 <outlet property="cancelButton" destination="sL0-Ax-0Nl" id="vf3-It-Mz5"/>
+                <outlet property="customAspectRatioField" destination="s0e-Be-Ice" id="2du-9H-Btx"/>
                 <outlet property="customAspectRatioLabel" destination="dvC-54-UAW" id="vOG-VL-QMA"/>
                 <outlet property="okButton" destination="Chj-iK-zge" id="p45-2g-sro"/>
+                <outlet property="ratioType" destination="grg-E1-6Th" id="7y9-0b-XJ8"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
@@ -24,28 +26,16 @@
                 <rect key="frame" x="0.0" y="0.0" width="267" height="104"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dvC-54-UAW">
-                        <rect key="frame" x="39" y="67" width="189" height="17"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dvC-54-UAW">
+                        <rect key="frame" x="39" y="76" width="189" height="17"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Enter a Custom Aspect Ratio" id="DBp-iL-HU1">
                             <font key="font" metaFont="systemBold"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s0e-Be-Ice">
-                        <rect key="frame" x="78" y="37" width="96" height="22"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="gUZ-PX-e9p">
-                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="HU8-cS-q9O"/>
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Chj-iK-zge">
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Chj-iK-zge">
                         <rect key="frame" x="197" y="7" width="42" height="27"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" inset="2" id="HC1-WW-ORh">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="smallSystem"/>
@@ -57,9 +47,8 @@ DQ
                             <action selector="buttonPressed:" target="-2" id="6tB-ur-RWq"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sL0-Ax-0Nl">
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="sL0-Ax-0Nl">
                         <rect key="frame" x="137" y="7" width="62" height="27"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" controlSize="small" lineBreakMode="truncatingTail" borderStyle="border" inset="2" id="y5v-k7-hfn">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="smallSystem"/>
@@ -71,7 +60,40 @@ Gw
                             <action selector="buttonPressed:" target="-2" id="tyv-TE-wbS"/>
                         </connections>
                     </button>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="grg-E1-6Th">
+                        <rect key="frame" x="18" y="13" width="71" height="18"/>
+                        <buttonCell key="cell" type="check" title="Decimal" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="wgN-AT-wIC">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="checkBoxState:" target="-2" id="47G-8x-8qD"/>
+                        </connections>
+                    </button>
+                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="s0e-Be-Ice">
+                        <rect key="frame" x="85" y="41" width="96" height="22"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="gUZ-PX-e9p">
+                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="HU8-cS-q9O"/>
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="Chj-iK-zge" firstAttribute="leading" secondItem="s0e-Be-Ice" secondAttribute="trailing" constant="21" id="3Kn-tP-yeX"/>
+                    <constraint firstItem="s0e-Be-Ice" firstAttribute="top" secondItem="dvC-54-UAW" secondAttribute="bottom" constant="13" id="6JA-n4-9lw"/>
+                    <constraint firstItem="Chj-iK-zge" firstAttribute="leading" secondItem="sL0-Ax-0Nl" secondAttribute="trailing" constant="8" id="9er-HZ-A2G"/>
+                    <constraint firstAttribute="bottom" secondItem="grg-E1-6Th" secondAttribute="bottom" constant="15" id="ECq-8P-y9f"/>
+                    <constraint firstAttribute="bottom" secondItem="Chj-iK-zge" secondAttribute="bottom" constant="13" id="IY1-6k-FTn"/>
+                    <constraint firstAttribute="trailing" secondItem="dvC-54-UAW" secondAttribute="trailing" constant="41" id="Iex-03-DQX"/>
+                    <constraint firstItem="dvC-54-UAW" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="41" id="JMq-9C-JDb"/>
+                    <constraint firstAttribute="trailing" secondItem="Chj-iK-zge" secondAttribute="trailing" constant="33" id="Lsi-0P-rNA"/>
+                    <constraint firstItem="s0e-Be-Ice" firstAttribute="leading" secondItem="grg-E1-6Th" secondAttribute="trailing" constant="-2" id="Twa-vc-UmU"/>
+                    <constraint firstItem="sL0-Ax-0Nl" firstAttribute="leading" secondItem="grg-E1-6Th" secondAttribute="trailing" constant="55" id="Xdx-zn-Gl0"/>
+                    <constraint firstItem="dvC-54-UAW" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="11" id="vTM-Hu-tGT"/>
+                    <constraint firstItem="sL0-Ax-0Nl" firstAttribute="top" secondItem="s0e-Be-Ice" secondAttribute="bottom" constant="10" id="zKe-xu-eIA"/>
+                </constraints>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
